@@ -94,3 +94,16 @@
   to { opacity: 1; transform: none; }
 }
 @utility animate-fade-up { animation: fade-up 0.9s cubic-bezier(.2,.7,.2,1) both; }
+
+:root {
+  --status-available: oklch(0.62 0.15 150);
+  --status-reserved: oklch(0.78 0.15 75);
+  --status-sold: oklch(0.7 0.01 100);
+  --park: oklch(0.86 0.08 130);
+}
+@theme inline {
+  --color-status-available: var(--status-available);
+  --color-status-reserved: var(--status-reserved);
+  --color-status-sold: var(--status-sold);
+  --color-park: var(--park);
+}
