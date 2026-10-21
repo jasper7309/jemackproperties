@@ -8,6 +8,6 @@ export const Route = createFileRoute("/services_/$slug")({
 
 function ServiceDetail() {
   const { slug } = Route.useParams();
-  const title = slug.replace(/-/g, " ").replace(/\b\w/g, (m) => m.toUpperCase());
+  const title = slug.replace(/-/g, " ").replace(/\b\w/g, (m: string) => m.toUpperCase());
   return <PageShell eyebrow="Service" title={title} intro="Full details coming soon." />;
 }

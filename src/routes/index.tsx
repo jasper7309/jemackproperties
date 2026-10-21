@@ -24,7 +24,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const estate = estates[0];
+const estate = estates[0]!;
 
 const serviceIcons: Record<Service["icon"], typeof Building2> = {
   building: Building2, road: RoadIcon, droplets: Droplets, fuel: Fuel, wrench: Wrench, radio: Radio,
