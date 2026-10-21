@@ -62,7 +62,7 @@ function Index() {
           </div>
         </div>
 
-        <div className="absolute bottom-8 right-6 flex animate-fade-up items-center gap-3 rounded-full bg-primary/40 py-2 pl-2 pr-5 text-hero-foreground backdrop-blur-md [animation-delay:500ms] sm:right-10">
+        <div className="absolute bottom-24 right-6 flex animate-fade-up items-center gap-3 rounded-full bg-primary/40 py-2 pl-2 pr-5 text-hero-foreground backdrop-blur-md [animation-delay:500ms] sm:bottom-8 sm:right-24">
           <div className="flex -space-x-3">
             {["AO", "CN", "EI", "TK"].map((i, n) => (
               <span key={i} className={`grid h-10 w-10 place-items-center rounded-full border-2 border-hero-foreground text-xs font-semibold ${["bg-accent text-accent-foreground", "bg-highlight text-highlight-foreground", "bg-secondary text-secondary-foreground", "bg-primary text-primary-foreground"][n]}`}>{i}</span>
