@@ -22,13 +22,13 @@ const schema = z.object({
 });
 
 function Agents() {
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Partial<Record<keyof z.infer<typeof schema>, string>>>({});
   const [done, setDone] = useState(false);
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const parsed = schema.safeParse(Object.fromEntries(new FormData(e.currentTarget)));
-    if (!parsed.success) return setErrors(fieldErrors(parsed.error.issues));
+    if (!parsed.success) return setErrors(fieldErrors<keyof z.infer<typeof schema>>(parsed.error.issues));
     const d = parsed.data;
     const msg = [
       "Hello Jemack Properties, I'd like to apply to become an agent.",
