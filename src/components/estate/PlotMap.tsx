@@ -47,8 +47,8 @@ export function PlotMap({ plots, estateName }: { plots: Plot[]; estateName: stri
           </label>
         </div>
         <div className="overflow-x-auto">
-          <svg viewBox="0 0 920 620" className="min-w-[640px] w-full" role="img" aria-label={`${estateName} plot map`}>
-            <rect x="10" y="10" width="900" height="600" rx="24" className="fill-background stroke-primary" strokeWidth="3" strokeDasharray="8 6" />
+          <svg viewBox="0 0 920 645" className="min-w-[640px] w-full" role="img" aria-label={`${estateName} plot map`}>
+            <rect x="10" y="10" width="900" height="625" rx="24" className="fill-background stroke-primary" strokeWidth="3" strokeDasharray="8 6" />
             {/* Roads */}
             <rect x="30" y="222" width="860" height="40" rx="6" className="fill-muted-foreground/30" />
             <text x="460" y="247" textAnchor="middle" className="fill-muted-foreground text-[12px] font-medium tracking-widest">OLIVENESS AVENUE</text>
@@ -60,7 +60,7 @@ export function PlotMap({ plots, estateName }: { plots: Plot[]; estateName: stri
             <text x={X0 + 8 * COL} y="425" textAnchor="middle" className="fill-primary/70 text-[11px]">Recreational / open zone</text>
             <rect x={X0 + 9 * COL} y="510" width={3 * COL - GAP} height={H} rx="10" className="fill-primary" />
             <text x={X0 + 10.5 * COL} y="560" textAnchor="middle" className="fill-primary-foreground text-[13px] font-semibold">MAIN GATE</text>
-            <text x={X0} y="606" className="fill-muted-foreground text-[11px] font-semibold tracking-widest">COMMERCIAL ZONE · PLOTS 41–49</text>
+            <text x={X0} y="624" className="fill-muted-foreground text-[11px] font-semibold tracking-widest">COMMERCIAL ZONE · PLOTS 41–49</text>
             <text x={X0} y="24" className="fill-muted-foreground text-[11px] font-semibold tracking-widest">RESIDENTIAL ZONE · PLOTS 1–40</text>
             {plots.map((p) => {
               const at = pos.get(p.number);

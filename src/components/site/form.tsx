@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 export const inputClass =
   "w-full rounded-2xl border bg-background px-4 py-3 text-sm outline-hidden transition focus:border-accent focus:ring-3 focus:ring-accent/30";
 
-export function Field({ label, error, children }: { label: string; error?: string; children: ReactNode }) {
+export function Field({ label, error, children }: { label: string; error?: string | undefined; children: ReactNode }) {
   return (
     <label className="block">
       <span className="mb-1.5 block text-sm font-medium text-primary">{label}</span>
@@ -28,8 +28,8 @@ export function SuccessCard({ title, text, onReset }: { title: string; text: str
 }
 
 /** Collects zod field errors into a simple map. */
-export function fieldErrors(issues: { path: (string | number)[]; message: string }[]) {
-  const out: Record<string, string> = {};
-  for (const i of issues) out[String(i.path[0])] ??= i.message;
+export function fieldErrors<K extends string = string>(issues: { path: (string | number)[]; message: string }[]) {
+  const out: Partial<Record<K, string>> = {};
+  for (const i of issues) out[String(i.path[0]) as K] ??= i.message;
   return out;
 }

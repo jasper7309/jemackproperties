@@ -15,7 +15,7 @@ export type Estate = {
   limitedOffer: { price: string; plots: number; note: string };
   instalments: { initialDeposit: string; plans: { months: number; total: string; monthly: string }[] };
   /** ISO date string. Countdown shows only when set and in the future. */
-  promoEndsAt?: string;
+  promoEndsAt?: string | undefined;
   brochureUrl: string;
   features: string[];
   landmarks: { name: string; distance: string }[];
