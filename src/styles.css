@@ -26,6 +26,7 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
@@ -57,6 +58,7 @@
   --muted: oklch(0.93 0.015 85);
   --muted-foreground: oklch(0.5 0.015 110);
   --accent: oklch(0.68 0.13 108);             /* #A8A32A olive gold */
+  --accent-text: oklch(0.46 0.09 108);
   --accent-foreground: oklch(0.22 0.04 125);
   --highlight: oklch(0.57 0.2 30);            /* #D62E1F red */
   --highlight-foreground: oklch(0.99 0 0);
@@ -106,4 +108,15 @@
   --color-status-reserved: var(--status-reserved);
   --color-status-sold: var(--status-sold);
   --color-park: var(--park);
+}
+
+@layer base {
+  :focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+  html { scroll-padding-top: 7rem; }
+  body { overflow-wrap: break-word; }
+  button, input, select, textarea { min-width: 0; }
+  .text-accent:not(.bg-primary .text-accent):not(.text-hero-foreground .text-accent):not(.text-primary-foreground .text-accent) { color: var(--accent-text); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }

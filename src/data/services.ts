@@ -1,10 +1,13 @@
-export type Service = { slug: string; title: string; summary: string; icon: "building" | "road" | "droplets" | "fuel" | "wrench" | "radio" };
-
-export const services: Service[] = [
-  { slug: "building-and-construction", title: "Building and Construction", summary: "Residential, commercial and institutional buildings delivered to spec.", icon: "building" },
-  { slug: "highways-and-civil-works", title: "Highways and Civil Works", summary: "Roads, bridges, culverts and drainage infrastructure.", icon: "road" },
-  { slug: "water-supply-engineering", title: "Water Supply Engineering", summary: "Boreholes, treatment plants and reticulation networks.", icon: "droplets" },
-  { slug: "oil-and-gas", title: "Oil and Gas", summary: "Pipeline, fabrication and support services for the energy sector.", icon: "fuel" },
-  { slug: "facilities-management", title: "Facilities Management", summary: "Maintenance and operations that keep assets performing.", icon: "wrench" },
-  { slug: "telecoms-engineering", title: "Telecoms Engineering", summary: "Tower construction, installation and site maintenance.", icon: "radio" },
+import engineering from '@/assets/engineering.jpg';
+export type Service = {slug:string;title:string;summary:string;icon:'building'|'road'|'droplets'|'fuel'|'wrench'|'radio';overview:string;capabilities:string[];sectors:string[];image:string;faqs:{q:string;a:string}[]};
+const make = (slug:string,title:string,summary:string,icon:Service['icon'],capabilities:string[],sectors:string[]):Service => ({slug,title,summary,icon,overview:`${summary} Our team works with you to define the scope, understand site requirements and coordinate a practical delivery plan.`,capabilities,sectors,image:engineering,faqs:[{q:'What information do you need to start?',a:'Share the project location, intended use, available drawings and your proposed timeline. We will discuss any site assessment and approvals required.'},{q:'Can you work with an existing project team?',a:'We can discuss coordination with your designers, consultants and contractors. Responsibilities are agreed before work begins.'}]});
+export const services:Service[] = [
+ make('building-and-construction','Building and Construction','Residential, commercial, industrial and recreational buildings delivered with care.','building',['Residential, commercial, industrial and recreational buildings','Permit coordination','Bills of quantities','Supply of blocks and paving stones','Supply of concrete and rods'],['Residential','Commercial','Industrial','Recreation']),
+ make('highways-and-civil-works','Highways and Civil Works','Roads and civil infrastructure designed for lasting access.','road',['Trunk roads','Bridges and culverts','Drainage','Asphalt works','Earthworks','Soil stabilisation'],['Transport','Public infrastructure','Estate development']),
+ make('water-supply-engineering','Water Supply Engineering','Water infrastructure from source to distribution.','droplets',['Boreholes','Pipelines','Reservoirs','Water treatment plants'],['Residential','Commercial','Industrial','Community infrastructure']),
+ make('oil-and-gas','Oil and Gas','Civil and structural support for energy infrastructure.','fuel',['Tank farms','Terminals','Foundations','Truck parks','Shoreline protection'],['Energy','Industrial','Logistics']),
+ make('facilities-management','Facilities Management','Maintenance, refurbishment and support for well-run spaces.','wrench',['Renovation','Electrical works','Plumbing','Fumigation','Cleaning','Furniture','Interior decoration'],['Residential','Commercial','Institutional']),
+ make('telecoms-engineering','Telecoms Engineering','Site infrastructure and installation support for connected networks.','radio',['Tower foundations and erection','Shelters','Hybrid and solar power','DG installation','MW links','BTS installation','RF testing'],['Telecommunications','Network operators','Infrastructure providers']),
 ];
+export const supportServices = ['Procurement and logistics','Project and contract management','Consultancy'];
+export const serviceProcess = [{title:'Consult',text:'Understand your goals, site and requirements.'},{title:'Plan',text:'Agree the scope, approvals and delivery approach.'},{title:'Execute',text:'Coordinate works with quality and safety in focus.'},{title:'Handover',text:'Review delivery and complete the agreed handover.'}];

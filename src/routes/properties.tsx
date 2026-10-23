@@ -5,6 +5,7 @@ import { LayoutGrid, List, Search, X } from "lucide-react";
 import { PropertyCard } from "@/components/property/PropertyCard";
 import { seo } from "@/components/site/PageShell";
 import { inputClass } from "@/components/site/form";
+import { publicPolicy } from "@/data/launch";
 import { priceRanges, properties, propertyLocations, propertyStatuses, propertyTypes, statusLabels } from "@/data/properties";
 
 const searchSchema = z.object({
@@ -34,11 +35,11 @@ function Properties() {
       (!s.type || p.type === s.type) &&
       (!s.location || p.location === s.location) &&
       (!s.status || p.status === s.status) &&
-      p.price >= range.min && p.price < range.max &&
+      (!publicPolicy.showFinancialFigures || (p.price >= range.min && p.price < range.max)) &&
       (!q || `${p.title} ${p.location} ${p.description}`.toLowerCase().includes(q)),
   );
   const view = s.view === "list" ? "list" : "grid";
-  const active = s.q || s.type || s.location || s.status || s.price !== "any";
+  const active = s.q || s.type || s.location || s.status || (publicPolicy.showFinancialFigures && s.price !== "any");
 
   return (
     <main className="pt-32 pb-24">
@@ -52,7 +53,7 @@ function Properties() {
             <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <input value={s.q} onChange={(e) => set({ q: e.target.value })} placeholder="Search by name or location" aria-label="Search properties" className={`${inputClass} pl-11`} />
           </div>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <select aria-label="Type" value={s.type} onChange={(e) => set({ type: e.target.value })} className={`${inputClass} capitalize`}>
               <option value="">All types</option>
               {propertyTypes.map((t) => <option key={t} value={t}>{t}</option>)}
@@ -61,9 +62,9 @@ function Properties() {
               <option value="">All locations</option>
               {propertyLocations.map((l) => <option key={l} value={l}>{l}</option>)}
             </select>
-            <select aria-label="Price range" value={range.id} onChange={(e) => set({ price: e.target.value })} className={inputClass}>
+            {publicPolicy.showFinancialFigures && <select aria-label="Price range" value={range.id} onChange={(e) => set({ price: e.target.value })} className={inputClass}>
               {priceRanges.map((r) => <option key={r.id} value={r.id}>{r.label}</option>)}
-            </select>
+            </select>}
             <select aria-label="Status" value={s.status} onChange={(e) => set({ status: e.target.value })} className={inputClass}>
               <option value="">Any status</option>
               {propertyStatuses.map((st) => <option key={st} value={st}>{statusLabels[st]}</option>)}

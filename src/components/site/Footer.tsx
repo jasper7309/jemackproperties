@@ -3,8 +3,12 @@ import { Facebook, Instagram, Linkedin, Mail, Phone, Twitter } from "lucide-reac
 import { site } from "@/data/site";
 import { services } from "@/data/services";
 import { Logo } from "./Logo";
+import { Button } from "@/components/ui/button";
+import { useConsent } from "./Consent";
+import { pageCopy } from "@/data/pages";
 
 export function Footer() {
+  const { settings } = useConsent();
   const socials = [
     { href: site.socials.facebook, icon: Facebook, label: "Facebook" },
     { href: site.socials.instagram, icon: Instagram, label: "Instagram" },
@@ -58,7 +62,7 @@ export function Footer() {
       <div className="border-t border-primary-foreground/10">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-6 py-6 text-xs text-primary-foreground/60 sm:flex-row sm:justify-between">
           <span>© {new Date().getFullYear()} {site.name}. All rights reserved.</span>
-          <span>Powered by Jemack Facilities</span>
+          <div className="flex flex-wrap items-center gap-4"><Link to="/privacy-policy">{pageCopy.legal.privacyTitle}</Link><Link to="/terms">{pageCopy.legal.termsTitle}</Link><Button variant="link" onClick={settings} className="h-auto p-0 text-xs text-primary-foreground/80">{pageCopy.cookie.settings}</Button></div>
         </div>
       </div>
     </footer>

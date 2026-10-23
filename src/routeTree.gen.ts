@@ -15,9 +15,11 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FaqsRouteImport } from './routes/faqs'
 import { Route as OurAgentsRouteImport } from './routes/our-agents'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as BlogSlugRouteImport } from './routes/blog_.$slug'
 import { Route as PropertiesSlugRouteImport } from './routes/properties_.$slug'
 import { Route as ServicesSlugRouteImport } from './routes/services_.$slug'
@@ -52,6 +54,11 @@ const OurAgentsRoute = OurAgentsRouteImport.update({
   path: '/our-agents',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
@@ -65,6 +72,11 @@ const PropertiesRoute = PropertiesRouteImport.update({
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
@@ -90,9 +102,11 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/faqs': typeof FaqsRoute
   '/our-agents': typeof OurAgentsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRoute
   '/properties': typeof PropertiesRoute
   '/services': typeof ServicesRoute
+  '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -104,9 +118,11 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/faqs': typeof FaqsRoute
   '/our-agents': typeof OurAgentsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRoute
   '/properties': typeof PropertiesRoute
   '/services': typeof ServicesRoute
+  '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/properties/$slug': typeof PropertiesSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -119,9 +135,11 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/faqs': typeof FaqsRoute
   '/our-agents': typeof OurAgentsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRoute
   '/properties': typeof PropertiesRoute
   '/services': typeof ServicesRoute
+  '/terms': typeof TermsRoute
   '/blog_/$slug': typeof BlogSlugRoute
   '/properties_/$slug': typeof PropertiesSlugRoute
   '/services_/$slug': typeof ServicesSlugRoute
@@ -135,9 +153,11 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faqs'
     | '/our-agents'
+    | '/privacy-policy'
     | '/projects'
     | '/properties'
     | '/services'
+    | '/terms'
     | '/blog/$slug'
     | '/properties/$slug'
     | '/services/$slug'
@@ -149,9 +169,11 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faqs'
     | '/our-agents'
+    | '/privacy-policy'
     | '/projects'
     | '/properties'
     | '/services'
+    | '/terms'
     | '/blog/$slug'
     | '/properties/$slug'
     | '/services/$slug'
@@ -163,9 +185,11 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faqs'
     | '/our-agents'
+    | '/privacy-policy'
     | '/projects'
     | '/properties'
     | '/services'
+    | '/terms'
     | '/blog_/$slug'
     | '/properties_/$slug'
     | '/services_/$slug'
@@ -178,9 +202,11 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   FaqsRoute: typeof FaqsRoute
   OurAgentsRoute: typeof OurAgentsRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ProjectsRoute: typeof ProjectsRoute
   PropertiesRoute: typeof PropertiesRoute
   ServicesRoute: typeof ServicesRoute
+  TermsRoute: typeof TermsRoute
   BlogSlugRoute: typeof BlogSlugRoute
   PropertiesSlugRoute: typeof PropertiesSlugRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
@@ -230,6 +256,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OurAgentsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projects': {
       id: '/projects'
       path: '/projects'
@@ -249,6 +282,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog_/$slug': {
@@ -282,9 +322,11 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   FaqsRoute: FaqsRoute,
   OurAgentsRoute: OurAgentsRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
   ProjectsRoute: ProjectsRoute,
   PropertiesRoute: PropertiesRoute,
   ServicesRoute: ServicesRoute,
+  TermsRoute: TermsRoute,
   BlogSlugRoute: BlogSlugRoute,
   PropertiesSlugRoute: PropertiesSlugRoute,
   ServicesSlugRoute: ServicesSlugRoute,
