@@ -1,0 +1,10 @@
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Dialog,DialogContent,DialogTitle,DialogDescription } from '@/components/ui/dialog';
+import { type Project, projects, projectCategories } from '@/data/pages';
+export function ProjectGallery({items=projects,filterable=false}:{items?:Project[];filterable?:boolean}) {
+ const [category,setCategory]=useState('All');const [selected,setSelected]=useState<Project>();const visible=items.filter(p=>category==='All'||p.category===category);
+ return <>{filterable&&<div className="mb-8 flex flex-wrap gap-2" role="group" aria-label="Project category">{projectCategories.map(c=><Button key={c} variant={category===c?'default':'outline'} className="rounded-full" aria-pressed={category===c} onClick={()=>setCategory(c)}>{c}</Button>)}</div>}
+ <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{visible.map(p=><article key={p.slug} className="overflow-hidden rounded-3xl bg-card shadow-soft"><Button variant="ghost" onClick={()=>setSelected(p)} className="block h-auto w-full whitespace-normal rounded-none p-0 text-left"><img src={p.images[0]?.src} alt={p.images[0]?.alt} loading="lazy" width={1536} height={1024} className="aspect-[4/3] w-full object-cover"/><div className="p-6"><p className="text-xs text-highlight">{p.category} · {p.location}</p><h3 className="mt-2 text-xl text-primary">{p.title}</h3><p className="mt-3 text-sm font-normal text-muted-foreground">{p.summary}</p></div></Button></article>)}</div>
+ <Dialog open={Boolean(selected)} onOpenChange={open=>{if(!open)setSelected(undefined);}}><DialogContent className="max-h-[85svh] w-[calc(100%-2rem)] max-w-3xl overflow-y-auto rounded-3xl"><DialogTitle className="pr-7 text-2xl text-primary">{selected?.title}</DialogTitle><DialogDescription>{selected?.details}</DialogDescription><div className="grid gap-4">{selected?.images.map(image=><img key={image.alt} src={image.src} alt={image.alt} loading="lazy" width={1536} height={1024} className="aspect-[3/2] w-full rounded-2xl object-cover"/>)}</div></DialogContent></Dialog></>;
+}

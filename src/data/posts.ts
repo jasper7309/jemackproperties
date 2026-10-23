@@ -1,6 +1,7 @@
-export type Post = { slug: string; title: string; excerpt: string; date: string };
-// PLACEHOLDER posts
-export const posts: Post[] = [
-  { slug: "why-buy-land-in-asaba", title: "Why Asaba is the Smart Place to Buy Land", excerpt: "A look at the growth drivers making Asaba a top destination for land investors.", date: "2026-10-01" },
-  { slug: "understanding-c-of-o", title: "Understanding the Certificate of Occupancy", excerpt: "What a C of O means and why it matters when you buy land in Nigeria.", date: "2026-09-15" },
+import estate from '@/assets/estate.jpg';
+import land from '@/assets/land.jpg';
+export type Post = {slug:string;title:string;excerpt:string;date:string;image:string;imageAlt:string;youtubeId?:string;sections:{title:string;text:string}[]};
+export const posts:Post[] = [
+ {slug:'why-buy-land-in-asaba',title:'Considering Land in Asaba',excerpt:'The questions to ask about location, access and long-term plans before choosing a plot.',date:'2026-10-01',image:estate,imageAlt:'Illustrative residential estate in Asaba',sections:[{title:'Start with your own plans',text:'A plot for a family home and a plot held for future development can have different requirements. Consider access, your intended building type and the services you need.'},{title:'Visit the location',text:'Inspect the land and surrounding area. Ask about road access, drainage, utilities and planning requirements. Do not rely on a render alone.'},{title:'Verify before committing',text:'Have an independent qualified adviser check the title and survey. Request written terms and confirm availability directly with the property team. This guide is general information, not legal or investment advice.'}]},
+ {slug:'understanding-c-of-o',title:'Understanding the Certificate of Occupancy',excerpt:'Why title checks matter when buying land in Nigeria.',date:'2026-09-15',image:land,imageAlt:'Illustrative surveyed residential plots',sections:[{title:'Understand the document',text:'A Certificate of Occupancy relates to a right of occupancy over land. The document should be reviewed together with the property’s history, survey and proposed transaction.'},{title:'Check the exact land',text:'Ask your adviser to verify the issuing authority, document details and the survey coordinates. A document must relate to the land you are considering.'},{title:'Use independent advice',text:'An online listing is not proof of title. Engage a qualified legal professional and surveyor before proceeding. This article provides general information only.'}]},
 ];
