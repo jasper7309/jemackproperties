@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { site, whatsappLink } from "@/data/site";
 import { WhatsAppIcon } from "./WhatsAppIcon";
 import { Logo } from "./Logo";
+import { Button } from "@/components/ui/button";
 
 const links = [
   { to: "/", label: "Home" },
@@ -27,6 +28,24 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const close = () => document.querySelector<HTMLButtonElement>('[aria-label="Close menu"]')?.focus();
+    close();
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { setOpen(false); document.querySelector<HTMLButtonElement>('[aria-label="Open menu"]')?.focus(); }
+      if (event.key === "Tab") {
+        const elements = Array.from(document.querySelectorAll<HTMLElement>('#mobile-menu a, #mobile-menu button'));
+        const first = elements[0]; const last = elements.at(-1);
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => { document.body.style.overflow = previous; document.removeEventListener("keydown", onKey); };
+  }, [open]);
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? "bg-surface shadow-soft" : "pt-4 sm:pt-6"}`}>
@@ -50,14 +69,14 @@ export function Navbar() {
           <a href={whatsappLink()} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" className="grid h-10 w-10 place-items-center rounded-full bg-highlight text-highlight-foreground transition hover:scale-105">
             <WhatsAppIcon className="h-5 w-5" />
           </a>
-          <button onClick={() => setOpen(true)} aria-label="Open menu" className="grid h-10 w-10 place-items-center rounded-full bg-muted lg:hidden"><Menu className="h-5 w-5" /></button>
+          <Button onClick={() => setOpen(true)} aria-label="Open menu" aria-expanded={open} aria-controls="mobile-menu" className="grid h-10 w-10 place-items-center rounded-full bg-muted lg:hidden"><Menu className="h-5 w-5" /></Button>
         </div>
       </nav>
 
       {open && (
-        <div className="fixed inset-0 z-50 flex flex-col bg-primary p-6 text-primary-foreground animate-in fade-in lg:hidden">
+        <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation" className="fixed inset-0 z-50 flex flex-col bg-primary p-6 text-primary-foreground animate-in fade-in lg:hidden">
           <div className="flex justify-end">
-            <button onClick={() => setOpen(false)} aria-label="Close menu" className="grid h-11 w-11 place-items-center rounded-full bg-primary-foreground/10"><X /></button>
+            <Button onClick={() => setOpen(false)} aria-label="Close menu" className="grid h-11 w-11 place-items-center rounded-full bg-primary-foreground/10"><X /></Button>
           </div>
           <ul className="mt-8 flex flex-col gap-5">
             {links.map((l) => (

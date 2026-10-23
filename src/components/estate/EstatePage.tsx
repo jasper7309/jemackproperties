@@ -4,6 +4,7 @@ import estateImg from "@/assets/estate.jpg";
 import land from "@/assets/land.jpg";
 import terrace from "@/assets/terrace.jpg";
 import type { Estate } from "@/data/estates";
+import { publicPolicy } from "@/data/launch";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Gallery } from "./Gallery";
 import { Countdown } from "./Countdown";
@@ -40,7 +41,7 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
         </div>
       </section>
 
-      <a href="#book" className="fixed bottom-5 left-1/2 z-40 -translate-x-1/2 rounded-full bg-highlight px-7 py-3.5 font-medium text-highlight-foreground shadow-lift transition hover:brightness-110">
+      <a href="#book" className="fixed bottom-5 left-4 sm:left-1/2 z-40 sm:-translate-x-1/2 rounded-full bg-highlight px-4 py-3.5 text-sm font-medium text-highlight-foreground shadow-lift transition hover:brightness-110">
         <span className="flex items-center gap-2"><CalendarCheck className="h-5 w-5" />Book Inspection</span>
       </a>
 
@@ -90,6 +91,7 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
         </div>
       </section>
 
+      {publicPolicy.showFinancialFigures && <>
       <section className="mx-auto max-w-7xl px-6 py-20">
         <Head eyebrow="Pricing" title="Prices & payment plans" />
         {e.promoEndsAt && <div className="mb-8"><Countdown endsAt={e.promoEndsAt} /></div>}
@@ -119,6 +121,8 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
           </div>
         </div>
       </section>
+
+      </>}
 
       <section className="bg-surface py-20">
         <div className="mx-auto max-w-7xl px-6">
@@ -150,9 +154,9 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
                 <li key={t} className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-status-available" />{t}</li>
               ))}
             </ul>
-            <a href={e.brochureUrl} className="mt-8 inline-flex items-center gap-2 rounded-full border border-primary px-6 py-3 text-sm font-medium text-primary transition hover:bg-primary hover:text-primary-foreground">
+            {publicPolicy.showInternalDocuments && e.brochureUrl !== "#" && <a href={e.brochureUrl} className="mt-8 inline-flex items-center gap-2 rounded-full border border-primary px-6 py-3 text-sm font-medium text-primary transition hover:bg-primary hover:text-primary-foreground">
               <Download className="h-4 w-4" />Download brochure
-            </a>
+            </a>}
           </div>
           <InspectionForm estateName={e.name} />
         </div>
@@ -168,7 +172,7 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
             </AccordionItem>
           ))}
         </Accordion>
-        <p className="mt-10 text-center text-xs text-muted-foreground">Prices and availability subject to change. Renders are illustrative.</p>
+        <p className="mt-10 text-center text-xs text-muted-foreground">Availability requires confirmation. Renders and the plot layout are illustrative.</p>
       </section>
     </main>
   );

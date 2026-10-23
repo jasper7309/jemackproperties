@@ -9,6 +9,7 @@ import { estates } from "@/data/estates";
 import { properties } from "@/data/properties";
 import { services, type Service } from "@/data/services";
 import { site } from "@/data/site";
+import { publicPolicy } from "@/data/launch";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -24,7 +25,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const estate = estates[0]!;
+const estate = estates[0];
 
 const serviceIcons: Record<Service["icon"], typeof Building2> = {
   building: Building2, road: RoadIcon, droplets: Droplets, fuel: Fuel, wrench: Wrench, radio: Radio,
@@ -40,17 +41,18 @@ function SectionHead({ eyebrow, title, center = true }: { eyebrow: string; title
 }
 
 function Index() {
+  if (!estate) return null;
   return (
     <main>
       {/* HERO */}
-      <section className="relative flex min-h-svh items-center overflow-hidden">
+      <section className="relative flex min-h-[88svh] items-center overflow-hidden">
         <img src={hero} alt="Aerial view of a serviced residential estate in Asaba at sunset" width={1920} height={1088} className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto w-full max-w-7xl px-6 pt-28 pb-32">
           <div className="max-w-2xl text-hero-foreground">
             <p className="eyebrow animate-fade-up text-accent">New pre-launch · Asaba, Delta State</p>
             <h1 className="mt-4 animate-fade-up text-4xl font-semibold leading-tight [animation-delay:120ms] sm:text-6xl">
-              Own Land in Asaba. Build Your Dream Home.
+              Jemack Properties
             </h1>
             <p className="mt-6 max-w-xl animate-fade-up text-base text-hero-foreground/85 [animation-delay:240ms] sm:text-lg">
               Oliveness Garden Estate. Where Nature Meets Elegance. 464m² plots with C of O, paved roads, drainage, street lights and security.
@@ -105,10 +107,10 @@ function Index() {
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2">
           <div className="relative">
             <img src={estateImg} alt="Home at Oliveness Garden Estate" loading="lazy" width={1280} height={960} className="aspect-[4/3] w-full rounded-3xl object-cover shadow-lift" />
-            <div className="absolute -bottom-5 left-6 rounded-2xl bg-highlight px-5 py-3 text-highlight-foreground shadow-lift">
+            {publicPolicy.showFinancialFigures && <div className="absolute -bottom-5 left-6 rounded-2xl bg-highlight px-5 py-3 text-highlight-foreground shadow-lift">
               <p className="text-[10px] font-semibold uppercase tracking-widest">Pre-launch price</p>
               <p className="font-display text-2xl font-semibold">{estate.prelaunchPrice}</p>
-            </div>
+            </div>}
           </div>
           <div>
             <SectionHead center={false} eyebrow="Estate spotlight" title={estate.name} />
@@ -180,6 +182,7 @@ function Index() {
         </div>
       </section>
 
+      {publicPolicy.showFinancialFigures && <>
       {/* PAYMENT PLANS */}
       <section className="mx-auto max-w-7xl px-6 py-24">
         <SectionHead eyebrow="Payment plans" title="Flexible ways to own your plot" />
@@ -197,6 +200,8 @@ function Index() {
           ))}
         </div>
       </section>
+
+      </>}
 
       {/* SERVICES */}
       <section className="bg-surface py-24">
@@ -254,7 +259,7 @@ function Index() {
       {/* CTA */}
       <section className="px-6 pb-24">
         <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl">
-          <img src={hero} alt="" loading="lazy" width={1920} height={1088} className="absolute inset-0 h-full w-full object-cover" />
+          <img src={hero} alt="Illustrative estate landscape" loading="lazy" width={1920} height={1088} className="absolute inset-0 h-full w-full object-cover" />
           <div className="absolute inset-0 bg-hero-overlay" />
           <div className="relative flex flex-col items-start gap-6 p-10 text-hero-foreground sm:p-16 lg:flex-row lg:items-center lg:justify-between">
             <h2 className="max-w-xl text-3xl font-semibold sm:text-4xl">Ready to own your plot? Book a free inspection.</h2>

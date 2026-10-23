@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, MapPin, Ruler } from "lucide-react";
+import { publicPolicy } from "@/data/launch";
+import { pageCopy } from "@/data/pages";
 import { formatNaira, statusLabels, type Property } from "@/data/properties";
 
 const badge: Record<Property["status"], string> = {
@@ -30,7 +32,7 @@ export function PropertyCard({ property: p, layout = "grid" }: { property: Prope
         </div>
         {list && <p className="mt-3 text-sm text-muted-foreground">{p.description}</p>}
         <div className="mt-auto flex items-center justify-between pt-5">
-          <span className="font-display text-2xl font-semibold text-primary">{formatNaira(p.price)}</span>
+          {publicPolicy.showFinancialFigures ? <span className="font-display text-2xl font-semibold text-primary">{formatNaira(p.price)}</span> : <span className="text-sm text-primary">{pageCopy.pricing.enquire}</span>}
           <span className="grid h-9 w-9 place-items-center rounded-full bg-muted transition group-hover:bg-highlight group-hover:text-highlight-foreground"><ArrowRight className="h-4 w-4" /></span>
         </div>
       </div>
