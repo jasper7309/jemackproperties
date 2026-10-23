@@ -1,13 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { PageShell, seo } from "@/components/site/PageShell";
-
-export const Route = createFileRoute("/blog_/$slug")({
-  head: ({ params }) => seo(`${params.slug.replace(/-/g, " ")} | Jemack Properties`, "Details coming soon from Jemack Properties."),
-  component: PostDetail,
-});
-
-function PostDetail() {
-  const { slug } = Route.useParams();
-  const title = slug.replace(/-/g, " ").replace(/\b\w/g, (m: string) => m.toUpperCase());
-  return <PageShell eyebrow="Article" title={title} intro="Full details coming soon." />;
-}
+import { createFileRoute,notFound,Link } from '@tanstack/react-router';
+import { seo } from '@/components/site/PageShell';
+import { OptionalEmbed } from '@/components/site/Consent';
+import { posts } from '@/data/posts';
+import { pageCopy } from '@/data/pages';
+export const Route=createFileRoute('/blog_/$slug')({loader:({params})=>{const p=posts.find(p=>p.slug===params.slug);if(!p)throw notFound();return p;},head:({loaderData:p})=>p?{...seo(`${p.title} | Jemack Journal`,p.excerpt),scripts:[{type:'application/ld+json',children:JSON.stringify({'@context':'https://schema.org','@type':'Article',headline:p.title,datePublished:p.date,description:p.excerpt,author:{'@type':'Organization',name:'Jemack Properties'}})}]}:{meta:[{title:'Article unavailable | Jemack'},{name:'robots',content:'noindex'}]},component:PostDetail});
+function PostDetail(){const p=Route.useLoaderData();return <main className="mx-auto max-w-4xl px-6 pt-32 pb-24"><Link to="/blog" className="text-sm text-highlight">← {pageCopy.blog.title}</Link><h1 className="mt-6 text-4xl text-primary sm:text-5xl">{p.title}</h1><time dateTime={p.date} className="mt-5 block text-sm text-muted-foreground">{p.date}</time><p className="mt-5 text-lg text-muted-foreground">{p.excerpt}</p><img src={p.image} alt={p.imageAlt} width={1024} height={768} className="mt-8 aspect-[16/9] w-full rounded-3xl object-cover"/>{p.sections.map(s=><section key={s.title} className="mt-10"><h2 className="text-2xl text-primary">{s.title}</h2><p className="mt-4 leading-relaxed text-muted-foreground">{s.text}</p></section>)}{p.youtubeId&&/^[\w-]{11}$/.test(p.youtubeId)&&<div className="mt-10"><OptionalEmbed src={`https://www.youtube-nocookie.com/embed/${p.youtubeId}`} title={p.title}/></div>}</main>;}
