@@ -1,16 +1,22 @@
 import { CheckCircle2 } from "lucide-react";
-import type { ReactNode } from "react";
+import { useId, isValidElement, cloneElement, type ReactNode, type ReactElement } from "react";
+import { Button } from "@/components/ui/button";
+import { pageCopy } from "@/data/pages";
 
 export const inputClass =
   "w-full rounded-2xl border bg-background px-4 py-3 text-sm outline-hidden transition focus:border-accent focus:ring-3 focus:ring-accent/30";
 
 export function Field({ label, error, children }: { label: string; error?: string | undefined; children: ReactNode }) {
+  const id = useId();
+  const input = isValidElement(children) ? cloneElement(children as ReactElement<Record<string, unknown>>, { id, "aria-invalid": Boolean(error), "aria-describedby": error ? `${id}-error` : undefined }) : children;
   return (
-    <label className="block">
+    <div className="block">
+      <label htmlFor={id}>
       <span className="mb-1.5 block text-sm font-medium text-primary">{label}</span>
-      {children}
-      {error && <span className="mt-1 block text-xs text-highlight">{error}</span>}
-    </label>
+      </label>
+      {input}
+      {error && <span id={`${id}-error`} role="alert" className="mt-1 block text-xs text-highlight">{error}</span>}
+    </div>
   );
 }
 
@@ -20,9 +26,9 @@ export function SuccessCard({ title, text, onReset }: { title: string; text: str
       <CheckCircle2 className="mx-auto h-14 w-14 text-status-available" />
       <h3 className="mt-4 text-2xl font-semibold text-primary">{title}</h3>
       <p className="mt-2 text-muted-foreground">{text}</p>
-      <button type="button" onClick={onReset} className="mt-6 rounded-full border border-primary px-6 py-2.5 text-sm font-medium text-primary">
-        Send another
-      </button>
+      <Button variant="outline" type="button" onClick={onReset} className="mt-6 h-auto rounded-full border border-primary px-6 py-2.5 text-sm font-medium text-primary">
+        {pageCopy.form.reset}
+      </Button>
     </div>
   );
 }
