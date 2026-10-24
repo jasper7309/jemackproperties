@@ -69,7 +69,7 @@ export function Navbar() {
           <a href={whatsappLink()} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" className="grid h-10 w-10 place-items-center rounded-full bg-highlight text-highlight-foreground transition hover:scale-105">
             <WhatsAppIcon className="h-5 w-5" />
           </a>
-          <Button onClick={() => setOpen(true)} aria-label="Open menu" aria-expanded={open} aria-controls="mobile-menu" className="grid h-10 w-10 place-items-center rounded-full bg-muted lg:hidden"><Menu className="h-5 w-5" /></Button>
+          <Button variant="ghost" size="icon" onClick={() => setOpen(true)} aria-label="Open menu" aria-expanded={open} aria-controls="mobile-menu" className="grid h-10 w-10 place-items-center rounded-full bg-muted text-primary lg:hidden"><Menu className="h-5 w-5" /></Button>
         </div>
       </nav>
 

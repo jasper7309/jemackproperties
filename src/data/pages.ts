@@ -42,6 +42,7 @@ export const pageCopy = {
  cookie:{text:'This site stores your cookie preference on this device. Optional maps and videos load only with your permission.',accept:'Allow embeds',reject:'Essential only',settings:'Cookie preferences'},
  notFound:{title:'This address isn’t on our map',text:'The page may have moved, or the address may be incorrect.',home:'Back to Jemack',properties:'Browse properties'},
  pricing:{enquire:'Contact us for current terms'},
+ labels:{support:'Support Services',overview:'Overview',sectors:'Sectors served',capabilities:'Capabilities',process:'Our process',related:'Related projects',serviceQuestions:'Questions about this service',vision:'Our vision',mission:'Our mission',values:'Core values',leadership:'Leadership'},
 };
 export const privacySections = [
  {title:'Information you provide',text:'Enquiry forms prepare a WhatsApp message using the name, contact details and information you enter. This website does not save form submissions. Sending the message shares your details with WhatsApp and the Jemack team.'},
