@@ -30,7 +30,7 @@ export function PlotMap({ plots, estateName }: { plots: Plot[]; estateName: stri
 
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
-      <div className="rounded-3xl bg-card p-4 shadow-soft sm:p-6">
+      <div className="min-w-0 rounded-3xl bg-card p-4 shadow-soft sm:p-6">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap gap-4 text-sm">
             {(Object.keys(label) as PlotStatus[]).map((s) => (
