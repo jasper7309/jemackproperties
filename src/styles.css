@@ -115,6 +115,7 @@
   html { scroll-padding-top: 7rem; }
   body { overflow-wrap: break-word; }
   button, input, select, textarea { min-width: 0; }
+  .grid > * { min-width: 0; }
   .text-accent:not(.bg-primary .text-accent):not(.text-hero-foreground .text-accent):not(.text-primary-foreground .text-accent) { color: var(--accent-text); }
 }
 @media (prefers-reduced-motion: reduce) {

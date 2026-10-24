@@ -165,7 +165,7 @@ function Index() {
             <ul className="mt-8 space-y-3">
               {estate.landmarks.map((l) => (
                 <li key={l.name} className="flex items-center justify-between gap-4 rounded-2xl bg-primary-foreground/5 px-5 py-4">
-                  <span className="flex min-w-0 items-center gap-3"><Landmark className="h-5 w-5 shrink-0 text-accent" /><span className="truncate">{l.name}</span></span>
+                  <span className="flex min-w-0 items-center gap-3"><Landmark className="h-5 w-5 shrink-0 text-accent" /><span>{l.name}</span></span>
                   <span className="shrink-0 text-xs text-primary-foreground/60">{l.distance}</span>
                 </li>
               ))}
