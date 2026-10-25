@@ -141,7 +141,7 @@ export const pageCopy = {
   projects: { eyebrow: 'Selected work', title: 'Projects', intro: 'Property and engineering concepts. Images are illustrative.' },
   faqs: { eyebrow: 'Your questions', title: 'Frequently Asked Questions', intro: 'Clear answers about property, inspections and our engineering services.' },
   blog: { eyebrow: 'Property journal', title: 'Insights & Guides', intro: 'Perspectives on land, homes and the decisions that matter.' },
-  contact: { eyebrow: 'Let's talk', title: 'Contact Jemack', intro: 'Speak with our property and engineering teams, or arrange an inspection.' },
+  contact: { eyebrow: "Let's talk", title: 'Contact Jemack', intro: 'Speak with our property and engineering teams, or arrange an inspection.' },
   enquiry: { title: 'Send an enquiry', intro: 'Hello Jemack Properties, I would like to make an enquiry.', submit: 'Send via WhatsApp' },
   quote: { title: 'Request a Quote', intro: 'Hello Jemack Properties, I would like to request a quote for', submit: 'Request Quote via WhatsApp' },
   form: {
