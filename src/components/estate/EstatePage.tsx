@@ -1,3 +1,8 @@
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { InspectionCTA } from "@/components/site/InspectionCTA";
+import { experience, isRealText } from "@/data/experience";
+import { whatsappLink } from "@/data/site";
 import { CalendarCheck, Download, FileCheck2, Hammer, Landmark, MapPin, Ruler, ShieldCheck, Sparkles, CheckCircle2 } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import estateImg from "@/assets/estate.jpg";
@@ -14,19 +19,20 @@ import { InspectionForm } from "./InspectionForm";
 function Head({ eyebrow, title, light = false }: { eyebrow: string; title: string; light?: boolean }) {
   return (
     <div className="mb-10">
-      <p className={`eyebrow ${light ? "text-accent" : "text-highlight"}`}>{eyebrow}</p>
+      <p className={`eyebrow ${light ? "text-accent" : "text-accent-text"}`}>{eyebrow}</p>
       <h2 className={`mt-2 text-3xl font-semibold sm:text-4xl ${light ? "" : "text-primary"}`}>{title}</h2>
     </div>
   );
 }
 
 export function EstatePage({ estate: e }: { estate: Estate }) {
+  const [hideFloating,setHideFloating] = useState(false);
+  useEffect(()=>{const book=document.getElementById('book');const footer=document.querySelector('footer');const visible=new Set<Element>();const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting)visible.add(entry.target);else visible.delete(entry.target);}setHideFloating(visible.size>0);});if(book)observer.observe(book);if(footer)observer.observe(footer);return()=>observer.disconnect();},[]);
   const gallery = [
-    { src: hero, alt: "Aerial view of the estate" },
-    { src: estateImg, alt: "Example home (render)" },
-    { src: land, alt: "Surveyed plots" },
-    { src: terrace, alt: "Buy & Build home style (render)" },
-    { src: estateImg, alt: "Landscaped frontage (render)" },
+    { src: hero, alt: "Illustrative aerial estate render", caption: "Illustrative render" },
+    { src: estateImg, alt: "Illustrative home render", caption: "Illustrative render" },
+    { src: land, alt: "Illustrative plot render", caption: "Illustrative render" },
+    { src: terrace, alt: "Illustrative Buy & Build home render", caption: "Illustrative render" },
   ];
   return (
     <main>
@@ -34,16 +40,16 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
         <img src={hero} alt={e.name} width={1920} height={1088} className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto w-full max-w-7xl px-6 pb-20 pt-40 text-hero-foreground">
-          <span className="eyebrow animate-fade-up rounded-full bg-highlight px-3 py-1 text-highlight-foreground">Pre-launch</span>
+          <span className="eyebrow animate-fade-up text-accent">{e.location}</span>
           <h1 className="mt-5 animate-fade-up text-4xl font-semibold sm:text-6xl">{e.name}</h1>
           <p className="mt-3 animate-fade-up font-display text-2xl italic text-accent">{e.tagline}</p>
           <p className="mt-5 flex max-w-2xl animate-fade-up items-start gap-2 text-hero-foreground/85"><MapPin className="mt-1 h-5 w-5 shrink-0 text-accent" />{e.fullAddress}</p>
+          <div className="mt-6 flex flex-wrap gap-3"><InspectionCTA/><Button asChild variant="ghost" className="h-auto min-h-11 rounded-full text-hero-foreground"><a href="#plot-map">View plot map</a></Button></div>
         </div>
       </section>
+      <div className="border-b bg-surface px-6 py-6"><p className="mx-auto max-w-7xl text-base font-medium text-primary">{e.plotSize} plots · Certificate of Occupancy · Asaba, Delta State · Buy &amp; Build</p></div>
 
-      <a href="#book" className="fixed bottom-5 left-4 sm:left-1/2 z-40 sm:-translate-x-1/2 rounded-full bg-highlight px-4 py-3.5 text-sm font-medium text-highlight-foreground shadow-lift transition hover:brightness-110">
-        <span className="flex items-center gap-2"><CalendarCheck className="h-5 w-5" />Book Inspection</span>
-      </a>
+      {!hideFloating&&<div className="fixed bottom-5 left-4 z-40 sm:left-1/2 sm:-translate-x-1/2"><InspectionCTA/></div>}
 
       <section className="mx-auto max-w-7xl px-6 py-20">
         <Head eyebrow="Overview" title="A secure plot, ready for your home" />
@@ -59,13 +65,21 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
               <p className="mt-2 text-sm text-muted-foreground">{d}</p>
             </div>
           ))}
-        </div>
+        <Button asChild className="mt-8 h-auto min-h-11 whitespace-normal rounded-full bg-whatsapp py-3 text-whatsapp-foreground"><a href={whatsappLink(experience.priceMessage)} target="_blank" rel="noreferrer">{experience.priceList}</a></Button></div>
       </section>
 
       <section className="mx-auto max-w-7xl px-6 pb-20">
         <Head eyebrow="Gallery" title="See the estate" />
-        <Gallery images={gallery} />
+        <Gallery images={gallery} /><p className="mt-4 text-sm text-muted-foreground">{experience.galleryDisclaimer}</p>
       </section>
+
+      <section id="plot-map" className="scroll-mt-28 bg-surface py-20">
+        <div className="mx-auto max-w-7xl px-6">
+          <Head eyebrow="Plot map" title="Choose your plot" />
+          <PlotMap plots={e.plots} estateName={e.name} />
+        </div>
+      </section>
+
 
       <section className="bg-primary py-20 text-primary-foreground">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-2">
@@ -78,12 +92,12 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
             </ul>
           </div>
           <div>
-            <Head light eyebrow="Landmarks" title="Minutes from" />
+            <Head light eyebrow="Landmarks" title="Nearby landmarks" />
             <ul className="space-y-3">
               {e.landmarks.map((l) => (
                 <li key={l.name} className="flex items-center justify-between gap-4 rounded-2xl bg-primary-foreground/5 px-4 py-3">
                   <span className="flex min-w-0 items-center gap-3"><Landmark className="h-5 w-5 shrink-0 text-accent" /><span>{l.name}</span></span>
-                  <span className="shrink-0 text-xs text-primary-foreground/60">{l.distance}</span>
+                  {isRealText(l.distance)&&<span className="shrink-0 text-sm text-primary-foreground/80">{l.distance}</span>}
                 </li>
               ))}
             </ul>
@@ -124,21 +138,15 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
 
       </>}
 
-      <section className="bg-surface py-20">
-        <div className="mx-auto max-w-7xl px-6">
-          <Head eyebrow="Plot map" title="Choose your plot" />
-          <PlotMap plots={e.plots} estateName={e.name} />
-        </div>
-      </section>
 
       <section className="mx-auto max-w-7xl px-6 py-20">
         <Head eyebrow="How to buy" title="Five simple steps" />
-        <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+        <ol className="relative grid gap-8 sm:grid-cols-2 lg:grid-cols-5 lg:before:absolute lg:before:inset-x-6 lg:before:top-7 lg:before:h-px lg:before:bg-border">
           {e.howToBuy.map((s, i) => (
-            <li key={s.title} className="rounded-3xl bg-card p-6 shadow-soft">
-              <span className="font-display text-4xl font-semibold text-accent">{String(i + 1).padStart(2, "0")}</span>
+            <li key={s.title} className="relative">
+              <span className="relative grid h-14 w-14 place-items-center rounded-full bg-primary font-sans text-2xl font-semibold text-primary-foreground">{String(i + 1).padStart(2, "0")}</span>
               <h3 className="mt-3 text-lg font-semibold text-primary">{s.title}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{s.text}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{s.text}</p>{i===0&&<InspectionCTA className="mt-5 whitespace-normal"/>}
             </li>
           ))}
         </ol>
@@ -167,12 +175,12 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
         <Accordion type="single" collapsible className="rounded-3xl bg-card px-6 shadow-soft">
           {e.faqs.map((f, i) => (
             <AccordionItem key={f.q} value={`f${i}`}>
-              <AccordionTrigger className="text-left font-medium text-primary">{f.q}</AccordionTrigger>
+              <AccordionTrigger className="text-left font-sans text-base font-semibold text-primary">{f.q}</AccordionTrigger>
               <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
-        <p className="mt-10 text-center text-xs text-muted-foreground">Availability requires confirmation. Renders and the plot layout are illustrative.</p>
+        
       </section>
     </main>
   );
