@@ -5,7 +5,7 @@ import { pageCopy } from "@/data/pages";
 import { formatNaira, statusLabels, type Property } from "@/data/properties";
 
 const badge: Record<Property["status"], string> = {
-  "pre-launch": "bg-highlight text-highlight-foreground",
+  "pre-launch": "bg-primary text-primary-foreground",
   available: "bg-status-available text-hero-foreground",
   "sold-out": "bg-status-sold text-foreground",
   "coming-soon": "bg-accent text-accent-foreground",
@@ -20,7 +20,7 @@ export function PropertyCard({ property: p, layout = "grid" }: { property: Prope
       className={`group flex overflow-hidden rounded-3xl bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-lift ${list ? "flex-col sm:flex-row" : "flex-col"}`}
     >
       <div className={`relative shrink-0 ${list ? "sm:w-72" : ""}`}>
-        <img src={p.image} alt={p.title} loading="lazy" width={1024} height={768} className="aspect-[4/3] h-full w-full object-cover" />
+        <img src={p.image} alt="" loading="lazy" width={1024} height={768} className="aspect-[4/3] h-full w-full object-cover" />
         <span className={`absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-semibold ${badge[p.status]}`}>{statusLabels[p.status]}</span>
       </div>
       <div className="flex min-w-0 flex-1 flex-col p-6">

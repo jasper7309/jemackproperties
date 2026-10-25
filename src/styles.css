@@ -35,6 +35,8 @@
   --color-surface: var(--surface);
   --color-hero-foreground: var(--hero-foreground);
   --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-foreground: var(--whatsapp-foreground);
+  --color-scrim: var(--scrim);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -57,7 +59,7 @@
   --secondary-foreground: oklch(0.34 0.06 125);
   --muted: oklch(0.93 0.015 85);
   --muted-foreground: oklch(0.5 0.015 110);
-  --accent: oklch(0.68 0.13 108);             /* #A8A32A olive gold */
+  --accent: oklch(0.78 0.13 108);             /* #A8A32A olive gold */
   --accent-text: oklch(0.46 0.09 108);
   --accent-foreground: oklch(0.22 0.04 125);
   --highlight: oklch(0.57 0.2 30);            /* #D62E1F red */
@@ -65,10 +67,12 @@
   --destructive: oklch(0.57 0.2 30);
   --destructive-foreground: oklch(0.99 0 0);
   --hero-foreground: oklch(0.99 0 0);
-  --whatsapp: oklch(0.72 0.17 150);
+  --whatsapp: #25d366;
+  --whatsapp-foreground: #173323;
+  --scrim: #000;
   --border: oklch(0.89 0.015 85);
-  --input: oklch(0.89 0.015 85);
-  --ring: oklch(0.68 0.13 108);
+  --input: #8a8a7a;
+  --ring: var(--primary);
   --gradient-hero: linear-gradient(90deg, oklch(0.15 0.03 125 / 0.85) 0%, oklch(0.15 0.03 125 / 0.45) 55%, oklch(0.15 0.03 125 / 0.15) 100%);
 }
 
@@ -87,7 +91,7 @@
 @utility eyebrow {
   font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
@@ -98,9 +102,9 @@
 @utility animate-fade-up { animation: fade-up 0.9s cubic-bezier(.2,.7,.2,1) both; }
 
 :root {
-  --status-available: oklch(0.62 0.15 150);
-  --status-reserved: oklch(0.78 0.15 75);
-  --status-sold: oklch(0.7 0.01 100);
+  --status-available: #226b42;
+  --status-reserved: #e3b74b;
+  --status-sold: #59605b;
   --park: oklch(0.86 0.08 130);
 }
 @theme inline {
@@ -121,3 +125,7 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
+
+@media (max-width: 639px) { .bg-hero-overlay { background-image: linear-gradient(color-mix(in srgb, var(--scrim) 35%, transparent), color-mix(in srgb, var(--scrim) 35%, transparent)), var(--gradient-hero); } }
+.bg-primary :focus-visible, .text-hero-foreground :focus-visible { outline-color: var(--primary-foreground); }
+button, [role="switch"] { touch-action: manipulation; }

@@ -15,6 +15,7 @@ export const statusLabels: Record<PropertyStatus, string> = {
 };
 
 export type Property = {
+  published: boolean;
   slug: string;
   title: string;
   description: string;
@@ -37,9 +38,9 @@ export const priceRanges = [
 export const formatNaira = (n: number) => `₦${n.toLocaleString("en-NG")}`;
 
 export const properties: Property[] = [
-  { slug: "oliveness-garden-estate", title: "Oliveness Garden Estate", description: "464m² plots with C of O in Ubulu-Okiti, Asaba. Buy and build in a serene, fully serviced estate.", image: estate, location: "Asaba", type: "land", price: 5_000_000 /* PLACEHOLDER */, size: "464m²", status: "pre-launch" },
-  { slug: "coming-soon-plots", title: "Prime Plots (Coming Soon)", description: "Placeholder listing. Surveyed and registered plots in a fast-growing corridor.", image: land, location: "Port Harcourt", type: "land", price: 12_000_000 /* PLACEHOLDER */, size: "600m²", status: "coming-soon" },
-  { slug: "coming-soon-terraces", title: "Terrace Duplexes (Coming Soon)", description: "Placeholder listing. Modern terrace duplexes designed for comfortable family living.", image: terrace, location: "Lagos", type: "duplex", price: 85_000_000 /* PLACEHOLDER */, size: "4 bed", status: "coming-soon" },
+  { published: true, slug: "oliveness-garden-estate", title: "Oliveness Garden Estate", description: "464m² plots with C of O in Ubulu-Okiti, Asaba. Buy and build in a serene, fully serviced estate.", image: estate, location: "Asaba", type: "land", price: 5_000_000 , size: "464m²", status: "pre-launch" },
+  { published: false, slug: "coming-soon-plots", title: "Prime Plots (Coming Soon)", description: "Surveyed and registered plots in a fast-growing corridor.", image: land, location: "Port Harcourt", type: "land", price: 12_000_000 , size: "600m²", status: "coming-soon" },
+  { published: false, slug: "coming-soon-terraces", title: "Terrace Duplexes (Coming Soon)", description: "Modern terrace duplexes designed for comfortable family living.", image: terrace, location: "Lagos", type: "duplex", price: 85_000_000 , size: "4 bed", status: "coming-soon" },
 ];
 
-export const propertyLocations = Array.from(new Set(properties.map((p) => p.location))).sort();
+export const propertyLocations = Array.from(new Set(properties.filter(p => p.published).map((p) => p.location))).sort();
