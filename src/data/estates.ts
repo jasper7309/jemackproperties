@@ -25,9 +25,10 @@ export type Estate = {
   plots: Plot[];
 };
 
-// PLACEHOLDER statuses: edit this list to update the plot map.
-const reserved = [4, 9, 17, 22, 33, 44];
-const sold = [1, 2, 3, 15, 16, 29, 41];
+export const plotStatusVerified = false;
+// Set only confirmed statuses before enabling verification.
+const reserved: number[] = [];
+const sold: number[] = [];
 const plots: Plot[] = Array.from({ length: 49 }, (_, i) => {
   const n = i + 1;
   return {
@@ -47,34 +48,34 @@ export const estates: Estate[] = [
     fullAddress: "Along Iselle–Mkpitime Road, Ubulu-Okiti, Aniocha South LGA, Asaba, Delta State",
     plotSize: "464m²",
     title: "C of O",
-    prelaunchPrice: "₦0,000,000", // PLACEHOLDER
-    standardPrice: "₦0,000,000", // PLACEHOLDER
-    limitedOffer: { price: "₦0,000,000", plots: 10, note: "Only 10 plots at this discounted price. First come, first served." }, // PLACEHOLDER price
+    prelaunchPrice: "",
+    standardPrice: "",
+    limitedOffer: { price: "", plots: 10, note: "" },
     instalments: {
-      initialDeposit: "₦000,000", // PLACEHOLDER
+      initialDeposit: "",
       plans: [
-        { months: 6, total: "₦0,000,000", monthly: "₦000,000 / month" }, // PLACEHOLDER
-        { months: 12, total: "₦0,000,000", monthly: "₦000,000 / month" }, // PLACEHOLDER
+        { months: 6, total: "", monthly: "" },
+        { months: 12, total: "", monthly: "" },
       ],
     },
     promoEndsAt: undefined, // e.g. "2026-12-31T23:59:59+01:00"
-    brochureUrl: "#", // PLACEHOLDER
+    brochureUrl: "#",
     features: ["Perimeter fence", "Paved roads", "Street lights", "Underground drainage", "24/7 security", "Green areas & playground"],
     landmarks: [
-      { name: "National Open University, Asaba", distance: "PLACEHOLDER mins" },
-      { name: "Asaba International Airport", distance: "PLACEHOLDER mins" },
-      { name: "Mariam Babangida Square", distance: "PLACEHOLDER mins" },
-      { name: "Summit Bus Stop", distance: "PLACEHOLDER mins" },
-      { name: "Asaba-Benin Expressway", distance: "PLACEHOLDER mins" },
+      { name: "National Open University, Asaba", distance: "" },
+      { name: "Asaba International Airport", distance: "" },
+      { name: "Mariam Babangida Square", distance: "" },
+      { name: "Summit Bus Stop", distance: "" },
+      { name: "Asaba-Benin Expressway", distance: "" },
     ],
     paymentPlans: [
-      { name: "Outright", duration: "One-time payment", price: "₦0,000,000", note: "Best value. Immediate allocation." },
-      { name: "6 Months", duration: "Spread over 6 months", price: "₦0,000,000", deposit: "₦000,000 deposit", note: "Flexible monthly instalments.", featured: true },
-      { name: "12 Months", duration: "Spread over 12 months", price: "₦0,000,000", deposit: "₦000,000 deposit", note: "Lowest monthly commitment." },
+      { name: "Outright", duration: "One-time payment", price: "", note: "Best value. Immediate allocation." },
+      { name: "6 Months", duration: "Spread over 6 months", price: "", deposit: "", note: "Flexible monthly instalments.", featured: true },
+      { name: "12 Months", duration: "Spread over 12 months", price: "", deposit: "", note: "Lowest monthly commitment." },
     ],
     howToBuy: [
       { title: "Inspect", text: "Book a free guided inspection of the estate." },
-      { title: "Choose a plot", text: "Pick an available plot from the estate map." },
+      { title: "Choose a plot", text: "Discuss your preferred plot and confirm availability with our team." },
       { title: "Pay", text: "Pay outright or start an instalment plan." },
       { title: "Documentation", text: "Receive your receipt, contract of sale and survey." },
       { title: "Allocation", text: "Your plot is physically allocated to you on site." },
