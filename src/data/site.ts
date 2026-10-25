@@ -1,23 +1,35 @@
-// PLACEHOLDER: replace every value below with real company details.
+export type Office = { city: string; address: string };
+
 export const site = {
   name: "Jemack Properties",
   parent: "Jemack Facilities & Engineering Services Ltd",
   tagline: "Secure land and homes, built on engineering excellence.",
-  phone: "+234 800 000 0000", // PLACEHOLDER
-  whatsapp: "2348000000000", // PLACEHOLDER: international format, digits only
-  email: "info@jemackproperties.com", // PLACEHOLDER
-  offices: [
-    { city: "Lagos", address: "PLACEHOLDER address, Lagos" },
-    { city: "Asaba", address: "PLACEHOLDER address, Asaba, Delta State" },
-    { city: "Umuahia", address: "PLACEHOLDER address, Umuahia, Abia State" },
-    { city: "Port Harcourt", address: "PLACEHOLDER address, Port Harcourt, Rivers State" },
+  /** Primary display phone (formatted) */
+  phone: "+234 802 222 4248",
+  /** All phones: [0] = primary */
+  phones: [
+    { display: "+234 802 222 4248", tel: "+2348022224248" },
+    { display: "+234 803 627 8554", tel: "+2348036278554" },
+    { display: "+234 806 259 1354", tel: "+2348062591354" },
   ],
+  whatsapp: "2348022224248",
+  /** All emails: [0] = primary */
+  emails: [
+    "services@jemackfacilities.com.ng",
+    "jemackfacilities@yahoo.com",
+  ],
+  /** Primary display email */
+  email: "services@jemackfacilities.com.ng",
+  offices: [
+    { city: "Lagos", address: "House 20 Greenlight Estate, Alatushe, Ibeju-Lekki, Lagos, Nigeria" },
+    { city: "Asaba", address: "Shop 8 & 9, Osinmili North Ultramodern Shopping Complex, Okpanam, Asaba, Delta State, Nigeria" },
+    { city: "Umuahia", address: "No. 85 Cameroon Street, Umuahia, Abia State, Nigeria" },
+  ] satisfies Office[],
   socials: {
-    facebook: "https://facebook.com/", // PLACEHOLDER
-    instagram: "https://instagram.com/", // PLACEHOLDER
-    linkedin: "https://linkedin.com/", // PLACEHOLDER
-    x: "https://x.com/", // PLACEHOLDER
+    youtube: "https://www.youtube.com/@jemackproperties2",
   },
+  /** Optional: reply-time promise shown in form footnotes. Leave blank to hide. */
+  responseTime: "",
 };
 
 export const whatsappLink = (msg = "Hello Jemack Properties, I'd like to book an inspection.") =>

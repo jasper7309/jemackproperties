@@ -11,7 +11,7 @@ export function PageShell({ eyebrow, title, intro, children }: { eyebrow: string
         <div className="mt-12">
           {children ?? (
             <div className="rounded-3xl bg-card p-10 text-center shadow-soft">
-              <p className="text-muted-foreground">This page is coming soon.</p>
+              <p className="text-muted-foreground">Contact us for more information about this page.</p>
               <Link to="/contact" className="mt-6 inline-flex rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground">Contact us</Link>
             </div>
           )}

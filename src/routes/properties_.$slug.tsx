@@ -2,7 +2,7 @@ import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { MapPin, Ruler } from "lucide-react";
 import { estates } from "@/data/estates";
 import { publicPolicy } from "@/data/launch";
-import { formatNaira, properties, statusLabels } from "@/data/properties";
+import { formatNaira, publishedProperties as properties, statusLabels } from "@/data/properties";
 import { seo } from "@/components/site/PageShell";
 import { EstatePage } from "@/components/estate/EstatePage";
 
@@ -35,7 +35,7 @@ function PropertyDetail() {
         {publicPolicy.showFinancialFigures && <span className="font-semibold text-primary">{formatNaira(p.price)}</span>}
       </div>
       <img src={p.image} alt={p.title} className="mt-8 aspect-[16/9] w-full rounded-3xl object-cover" />
-      <p className="mt-6 text-muted-foreground">{p.description} Full details coming soon.</p>
+      <p className="mt-6 text-muted-foreground">{p.description}</p>
       <Link to="/contact" className="mt-8 inline-flex rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground">Enquire</Link>
     </main>
   );

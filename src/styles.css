@@ -35,6 +35,7 @@
   --color-surface: var(--surface);
   --color-hero-foreground: var(--hero-foreground);
   --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-dark: var(--whatsapp-dark);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -51,25 +52,37 @@
   --card-foreground: oklch(0.27 0.01 120);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.27 0.01 120);
-  --primary: oklch(0.34 0.06 125);            /* #2F3E1F olive */
+  --primary: oklch(0.34 0.06 125);            /* olive green */
   --primary-foreground: oklch(0.97 0.012 80);
   --secondary: oklch(0.93 0.02 95);
   --secondary-foreground: oklch(0.34 0.06 125);
   --muted: oklch(0.93 0.015 85);
   --muted-foreground: oklch(0.5 0.015 110);
-  --accent: oklch(0.68 0.13 108);             /* #A8A32A olive gold */
-  --accent-text: oklch(0.46 0.09 108);
+  --accent: oklch(0.68 0.13 108);             /* olive gold — for use on dark */
+  --accent-text: oklch(0.38 0.08 108);        /* darker gold — ≥4.5:1 on cream/white */
   --accent-foreground: oklch(0.22 0.04 125);
-  --highlight: oklch(0.57 0.2 30);            /* #D62E1F red */
+  --highlight: oklch(0.57 0.2 30);            /* red — reserved for single primary CTA */
   --highlight-foreground: oklch(0.99 0 0);
   --destructive: oklch(0.57 0.2 30);
   --destructive-foreground: oklch(0.99 0 0);
   --hero-foreground: oklch(0.99 0 0);
-  --whatsapp: oklch(0.72 0.17 150);
+  --whatsapp: oklch(0.68 0.19 150);           /* #25D366-style — darker for contrast */
+  --whatsapp-dark: oklch(0.42 0.14 150);      /* dark green text on whatsapp bg ≥4.5:1 */
   --border: oklch(0.89 0.015 85);
   --input: oklch(0.89 0.015 85);
-  --ring: oklch(0.68 0.13 108);
-  --gradient-hero: linear-gradient(90deg, oklch(0.15 0.03 125 / 0.85) 0%, oklch(0.15 0.03 125 / 0.45) 55%, oklch(0.15 0.03 125 / 0.15) 100%);
+  --ring: oklch(0.34 0.06 125);              /* primary ring on light bg */
+
+  /* Hero gradient — left-to-right + uniform 35% dark base on mobile */
+  --gradient-hero: linear-gradient(
+    90deg,
+    oklch(0.15 0.03 125 / 0.85) 0%,
+    oklch(0.15 0.03 125 / 0.45) 55%,
+    oklch(0.15 0.03 125 / 0.15) 100%
+  );
+  --gradient-hero-mobile: linear-gradient(
+    oklch(0.15 0.03 125 / 0.35),
+    oklch(0.15 0.03 125 / 0.35)
+  );
 }
 
 @layer base {
@@ -78,11 +91,34 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    font-size: 1rem; /* keep body text ≥14px */
   }
   h1, h2, h3, h4 { font-family: var(--font-display); }
+
+  /* Visible focus ring for keyboard nav */
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
+  }
+
+  html { scroll-padding-top: 7rem; }
+  body { overflow-wrap: break-word; }
+  button, input, select, textarea { min-width: 0; }
+  .grid > * { min-width: 0; }
+
+  /* accent-text: use darker token on light backgrounds, keep gold on dark/hero */
+  .text-accent:not(.bg-primary .text-accent):not(.text-hero-foreground .text-accent):not(.text-primary-foreground .text-accent) {
+    color: var(--accent-text);
+  }
 }
 
-@utility bg-hero-overlay { background-image: var(--gradient-hero); }
+/* ── Hero overlay — adds uniform 35% scrim on mobile so text stays readable ── */
+@utility bg-hero-overlay {
+  background-image: var(--gradient-hero-mobile), var(--gradient-hero);
+  @media (min-width: 640px) {
+    background-image: var(--gradient-hero);
+  }
+}
 
 @utility eyebrow {
   font-size: 0.75rem;
@@ -93,31 +129,36 @@
 
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: none; }
+  to   { opacity: 1; transform: none; }
 }
 @utility animate-fade-up { animation: fade-up 0.9s cubic-bezier(.2,.7,.2,1) both; }
 
+/* ── Plot status colours — WCAG AA fills ── */
 :root {
-  --status-available: oklch(0.62 0.15 150);
-  --status-reserved: oklch(0.78 0.15 75);
-  --status-sold: oklch(0.7 0.01 100);
-  --park: oklch(0.86 0.08 130);
+  /* Available: dark green, white numerals pass 4.5:1 */
+  --status-available: oklch(0.44 0.13 150);
+  /* Reserved: amber, dark text required */
+  --status-reserved: oklch(0.75 0.14 75);
+  /* Sold: dark grey, white numerals pass 4.5:1 */
+  --status-sold: oklch(0.40 0.01 100);
+  /* Unverified neutral — olive-tinted mid-grey */
+  --status-neutral: oklch(0.55 0.03 130);
+  /* Park / open zone */
+  --park: oklch(0.82 0.08 130);
 }
 @theme inline {
   --color-status-available: var(--status-available);
   --color-status-reserved: var(--status-reserved);
   --color-status-sold: var(--status-sold);
+  --color-status-neutral: var(--status-neutral);
   --color-park: var(--park);
 }
 
-@layer base {
-  :focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
-  html { scroll-padding-top: 7rem; }
-  body { overflow-wrap: break-word; }
-  button, input, select, textarea { min-width: 0; }
-  .grid > * { min-width: 0; }
-  .text-accent:not(.bg-primary .text-accent):not(.text-hero-foreground .text-accent):not(.text-primary-foreground .text-accent) { color: var(--accent-text); }
-}
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
