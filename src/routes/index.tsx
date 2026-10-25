@@ -7,7 +7,6 @@ import {
 import hero from "@/assets/hero.jpg";
 import estateImg from "@/assets/estate.jpg";
 import { estates } from "@/data/estates";
-import { publishedProperties } from "@/data/properties";
 import { services, type Service } from "@/data/services";
 import { site } from "@/data/site";
 import { publicPolicy } from "@/data/launch";
@@ -100,39 +99,49 @@ function Index() {
       {/* ── FEATURED ESTATE ── */}
       <section className="mx-auto max-w-7xl px-6 py-24">
         <SectionHead eyebrow="Our estate" title="Featured estate" />
-        <div className="mt-12 grid gap-6 md:grid-cols-1 lg:grid-cols-1">
-          {publishedProperties.map((p, i) => (
-            <Link
-              key={p.slug}
-              to="/properties/$slug"
-              params={{ slug: p.slug }}
-              className="group flex flex-col overflow-hidden rounded-3xl bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-lift sm:flex-row"
-            >
-              <img
-                src={p.image}
-                alt=""
-                loading="lazy"
-                width={1024}
-                height={768}
-                className="aspect-[4/3] w-full object-cover sm:w-72 sm:shrink-0"
-              />
-              <div className="flex min-w-0 flex-1 flex-col p-6">
-                <p className="text-xs font-semibold uppercase tracking-widest text-accent-text">{p.type}</p>
-                <h3 className="mt-1 text-xl font-semibold text-primary">{p.title}</h3>
-                <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
-                  <span className="flex items-center gap-1"><MapPin className="h-4 w-4" />{p.location}</span>
-                  <span className="flex items-center gap-1"><Ruler className="h-4 w-4" />{p.size}</span>
-                </div>
-                <p className="mt-3 text-sm text-muted-foreground">{p.description}</p>
-                <div className="mt-auto flex items-center justify-between pt-5">
-                  <span className="text-sm text-primary">Contact us for current terms</span>
-                  <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full transition ${i === 0 ? "bg-highlight text-highlight-foreground" : "bg-muted group-hover:bg-highlight group-hover:text-highlight-foreground"}`}>
-                    <ArrowRight className="h-4 w-4" />
-                  </span>
-                </div>
+        <div className="mt-12">
+          {/* Show only the Oliveness estate listing */}
+          <Link
+            to="/properties/$slug"
+            params={{ slug: estate.slug }}
+            className="group flex flex-col overflow-hidden rounded-3xl bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-lift sm:flex-row"
+          >
+            <img
+              src={estateImg}
+              alt=""
+              loading="lazy"
+              width={1024}
+              height={768}
+              className="aspect-[4/3] w-full object-cover sm:w-72 sm:shrink-0"
+            />
+            <div className="flex min-w-0 flex-1 flex-col p-6">
+              <p className="text-xs font-semibold uppercase tracking-widest text-accent-text">Land</p>
+              <h3 className="mt-1 text-xl font-semibold text-primary">{estate.name}</h3>
+              <p className="mt-1 text-xs text-muted-foreground">Jemack estate</p>
+              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
+                <span className="flex items-center gap-1"><MapPin className="h-4 w-4" />{estate.location}</span>
+                <span className="flex items-center gap-1"><Ruler className="h-4 w-4" />{estate.plotSize}</span>
               </div>
-            </Link>
-          ))}
+              <p className="mt-3 text-sm text-muted-foreground">
+                464m² plots with C of O in Ubulu-Okiti, Asaba. Buy and build in a serene, fully serviced estate.
+              </p>
+              <div className="mt-auto flex items-center justify-between pt-5">
+                <span className="text-sm text-primary">Contact us for current terms</span>
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-highlight text-highlight-foreground">
+                  <ArrowRight className="h-4 w-4" />
+                </span>
+              </div>
+            </div>
+          </Link>
+        </div>
+        <div className="mt-6 text-center">
+          <Link
+            to="/properties"
+            className="inline-flex items-center gap-2 rounded-full border border-primary px-6 py-3 text-sm font-medium text-primary transition hover:bg-primary hover:text-primary-foreground"
+          >
+            View all properties
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </section>
 
