@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { pageCopy } from "@/data/pages";
 
 export const inputClass =
-  "w-full rounded-2xl border bg-background px-4 py-3 text-sm outline-hidden transition focus:border-accent focus:ring-3 focus:ring-accent/30";
+  "w-full rounded-2xl border border-input bg-background px-4 py-3 text-base sm:text-sm transition focus:border-primary focus:ring-2 focus:ring-primary focus:ring-offset-2";
 
 export function Field({ label, error, children }: { label: string; error?: string | undefined; children: ReactNode }) {
   const id = useId();
