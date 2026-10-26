@@ -1,125 +1,37 @@
-import { useState } from "react";
-import { X } from "lucide-react";
-import type { Plot, PlotStatus } from "@/data/estates";
-import { whatsappLink } from "@/data/site";
-import { WhatsAppIcon } from "@/components/site/WhatsAppIcon";
-
-const fill: Record<PlotStatus, string> = {
-  available: "fill-status-available",
-  reserved: "fill-status-reserved",
-  sold: "fill-status-sold",
-};
-const label: Record<PlotStatus, string> = { available: "Available", reserved: "Reserved", sold: "Sold" };
-
-// Layout grid: 12 columns. Rows A–E; roads between B/C and D/E.
-const X0 = 40, COL = 70, GAP = 4, H = 90;
-const rows = [
-  { y: 30, from: 1, to: 12 },
-  { y: 124, from: 13, to: 24 },
-  { y: 270, from: 25, to: 36 },
-  { y: 364, from: 37, to: 40 },
-  { y: 510, from: 41, to: 49 },
-];
-const pos = new Map<number, { x: number; y: number }>();
-for (const r of rows) for (let n = r.from; n <= r.to; n++) pos.set(n, { x: X0 + (n - r.from) * COL, y: r.y });
-
-export function PlotMap({ plots, estateName }: { plots: Plot[]; estateName: string }) {
-  const [selected, setSelected] = useState<Plot | null>(null);
-  const [availableOnly, setAvailableOnly] = useState(false);
-  const counts = plots.reduce((a, p) => ({ ...a, [p.status]: (a[p.status] ?? 0) + 1 }), {} as Record<PlotStatus, number>);
-
-  return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
-      <div className="min-w-0 rounded-3xl bg-card p-4 shadow-soft sm:p-6">
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex flex-wrap gap-4 text-sm">
-            {(Object.keys(label) as PlotStatus[]).map((s) => (
-              <span key={s} className="flex items-center gap-2">
-                <span className={`h-3.5 w-3.5 rounded ${s === "available" ? "bg-status-available" : s === "reserved" ? "bg-status-reserved" : "bg-status-sold"}`} />
-                {label[s]} ({counts[s] ?? 0})
-              </span>
-            ))}
-            <span className="flex items-center gap-2"><span className="h-3.5 w-3.5 rounded bg-park" />Open / recreational</span>
-          </div>
-          <label className="flex cursor-pointer items-center gap-2 text-sm font-medium text-primary">
-            <input type="checkbox" checked={availableOnly} onChange={(e) => setAvailableOnly(e.target.checked)} className="h-4 w-4 accent-[var(--primary)]" />
-            Available only
-          </label>
-        </div>
-        <div className="overflow-x-auto">
-          <svg viewBox="0 0 920 645" className="min-w-[640px] w-full" role="img" aria-label={`${estateName} plot map`}>
-            <rect x="10" y="10" width="900" height="625" rx="24" className="fill-background stroke-primary" strokeWidth="3" strokeDasharray="8 6" />
-            {/* Roads */}
-            <rect x="30" y="222" width="860" height="40" rx="6" className="fill-muted-foreground/30" />
-            <text x="460" y="247" textAnchor="middle" className="fill-muted-foreground text-[12px] font-medium tracking-widest">OLIVENESS AVENUE</text>
-            <rect x="30" y="462" width="860" height="40" rx="6" className="fill-muted-foreground/30" />
-            <text x="460" y="487" textAnchor="middle" className="fill-muted-foreground text-[12px] font-medium tracking-widest">GARDEN CRESCENT</text>
-            {/* Zones */}
-            <rect x={X0 + 4 * COL} y="364" width={8 * COL - GAP} height={H} rx="10" className="fill-park" />
-            <text x={X0 + 8 * COL} y="405" textAnchor="middle" className="fill-primary text-[15px] font-semibold">Green Area & Playground</text>
-            <text x={X0 + 8 * COL} y="425" textAnchor="middle" className="fill-primary/70 text-[11px]">Recreational / open zone</text>
-            <rect x={X0 + 9 * COL} y="510" width={3 * COL - GAP} height={H} rx="10" className="fill-primary" />
-            <text x={X0 + 10.5 * COL} y="560" textAnchor="middle" className="fill-primary-foreground text-[13px] font-semibold">MAIN GATE</text>
-            <text x={X0} y="624" className="fill-muted-foreground text-[11px] font-semibold tracking-widest">COMMERCIAL ZONE · PLOTS 41–49</text>
-            <text x={X0} y="24" className="fill-muted-foreground text-[11px] font-semibold tracking-widest">RESIDENTIAL ZONE · PLOTS 1–40</text>
-            {plots.map((p) => {
-              const at = pos.get(p.number);
-              if (!at) return null;
-              const dim = availableOnly && p.status !== "available";
-              const isSel = selected?.number === p.number;
-              const clickable = !dim;
-              return (
-                <g
-                  key={p.number}
-                  role="button"
-                  tabIndex={clickable ? 0 : -1}
-                  aria-label={`Plot ${p.number}, ${label[p.status]}`}
-                  onClick={() => clickable && setSelected(p)}
-                  onKeyDown={(e) => clickable && (e.key === "Enter" || e.key === " ") && setSelected(p)}
-                  className={`transition-opacity ${dim ? "opacity-15" : "cursor-pointer hover:opacity-80"}`}
-                >
-                  <rect x={at.x} y={at.y} width={COL - GAP} height={H} rx="8" className={`${fill[p.status]} ${isSel ? "stroke-highlight" : "stroke-card"}`} strokeWidth={isSel ? 4 : 2} />
-                  <text x={at.x + (COL - GAP) / 2} y={at.y + H / 2 + 5} textAnchor="middle" className="pointer-events-none fill-card text-[16px] font-semibold">{p.number}</text>
-                </g>
-              );
-            })}
-          </svg>
-        </div>
-      </div>
-
-      <aside className="rounded-3xl bg-primary p-6 text-primary-foreground shadow-soft lg:sticky lg:top-28 lg:self-start">
-        {selected ? (
-          <div>
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="eyebrow text-accent">Selected plot</p>
-                <p className="mt-1 font-display text-5xl font-semibold">#{selected.number}</p>
-              </div>
-              <button onClick={() => setSelected(null)} aria-label="Clear selection" className="grid h-9 w-9 place-items-center rounded-full bg-primary-foreground/10"><X className="h-4 w-4" /></button>
-            </div>
-            <dl className="mt-6 space-y-3 text-sm">
-              <div className="flex justify-between border-b border-primary-foreground/10 pb-3"><dt className="text-primary-foreground/70">Size</dt><dd className="font-medium">{selected.size}</dd></div>
-              <div className="flex justify-between border-b border-primary-foreground/10 pb-3"><dt className="text-primary-foreground/70">Zone</dt><dd className="font-medium capitalize">{selected.zone}</dd></div>
-              <div className="flex items-center justify-between"><dt className="text-primary-foreground/70">Status</dt>
-                <dd className={`rounded-full px-3 py-1 text-xs font-semibold ${selected.status === "available" ? "bg-status-available" : selected.status === "reserved" ? "bg-status-reserved text-foreground" : "bg-status-sold text-foreground"}`}>{label[selected.status]}</dd>
-              </div>
-            </dl>
-            <a
-              href={whatsappLink(`Hello Jemack Properties, I'm interested in Plot ${selected.number} (${selected.size}) at ${estateName}. Is it still available?`)}
-              target="_blank" rel="noreferrer"
-              className="mt-8 flex items-center justify-center gap-2 rounded-full bg-whatsapp px-6 py-3.5 font-medium text-hero-foreground transition hover:brightness-110"
-            >
-              <WhatsAppIcon className="h-5 w-5" />Enquire on WhatsApp
-            </a>
-          </div>
-        ) : (
-          <div>
-            <p className="eyebrow text-accent">Plot details</p>
-            <p className="mt-3 font-display text-2xl">Tap a plot on the map</p>
-            <p className="mt-2 text-sm text-primary-foreground/70">See its size and status, then enquire about it on WhatsApp.</p>
-          </div>
-        )}
-      </aside>
-    </div>
-  );
+import { useEffect, useRef, useState } from 'react';
+import { List, Map, X } from 'lucide-react';
+import { plotStatusVerified, type Plot, type PlotStatus } from '@/data/estates';
+import { experience } from '@/data/experience';
+import { whatsappLink } from '@/data/site';
+import { WhatsAppIcon } from '@/components/site/WhatsAppIcon';
+import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+const fill:Record<PlotStatus,string>={available:'fill-status-available',reserved:'fill-status-reserved',sold:'fill-status-sold'};
+const label:Record<PlotStatus,string>={available:'Available',reserved:'Reserved',sold:'Sold'};
+const rows=[{y:40,from:1,to:12},{y:134,from:13,to:24},{y:280,from:25,to:36},{y:374,from:37,to:40},{y:520,from:41,to:49}];
+const pos=new Map<number,{x:number;y:number}>();
+for(const row of rows)for(let n=row.from;n<=row.to;n++)pos.set(n,{x:40+(n-row.from)*70,y:row.y});
+export function PlotMap({plots,estateName}:{plots:Plot[];estateName:string}) {
+ const [selected,setSelected]=useState<Plot|null>(null);const [availableOnly,setAvailableOnly]=useState(false);const [list,setList]=useState(false);const trigger=useRef<HTMLElement|SVGElement|null>(null);const panel=useRef<HTMLElement|null>(null);
+ const counts=plots.reduce((a,p)=>({...a,[p.status]:(a[p.status]??0)+1}),{} as Record<PlotStatus,number>);
+ const visible=plots.filter(p=>!plotStatusVerified||!availableOnly||p.status==='available');
+ function select(p:Plot,target:EventTarget|null){if(target instanceof HTMLElement||target instanceof SVGElement)trigger.current=target;setSelected(p);}
+ function close(){setSelected(null);trigger.current?.focus();}
+ useEffect(()=>{if(!selected)return;const mobile=window.matchMedia('(max-width:1023px)').matches;if(mobile)panel.current?.querySelector<HTMLButtonElement>('button')?.focus();const key=(e:KeyboardEvent)=>{if(e.key==='Escape'){e.preventDefault();close();}if(e.key==='Tab'&&mobile&&panel.current){const focusable=Array.from(panel.current.querySelectorAll<HTMLElement>('button,a'));const first=focusable[0],last=focusable.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}}};document.addEventListener('keydown',key);return()=>document.removeEventListener('keydown',key);},[selected]);
+ return <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+ <div className="min-w-0 rounded-3xl bg-card p-4 shadow-soft sm:p-6">
+ <div className="mb-4 flex flex-wrap items-center justify-between gap-3"><div className="flex flex-wrap gap-4 text-sm">{plotStatusVerified?(Object.keys(label) as PlotStatus[]).map(s=><span key={s} className="flex items-center gap-2"><span className={`grid h-5 w-5 place-items-center rounded ${s==='available'?'bg-status-available text-primary-foreground':s==='reserved'?'bg-status-reserved text-foreground':'bg-status-sold text-primary-foreground'}`}>{s==='sold'?'×':s==='reserved'?'•':''}</span>{label[s]} ({counts[s]??0})</span>):<span className="font-medium text-primary">{experience.availability}</span>}</div><Button variant="outline" className="min-h-11 rounded-full" onClick={()=>setList(v=>!v)} aria-pressed={list}>{list?<Map/>:<List/>}{list?'Map view':'List view'}</Button></div>
+ {plotStatusVerified&&<div className="mb-4 flex min-h-11 items-center gap-3"><Switch id="available-plots" checked={availableOnly} onCheckedChange={setAvailableOnly}/><label htmlFor="available-plots" className="text-sm font-medium">Available only</label></div>}
+ {list?<div className="max-h-[600px] overflow-auto"><table className="w-full text-left text-sm"><caption className="sr-only">{estateName} plots</caption><thead><tr><th className="p-2">Plot</th><th className="p-2">Size</th><th className="p-2">Zone</th><th className="p-2">Status</th></tr></thead><tbody>{visible.map(p=><tr key={p.number} className="border-t"><td><Button variant="ghost" className="min-h-11" onClick={e=>select(p,e.currentTarget)}>#{p.number}</Button></td><td className="p-2">{p.size}</td><td className="p-2 capitalize">{p.zone}</td><td className="p-2">{plotStatusVerified?label[p.status]:'Confirm on WhatsApp'}</td></tr>)}</tbody></table></div>:<><div className="relative"><div className="overflow-x-auto"><svg viewBox="0 0 920 665" className="w-full min-w-[640px]" role="group" aria-label={`${estateName} illustrative plot map`}>
+ <rect x="10" y="10" width="900" height="645" rx="24" className="fill-background stroke-primary" strokeWidth="3" strokeDasharray="8 6"/>
+ <rect x="30" y="232" width="860" height="40" rx="6" className="fill-muted"/><text x="460" y="258" textAnchor="middle" className="fill-primary text-[18px]">ACCESS ROAD</text>
+ <rect x="30" y="472" width="860" height="40" rx="6" className="fill-muted"/><text x="460" y="498" textAnchor="middle" className="fill-primary text-[18px]">ACCESS ROAD</text>
+ <rect x="320" y="374" width="556" height="90" rx="10" className="fill-park"/><text x="598" y="411" textAnchor="middle" className="fill-primary text-[18px] font-semibold">Green Area &amp; Playground</text><text x="598" y="439" textAnchor="middle" className="fill-primary text-[16px]">Recreational / open zone</text>
+ <rect x="670" y="520" width="206" height="90" rx="10" className="fill-primary"/><text x="773" y="570" textAnchor="middle" className="fill-primary-foreground text-[18px]">MAIN GATE</text>
+ <text x="40" y="33" className="fill-primary text-[16px]">RESIDENTIAL ZONE · PLOTS 1–40</text><text x="40" y="640" className="fill-primary text-[16px]">COMMERCIAL ZONE · PLOTS 41–49</text>
+ {visible.map(p=>{const at=pos.get(p.number);if(!at)return null;const isSelected=selected?.number===p.number;return <g key={p.number} role="button" tabIndex={0} aria-label={`Plot ${p.number}, ${plotStatusVerified?label[p.status]:'availability confirmed on WhatsApp'}`} aria-pressed={isSelected} onClick={e=>select(p,e.currentTarget)} onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(p,e.currentTarget);}}} className="cursor-pointer hover:opacity-80"><rect x={at.x} y={at.y} width="66" height="90" rx="8" className={`${plotStatusVerified?fill[p.status]:'fill-muted'} ${isSelected?'stroke-primary':'stroke-card'}`} strokeWidth={isSelected?4:2}/>{plotStatusVerified&&p.status==='sold'&&<path d={`M${at.x+6} ${at.y+6}l54 78 M${at.x+60} ${at.y+6}l-54 78`} className="stroke-primary-foreground/40" strokeWidth="2"/>}{plotStatusVerified&&p.status==='reserved'&&<circle cx={at.x+54} cy={at.y+12} r="4" className="fill-foreground"/>}<text x={at.x+33} y={at.y+53} textAnchor="middle" className={`pointer-events-none text-[24px] font-semibold ${!plotStatusVerified||p.status==='reserved'?'fill-primary':'fill-primary-foreground'}`}>{p.number}</text></g>;})}
+ </svg></div><div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-map-fade sm:hidden"/></div><p className="mt-3 text-sm text-muted-foreground sm:hidden">{experience.swipeHint}</p></>}
+ </div>
+ {selected?<aside ref={panel} aria-label="Selected plot details" className="fixed inset-x-0 bottom-0 z-50 max-h-[75svh] overflow-y-auto rounded-t-3xl bg-primary p-6 pb-8 text-primary-foreground shadow-lift lg:sticky lg:inset-auto lg:top-28 lg:self-start lg:rounded-3xl"><div className="flex justify-between"><div><p className="eyebrow text-accent">Selected plot</p><h3 className="mt-1 text-4xl">#{selected.number}</h3></div><Button variant="ghost" size="icon" onClick={close} aria-label="Clear selection" className="h-11 w-11 rounded-full bg-primary-foreground/10"><X/></Button></div><dl className="mt-5 space-y-3 text-sm"><div className="flex justify-between"><dt>Size</dt><dd>{selected.size}</dd></div><div className="flex justify-between"><dt>Zone</dt><dd className="capitalize">{selected.zone}</dd></div><div className="flex justify-between gap-4"><dt>Status</dt><dd>{plotStatusVerified?label[selected.status]:'Confirm on WhatsApp'}</dd></div></dl><Button asChild className="mt-6 h-auto min-h-11 w-full whitespace-normal rounded-full bg-whatsapp px-4 py-3 text-whatsapp-foreground"><a href={whatsappLink(`Hello Jemack Properties, I'm interested in Plot ${selected.number} (${selected.size}) at ${estateName}. Please confirm availability.`)} target="_blank" rel="noreferrer"><WhatsAppIcon/>Enquire on WhatsApp</a></Button></aside>:<aside className="hidden self-start rounded-3xl bg-primary p-6 text-primary-foreground lg:block"><p className="eyebrow text-accent">Plot details</p><p className="mt-4 text-base">{experience.availability}</p></aside>}
+ </div>;
 }
