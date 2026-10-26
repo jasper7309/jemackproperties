@@ -1,9 +1,8 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
-import { site, whatsappLink } from "@/data/site";
+import { useEffect, useRef, useState } from "react";
+import { site } from "@/data/site";
 import { estates } from "@/data/estates";
-import { WhatsAppIcon } from "./WhatsAppIcon";
 import { Logo } from "./Logo";
 import { Button } from "@/components/ui/button";
 
@@ -20,12 +19,30 @@ const links = [
 ] as const;
 
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const [atTop, setAtTop] = useState(true);
   const [open, setOpen] = useState(false);
+  const lastY = useRef(0);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setAtTop(y < 10);
+      // hide when scrolling up, show when scrolling down
+      // (standard "hide on scroll-up, show on scroll-down" UX)
+      if (y < 10) {
+        setVisible(true);
+      } else if (y < lastY.current) {
+        // scrolling UP — hide
+        setVisible(false);
+      } else {
+        // scrolling DOWN — show
+        setVisible(true);
+      }
+      lastY.current = y;
+    };
+    lastY.current = window.scrollY;
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -67,15 +84,15 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? "bg-surface shadow-soft" : "pt-4 sm:pt-6"}`}
+      className={[
+        "fixed inset-x-0 top-0 z-50 transition-transform duration-300",
+        // slide off-screen when hidden
+        visible ? "translate-y-0" : "-translate-y-full",
+        // background: transparent at top, solid once scrolled
+        atTop ? "bg-transparent" : "bg-surface shadow-soft",
+      ].join(" ")}
     >
-      <nav
-        className={`site-container flex items-center justify-between gap-4 bg-surface transition-all duration-300 ${
-          scrolled
-            ? "py-3"
-            : "mx-4 rounded-full py-2.5 shadow-soft xl:mx-auto"
-        }`}
-      >
+      <nav className="site-container flex items-center justify-between gap-4 py-4">
         <Link to="/" aria-label={site.name} className="shrink-0">
           <Logo />
         </Link>
@@ -97,24 +114,14 @@ export function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop right actions */}
+        {/* Right actions — Book CTA + hamburger only, no WhatsApp icon */}
         <div className="flex items-center gap-2">
           <a
             href={bookHref}
             className="hidden rounded-full bg-highlight px-5 py-2.5 text-sm font-medium text-highlight-foreground transition hover:brightness-110 sm:inline-flex"
           >
-            <span className="hidden sm:inline lg:hidden">Free Inspection</span>
             <span className="hidden lg:inline">Book a Free Inspection</span>
-          </a>
-          {/* WhatsApp — always green */}
-          <a
-            href={whatsappLink()}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Chat on WhatsApp"
-            className="grid h-11 w-11 place-items-center rounded-full bg-whatsapp text-hero-foreground transition hover:scale-105"
-          >
-            <WhatsAppIcon className="h-5 w-5" />
+            <span className="lg:hidden">Free Inspection</span>
           </a>
           <Button
             variant="ghost"
