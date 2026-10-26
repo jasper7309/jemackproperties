@@ -10,7 +10,6 @@ import type { Estate } from "@/data/estates";
 import { publicPolicy } from "@/data/launch";
 import { whatsappLink } from "@/data/site";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Gallery } from "./Gallery";
 import { Countdown } from "./Countdown";
 import { InspectionForm } from "./InspectionForm";
 import { WhatsAppIcon } from "@/components/site/WhatsAppIcon";
@@ -116,22 +115,27 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
       {/* ── GALLERY — wider mosaic ── */}
       <section className="site-container pb-16 md:pb-20 xl:pb-28">
         <Head eyebrow="Gallery" title="See the estate" />
-        {/* Images at 80% of container width */}
+        {/* Images + video in one 3-column row at 80% width */}
         <div className="w-4/5">
-          <Gallery images={gallery} />
-        </div>
-        {(!e.images || e.images.length === 0) && (
-          <p className="mt-4 text-xs text-muted-foreground">
-            Renders and the plot layout are illustrative only and do not represent the finished estate.
-          </p>
-        )}
-        {/* Estate video */}
-        <div className="mt-8">
-          <p className="mb-3 text-sm font-medium text-primary">Estate walkthrough</p>
-          <OptionalEmbed
-            src="https://www.youtube-nocookie.com/embed/PcUFar8W2Cg"
-            title="Oliveness Garden Estate walkthrough"
-          />
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {gallery.map((img, i) => (
+              <div key={i} className="overflow-hidden rounded-3xl">
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading={i === 0 ? "eager" : "lazy"}
+                  className="aspect-[4/3] w-full object-cover"
+                />
+              </div>
+            ))}
+            {/* YouTube video — same size as each image tile */}
+            <div className="overflow-hidden rounded-3xl">
+              <OptionalEmbed
+                src="https://www.youtube-nocookie.com/embed/PcUFar8W2Cg"
+                title="Oliveness Garden Estate walkthrough"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
