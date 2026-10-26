@@ -57,6 +57,11 @@ export type Property = {
    * Set false to hide from all public listings until ready.
    */
   published: boolean;
+  /**
+   * Set false to exclude from the home page Featured Properties section.
+   * Defaults to true (all published listings are featured unless opted out).
+   */
+  featured?: boolean;
 };
 
 
@@ -349,3 +354,16 @@ export const propertyStates = Array.from(
 export const publishedTypes = Array.from(
   new Set(publishedProperties.map((p) => p.type)),
 ).sort();
+
+/**
+ * Returns published properties eligible for the home page Featured grid.
+ * own listings (listingType "own") come first, then advertised in their
+ * existing order. Listings with featured === false are excluded.
+ * Sliced to `limit` (default 8).
+ */
+export function getFeaturedProperties(limit = 8): Property[] {
+  const eligible = publishedProperties.filter((p) => p.featured !== false);
+  const own = eligible.filter((p) => p.listingType === "own");
+  const advertised = eligible.filter((p) => p.listingType === "advertised");
+  return [...own, ...advertised].slice(0, limit);
+}

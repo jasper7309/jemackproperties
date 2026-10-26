@@ -1,15 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight, ArrowUpRight, Building2, Droplets, ExternalLink, Fence, Fuel,
-  Hammer, HardHat, HeartHandshake, Lamp, Landmark, MapPin,
+  Gem, Hammer, HardHat, HeartHandshake, Lamp, Landmark, MapPin,
   Radio, Route as RoadIcon, Ruler, ShieldCheck, Trees, Users, Waves, Award, BadgeCheck,
 } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import estateImg from "@/assets/estate.jpg";
 import { estates } from "@/data/estates";
+import { getFeaturedProperties, publishedProperties } from "@/data/properties";
 import { services, type Service } from "@/data/services";
 import { site } from "@/data/site";
 import { publicPolicy } from "@/data/launch";
+import { FeaturedPropertyCard } from "@/components/property/FeaturedPropertyCard";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -93,55 +95,63 @@ function Index() {
         </div>
       </section>
 
-      {/* ── FEATURED ESTATE ── */}
-      <section className="site-container py-16 md:py-20 xl:py-28">
-        <SectionHead eyebrow="Our estate" title="Featured estate" />
-        <div className="mt-10">
-          <Link
-            to="/properties/$slug"
-            params={{ slug: estate.slug }}
-            className="group grid overflow-hidden rounded-3xl bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-lift lg:grid-cols-[7fr_5fr]"
-          >
-            <div className="overflow-hidden">
-              <img
-                src={estateImg}
-                alt=""
-                loading="lazy"
-                width={1024}
-                height={768}
-                className="aspect-[4/3] h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-              />
-            </div>
-            <div className="flex min-w-0 flex-col justify-center p-8 xl:p-12">
-              <p className="text-xs font-semibold uppercase tracking-widest text-accent-text">Land</p>
-              <h3 className="mt-1 text-2xl font-semibold text-primary lg:text-3xl">{estate.name}</h3>
-              <p className="mt-1 text-xs text-muted-foreground">Jemack estate</p>
-              <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
-                <span className="flex items-center gap-1"><MapPin className="h-4 w-4" />{estate.location}</span>
-                <span className="flex items-center gap-1"><Ruler className="h-4 w-4" />{estate.plotSize}</span>
-              </div>
-              <p className="mt-4 text-muted-foreground">
-                464m² plots with C of O in Ubulu-Okiti, Asaba. Buy and build in a serene, fully serviced estate.
-              </p>
-              <div className="mt-8 flex items-center justify-between">
-                <span className="text-sm text-primary">Contact us for current terms</span>
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-highlight text-highlight-foreground">
+      {/* ── FEATURED PROPERTIES — dark olive band ── */}
+      {(() => {
+        const featured = getFeaturedProperties(8);
+        if (featured.length === 0) return null;
+        const total = publishedProperties.filter((p) => p.featured !== false).length;
+        const viewLabel = total > 8 ? `View all ${total} properties` : "View all properties";
+        return (
+          <section className="bg-primary py-16 text-primary-foreground md:py-20 xl:py-28">
+            <div className="site-container">
+              {/* Header row */}
+              <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  {/* Outlined pill eyebrow */}
+                  <span className="inline-flex items-center gap-2 rounded-full border border-accent/70 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+                    <Gem className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                    Curated Selection
+                  </span>
+                  {/* H2 — "Featured" light, "Properties" italic accent */}
+                  <h2 className="mt-4 max-w-[18ch] font-display text-4xl font-medium leading-tight sm:text-5xl">
+                    <span className="text-primary-foreground">Featured </span>
+                    <span className="italic text-accent">Properties</span>
+                  </h2>
+                  <p className="mt-3 max-w-[60ch] text-sm text-primary-foreground/70">
+                    Hand-picked land and homes from Jemack and our partner developers.
+                  </p>
+                </div>
+                {/* "View all" button — desktop only here; mobile below grid */}
+                <Link
+                  to="/properties"
+                  className="hidden shrink-0 items-center gap-2 rounded-full border border-primary-foreground/30 px-6 py-3 text-sm font-medium text-primary-foreground transition hover:bg-primary-foreground/10 sm:inline-flex"
+                >
+                  {viewLabel}
                   <ArrowRight className="h-4 w-4" />
-                </span>
+                </Link>
+              </div>
+
+              {/* Cards grid: 1 → 2 → 3 → 4 cols */}
+              <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {featured.map((p) => (
+                  <FeaturedPropertyCard key={p.slug} property={p} />
+                ))}
+              </div>
+
+              {/* "View all" button — mobile, full width */}
+              <div className="mt-8 sm:hidden">
+                <Link
+                  to="/properties"
+                  className="flex w-full items-center justify-center gap-2 rounded-full border border-primary-foreground/30 px-6 py-3.5 text-sm font-medium text-primary-foreground transition hover:bg-primary-foreground/10"
+                >
+                  {viewLabel}
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
               </div>
             </div>
-          </Link>
-        </div>
-        <div className="mt-6">
-          <Link
-            to="/properties"
-            className="inline-flex items-center gap-2 rounded-full border border-primary px-6 py-3 text-sm font-medium text-primary transition hover:bg-primary hover:text-primary-foreground"
-          >
-            View all properties
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </section>
+          </section>
+        );
+      })()}
 
       {/* ── SPOTLIGHT — image bleeds on xl, text beside it ── */}
       <section className="bg-surface py-16 md:py-20 xl:py-28">
