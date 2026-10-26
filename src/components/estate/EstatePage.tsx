@@ -1,8 +1,9 @@
 import {
-import {
   CalendarCheck, CheckCircle2, Download, FileCheck2, Hammer, Landmark,
   MapPin, Ruler, ShieldCheck,
-} from "lucide-react";import hero from "@/assets/hero.jpg";
+} from "lucide-react";
+import { useState } from "react";
+import hero from "@/assets/hero.jpg";
 import estateImg from "@/assets/estate.jpg";
 import land from "@/assets/land.jpg";
 import type { Estate } from "@/data/estates";
