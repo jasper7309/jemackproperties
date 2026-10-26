@@ -25,8 +25,6 @@ export type Estate = {
   plots: Plot[];
   /** Real photos of the estate for the gallery. */
   images?: { src: string; alt: string; caption?: string }[];
-  /** URL of the official survey/plot-map image. When set, shown instead of the SVG map. */
-  plotMapImageUrl?: string;
   plotStatusVerified: boolean;
 };
 
@@ -98,7 +96,5 @@ export const estates: Estate[] = [
       { src: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793045123/photo_2026-10-26_21-04-15_x5ltzy.jpg", alt: "Oliveness Garden Estate site", caption: "On-site photo" },
       { src: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793045123/photo_2026-10-26_21-04-01_oqimoe.jpg", alt: "Oliveness Garden Estate site view", caption: "On-site photo" },
     ],
-    // Set this to the Cloudinary URL of the uploaded survey/plot-map image once available
-    plotMapImageUrl: undefined,
   },
 ];

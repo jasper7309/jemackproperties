@@ -12,7 +12,6 @@ import { whatsappLink } from "@/data/site";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Gallery } from "./Gallery";
 import { Countdown } from "./Countdown";
-import { PlotMap } from "./PlotMap";
 import { InspectionForm } from "./InspectionForm";
 import { WhatsAppIcon } from "@/components/site/WhatsAppIcon";
 
@@ -127,36 +126,29 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
       {/* ── PLOT MAP ── */}
       <section id="plot-map" className="scroll-mt-28 bg-surface py-16 md:py-20 xl:py-28">
         <div className="site-container">
-          <Head eyebrow="Plot map" title="Choose your plot" />
-          {e.plotMapImageUrl ? (
-            <div className="space-y-4">
-              {/* Show the official survey image in full */}
-              <div className="overflow-hidden rounded-3xl border bg-white shadow-soft">
-                <img
-                  src={e.plotMapImageUrl}
-                  alt={`Official plot layout for ${e.name}`}
-                  width={1200}
-                  height={900}
-                  loading="lazy"
-                  className="w-full object-contain"
-                />
-              </div>
-              <p className="text-xs text-muted-foreground">
-                Official survey layout — Oliveness Garden Estate, Ubulu-Okiti, Asaba. Total area: 28,666.701 sq metres.
-              </p>
-              <a
-                href={whatsappLink(`Hello Jemack Properties, I'd like to enquire about an available plot at ${e.name}.`)}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-whatsapp px-6 py-3 text-sm font-medium text-white transition hover:brightness-110"
-              >
-                <WhatsAppIcon className="h-4 w-4" />
-                Enquire about a plot on WhatsApp
-              </a>
-            </div>
-          ) : (
-            <PlotMap plots={e.plots} estateName={e.name} plotStatusVerified={e.plotStatusVerified} />
-          )}
+          <Head eyebrow="Plot map" title="Estate layout" />
+          <div className="overflow-hidden rounded-3xl border bg-white shadow-soft">
+            <img
+              src="https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793045123/photo_2026-10-26_21-04-01_oqimoe.jpg"
+              alt={`Official plot layout for ${e.name}`}
+              width={1200}
+              height={900}
+              loading="lazy"
+              className="w-full object-contain"
+            />
+          </div>
+          <p className="mt-3 text-xs text-muted-foreground">
+            Official survey layout — Oliveness Garden Estate, Ubulu-Okiti, Asaba. Total area: 28,666.701 sq metres.
+          </p>
+          <a
+            href={whatsappLink(`Hello Jemack Properties, I'd like to enquire about an available plot at ${e.name}.`)}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-5 inline-flex items-center gap-2 rounded-full bg-whatsapp px-6 py-3 text-sm font-medium text-white transition hover:brightness-110"
+          >
+            <WhatsAppIcon className="h-4 w-4" />
+            Enquire about a plot on WhatsApp
+          </a>
         </div>
       </section>
 
