@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { Building2, FileCheck2, Home, Landmark, MapPin, Ruler } from "lucide-react";
-import { pageCopy } from "@/data/pages";
 import { statusLabels, type Property } from "@/data/properties";
 
 // ── Placeholder tile when no image is available ───────────────────────────────
@@ -102,11 +101,6 @@ export function FeaturedPropertyCard({ property: p }: { property: Property }) {
 
       {/* ── Body ── */}
       <div className="flex flex-1 flex-col p-6">
-        {/* Price on request — display serif, prominent */}
-        <p className="font-display text-2xl text-primary-foreground/90">
-          {pageCopy.pricing.enquire}
-        </p>
-
         {/* Title — clamped to 3 lines */}
         <h3 className="mt-2 line-clamp-3 text-lg font-semibold leading-snug text-primary-foreground">
           {p.title}
