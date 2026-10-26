@@ -39,18 +39,36 @@ function Faqs() {
         <h1 className="mt-3 max-w-[24ch] text-4xl font-semibold text-primary sm:text-5xl">{pageCopy.faqs.title}</h1>
         <p className="mt-4 measure text-muted-foreground">{pageCopy.faqs.intro}</p>
 
-        {/* Two-column: sticky category nav left, accordions right */}
-        <div className="mt-12 grid gap-10 lg:grid-cols-[220px_1fr] xl:gap-14">
+        {/* C.FAQs — horizontally scrolling category chips on mobile */}
+        <nav
+          aria-label="FAQ categories"
+          className="mt-8 -mx-5 overflow-x-auto px-5 lg:hidden"
+          style={{ scrollbarWidth: "none" }}
+        >
+          <div className="flex gap-2 pb-2">
+            {faqGroups.map((g) => (
+              <a
+                key={g.category}
+                href={`#faq-${g.category.toLowerCase().replace(/\s+/g, '-')}`}
+                className="flex h-11 shrink-0 items-center rounded-full border border-border px-4 text-sm font-medium text-primary whitespace-nowrap transition hover:bg-secondary"
+              >
+                {g.category}
+              </a>
+            ))}
+          </div>
+        </nav>
 
-          {/* Sticky category nav */}
-          <nav aria-label="FAQ categories" className="lg:sticky lg:top-28 lg:self-start">
+        {/* Two-column: sticky category nav left (lg+), accordions right */}
+        <div className="mt-8 grid gap-8 lg:mt-12 lg:grid-cols-[220px_1fr] xl:gap-14">
+          {/* Sticky category nav — desktop only */}
+          <nav aria-label="FAQ categories" className="hidden lg:sticky lg:top-28 lg:self-start lg:block">
             <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Categories</p>
             <ul className="mt-3 space-y-1">
               {faqGroups.map((g) => (
                 <li key={g.category}>
                   <a
                     href={`#faq-${g.category.toLowerCase().replace(/\s+/g, '-')}`}
-                    className="block rounded-2xl px-3 py-2 text-sm font-medium text-primary transition hover:bg-secondary"
+                    className="block rounded-2xl px-3 py-2 text-sm font-medium text-primary transition hover:bg-secondary min-h-[44px] flex items-center"
                   >
                     {g.category}
                   </a>
@@ -60,9 +78,9 @@ function Faqs() {
           </nav>
 
           {/* FAQ groups */}
-          <div className="space-y-12">
+          <div className="space-y-10">
             {faqGroups.map((g) => (
-              <section key={g.category} id={`faq-${g.category.toLowerCase().replace(/\s+/g, '-')}`} className="scroll-mt-28">
+              <section key={g.category} id={`faq-${g.category.toLowerCase().replace(/\s+/g, '-')}`} className="scroll-mt-24">
                 <h2 className="mb-4 text-2xl text-primary">{g.category}</h2>
                 <FaqList items={g.items} />
               </section>

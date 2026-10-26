@@ -11,15 +11,15 @@ import { pageCopy } from "@/data/pages";
  * :focus-visible in styles.css also applies.
  */
 export const inputClass =
-  "w-full rounded-2xl border-2 border-[#8a8a7a] bg-background px-4 py-3 text-base transition " +
+  "w-full min-h-[3rem] rounded-2xl border-2 border-[#8a8a7a] bg-background px-4 py-3 text-base transition " +
   "focus:border-primary focus:ring-2 focus:ring-primary focus:ring-offset-2 " +
-  "sm:text-sm";
+  "scroll-mt-24";
 
 /** Same but for use inside dark (bg-primary) sections */
 export const inputClassLight =
-  "w-full rounded-2xl border-2 border-primary-foreground/40 bg-primary-foreground/10 px-4 py-3 text-base text-primary-foreground placeholder:text-primary-foreground/50 transition " +
+  "w-full min-h-[3rem] rounded-2xl border-2 border-primary-foreground/40 bg-primary-foreground/10 px-4 py-3 text-base text-primary-foreground placeholder:text-primary-foreground/50 transition " +
   "focus:border-primary-foreground focus:ring-2 focus:ring-primary-foreground focus:ring-offset-2 focus:ring-offset-primary " +
-  "sm:text-sm";
+  "scroll-mt-24";
 
 export function Field({
   label,

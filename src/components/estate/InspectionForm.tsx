@@ -113,26 +113,49 @@ export function InspectionForm({ estateName }: { estateName: string }) {
       ref={formRef}
       onSubmit={submit}
       noValidate
-      className="grid gap-4 rounded-3xl bg-card p-6 shadow-soft sm:grid-cols-2 sm:p-8"
+      className="grid gap-4 rounded-3xl bg-card p-5 shadow-soft sm:grid-cols-2 sm:p-8"
     >
       <Field label="Full name" error={errors.name}>
-        <input name="name" className={inputClass} autoComplete="name" placeholder="e.g. Emeka Obi" />
+        <input
+          name="name"
+          className={inputClass}
+          autoComplete="name"
+          inputMode="text"
+          enterKeyHint="next"
+          placeholder="e.g. Emeka Obi"
+        />
       </Field>
 
       <Field label="Phone" error={errors.phone}>
-        <input name="phone" type="tel" className={inputClass} autoComplete="tel" placeholder="e.g. 0803 000 0000" />
+        <input
+          name="phone"
+          type="tel"
+          className={inputClass}
+          autoComplete="tel"
+          inputMode="tel"
+          enterKeyHint="next"
+          placeholder="e.g. 0803 000 0000"
+        />
       </Field>
 
       <Field label="Email" error={errors.email} optional>
-        <input name="email" type="email" className={inputClass} autoComplete="email" placeholder="e.g. emeka@email.com" />
+        <input
+          name="email"
+          type="email"
+          className={inputClass}
+          autoComplete="email"
+          inputMode="email"
+          enterKeyHint="next"
+          placeholder="e.g. emeka@email.com"
+        />
       </Field>
 
-      {/* Date + people on same row on desktop */}
+      {/* Date + people — stacked on mobile, side by side on sm */}
       <div className="sm:col-span-2 grid gap-4 sm:grid-cols-2">
         <div>
-          {/* Quick-pick chips */}
-          <div className="mb-2 flex flex-wrap gap-2">
-            <span className="text-xs font-medium text-primary self-center">Quick pick:</span>
+          {/* Quick-pick chips — horizontally scrollable on mobile */}
+          <div className="-mx-1 mb-2 flex gap-2 overflow-x-auto px-1 pb-1" style={{ scrollbarWidth: "none" }}>
+            <span className="shrink-0 self-center text-xs font-medium text-primary">Quick pick:</span>
             {[
               { label: "This weekend", iso: nextWeekendDate() },
               { label: "Next week", iso: nextWeekDate() },
@@ -141,7 +164,7 @@ export function InspectionForm({ estateName }: { estateName: string }) {
                 key={label}
                 type="button"
                 onClick={() => setQuickDate(iso)}
-                className={`rounded-full border px-3 py-1 text-xs font-medium transition min-h-[32px]
+                className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-medium transition min-h-[36px]
                   ${selectedDate === iso
                     ? "border-primary bg-primary text-primary-foreground"
                     : "border-border text-primary hover:border-primary"}`}
@@ -164,7 +187,7 @@ export function InspectionForm({ estateName }: { estateName: string }) {
 
         {/* People stepper */}
         <Field label="Number of people" error={errors.people}>
-          <div className="flex items-center gap-3">
+          <div className="flex h-12 items-center gap-3">
             <button
               type="button"
               aria-label="Decrease people"
@@ -189,7 +212,6 @@ export function InspectionForm({ estateName }: { estateName: string }) {
               <Plus className="h-4 w-4" />
             </button>
           </div>
-          {/* Hidden input carries value for FormData */}
           <input type="hidden" name="people" value={people} />
         </Field>
       </div>
@@ -200,6 +222,7 @@ export function InspectionForm({ estateName }: { estateName: string }) {
             name="message"
             rows={3}
             maxLength={500}
+            enterKeyHint="send"
             placeholder="Any questions or special requirements?"
             className={inputClass}
           />
@@ -218,7 +241,7 @@ export function InspectionForm({ estateName }: { estateName: string }) {
         type="submit"
         disabled={submitting}
         aria-busy={submitting}
-        className="flex items-center justify-center gap-2 rounded-full bg-highlight px-7 py-3.5 font-medium text-highlight-foreground transition hover:brightness-110 disabled:opacity-60 sm:col-span-2"
+        className="flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full bg-highlight font-medium text-highlight-foreground transition hover:brightness-110 disabled:opacity-60 sm:col-span-2"
       >
         <WhatsAppIcon className="h-5 w-5" />
         Book My Free Inspection on WhatsApp

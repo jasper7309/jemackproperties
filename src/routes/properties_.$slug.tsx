@@ -130,16 +130,16 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
         )}
       </section>
 
-      <div className="site-container mt-12 grid gap-10 lg:grid-cols-[1fr_360px] xl:gap-14">
+      <div className="site-container mt-10 grid gap-8 lg:grid-cols-[1fr_360px] xl:gap-14">
         {/* ── Left column ── */}
-        <div className="space-y-10">
+        <div className="space-y-8 pb-24 lg:pb-0">
           <section>
-            <h2 className="text-2xl font-semibold text-primary">Key details</h2>
-            <dl className="mt-5 grid gap-3 sm:grid-cols-2">
+            <h2 className="text-xl font-semibold text-primary sm:text-2xl">Key details</h2>
+            <dl className="mt-4 grid grid-cols-2 gap-3">
               {facts.map((f) => (
-                <div key={f.label} className="rounded-2xl bg-card px-5 py-4 shadow-soft">
+                <div key={f.label} className="rounded-2xl bg-card px-4 py-3 shadow-soft">
                   <dt className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{f.label}</dt>
-                  <dd className="mt-1 font-medium text-primary">{f.value}</dd>
+                  <dd className="mt-1 text-sm font-medium text-primary sm:text-base">{f.value}</dd>
                 </div>
               ))}
             </dl>
@@ -147,11 +147,11 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
 
           {p.features && p.features.length > 0 && (
             <section>
-              <h2 className="text-2xl font-semibold text-primary">
+              <h2 className="text-xl font-semibold text-primary sm:text-2xl">
                 Estate features{" "}
                 <span className="text-base font-normal text-muted-foreground">(as supplied by the developer)</span>
               </h2>
-              <ul className="mt-5 grid gap-2 sm:grid-cols-2">
+              <ul className="mt-4 grid gap-2 sm:grid-cols-2">
                 {p.features.map((f) => (
                   <li key={f} className="flex items-center gap-3 rounded-2xl bg-card px-4 py-3 shadow-soft text-sm">
                     <ShieldCheck className="h-4 w-4 shrink-0 text-accent" />
@@ -164,11 +164,11 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
 
           {p.landmarks && p.landmarks.length > 0 && (
             <section>
-              <h2 className="text-2xl font-semibold text-primary">
+              <h2 className="text-xl font-semibold text-primary sm:text-2xl">
                 Nearby{" "}
                 <span className="text-base font-normal text-muted-foreground">(as supplied by the developer)</span>
               </h2>
-              <ul className="mt-5 space-y-2">
+              <ul className="mt-4 space-y-2">
                 {p.landmarks.map((l) => (
                   <li key={l} className="flex items-center gap-3 rounded-2xl bg-card px-4 py-3 shadow-soft text-sm">
                     <Landmark className="h-4 w-4 shrink-0 text-accent" />
@@ -179,12 +179,13 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
             </section>
           )}
 
-          <section className="rounded-3xl border border-border bg-secondary p-6">
-            <h2 className="flex items-center gap-2 text-lg font-semibold text-primary">
+          {/* C.Property — collapsible "Before you pay", closed by default */}
+          <details className="rounded-3xl border border-border bg-secondary">
+            <summary className="flex min-h-[52px] cursor-pointer list-none items-center gap-2 rounded-3xl px-5 py-3 text-base font-semibold text-primary">
               <AlertCircle className="h-5 w-5 shrink-0 text-accent-text" />
               Before you pay
-            </h2>
-            <ul className="mt-4 space-y-2 text-sm text-foreground">
+            </summary>
+            <ul className="space-y-2 px-5 pb-5 pt-1 text-sm text-foreground">
               {[
                 "Request the title documents, survey and draft sale agreement before committing.",
                 "Take independent legal advice.",
@@ -196,30 +197,30 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
                 </li>
               ))}
             </ul>
-          </section>
+          </details>
 
-          <p className="border-t pt-6 text-xs text-muted-foreground">
+          <p className="border-t pt-5 text-xs text-muted-foreground">
             Listing details are supplied by the developer. Availability, title and terms must be confirmed in writing before payment.
           </p>
         </div>
 
-        {/* ── Right column — sticky CTA ── */}
-        <aside className="space-y-4 lg:sticky lg:top-28 lg:self-start">
+        {/* ── Desktop: sticky right CTA ── */}
+        <aside className="hidden space-y-4 lg:sticky lg:top-28 lg:self-start lg:block">
           <div className="rounded-3xl bg-primary p-6 text-primary-foreground shadow-lift">
             <p className="text-sm text-primary-foreground/70">Interested in this property?</p>
             <p className="mt-1 font-display text-xl font-semibold">{p.title}</p>
             <a href={inspectUrl} target="_blank" rel="noreferrer"
-              className="mt-5 flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-highlight px-5 py-3 text-sm font-medium text-highlight-foreground transition hover:brightness-110">
+              className="mt-5 flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-highlight px-5 text-sm font-medium text-highlight-foreground transition hover:brightness-110">
               <CalendarCheck className="h-4 w-4 shrink-0" />
               Book a Free Inspection
             </a>
             <a href={priceUrl} target="_blank" rel="noreferrer"
-              className="mt-3 flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-whatsapp px-5 py-3 text-sm font-medium text-white transition hover:brightness-110">
+              className="mt-3 flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-whatsapp px-5 text-sm font-medium text-white transition hover:brightness-110">
               <WhatsAppIcon className="h-4 w-4 shrink-0" />
               Get price &amp; payment plan on WhatsApp
             </a>
             <a href={`tel:${primaryPhone.tel}`}
-              className="mt-3 flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-primary-foreground/30 px-5 py-3 text-sm font-medium text-primary-foreground transition hover:bg-primary-foreground/10">
+              className="mt-3 flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-primary-foreground/30 px-5 text-sm font-medium text-primary-foreground transition hover:bg-primary-foreground/10">
               <Phone className="h-4 w-4 shrink-0" />
               {primaryPhone.display}
             </a>
@@ -235,6 +236,31 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
             </Link>
           </div>
         </aside>
+      </div>
+
+      {/* C.Property — mobile sticky bottom bar */}
+      <div
+        className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-3 border-t border-border bg-surface px-4 py-3 lg:hidden"
+        style={{ paddingBottom: `max(0.75rem, env(safe-area-inset-bottom))` }}
+      >
+        <a
+          href={inspectUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-highlight px-4 text-sm font-medium text-highlight-foreground"
+        >
+          <CalendarCheck className="h-4 w-4 shrink-0" />
+          Book Free Inspection
+        </a>
+        <a
+          href={priceUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-whatsapp px-4 text-sm font-medium text-white"
+        >
+          <WhatsAppIcon className="h-4 w-4 shrink-0" />
+          Price on WhatsApp
+        </a>
       </div>
     </main>
   );

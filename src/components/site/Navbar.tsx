@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { Menu, Phone, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { site, whatsappLink } from "@/data/site";
 import { estates } from "@/data/estates";
@@ -37,7 +37,10 @@ export function Navbar() {
     if (!open) return;
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    document.querySelector<HTMLButtonElement>('[aria-label="Close menu"]')?.focus();
+    // A.12 — first focus on Close button
+    setTimeout(() => {
+      document.querySelector<HTMLButtonElement>('[aria-label="Close menu"]')?.focus();
+    }, 50);
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setOpen(false);
@@ -67,20 +70,24 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? "bg-surface shadow-soft" : "pt-4 sm:pt-6"}`}
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-surface shadow-soft" : "pt-3 sm:pt-6"
+      }`}
+      style={{ paddingTop: scrolled ? undefined : `max(0.75rem, env(safe-area-inset-top))` }}
     >
       <nav
-        className={`site-container flex items-center justify-between gap-4 bg-surface transition-all duration-300 ${
+        className={`site-container flex items-center justify-between gap-3 bg-surface transition-all duration-300 ${
           scrolled
             ? "py-3"
-            : "mx-4 rounded-full py-2.5 shadow-soft xl:mx-auto"
+            : "mx-4 rounded-full py-2 shadow-soft xl:mx-auto"
         }`}
       >
+        {/* Logo */}
         <Link to="/" aria-label={site.name} className="shrink-0">
           <Logo />
         </Link>
 
-        {/* Desktop nav links */}
+        {/* Desktop nav */}
         <ul className="hidden items-center gap-6 lg:flex">
           {links.map((l) => (
             <li key={l.to}>
@@ -97,25 +104,27 @@ export function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop right actions */}
+        {/* Right actions */}
         <div className="flex items-center gap-2">
+          {/* "Book" CTA — visible from sm, hidden on the tiniest phones to save space */}
           <a
             href={bookHref}
-            className="hidden rounded-full bg-highlight px-5 py-2.5 text-sm font-medium text-highlight-foreground transition hover:brightness-110 sm:inline-flex"
+            className="hidden rounded-full bg-highlight px-4 py-2.5 text-sm font-medium text-highlight-foreground transition hover:brightness-110 min-h-[44px] items-center sm:inline-flex"
           >
-            <span className="hidden sm:inline lg:hidden">Free Inspection</span>
+            <span className="sm:inline lg:hidden">Free Inspection</span>
             <span className="hidden lg:inline">Book a Free Inspection</span>
           </a>
-          {/* WhatsApp — always green */}
+          {/* WhatsApp — always green, 44×44 */}
           <a
             href={whatsappLink()}
             target="_blank"
             rel="noreferrer"
             aria-label="Chat on WhatsApp"
-            className="grid h-11 w-11 place-items-center rounded-full bg-whatsapp text-hero-foreground transition hover:scale-105"
+            className="grid h-11 w-11 place-items-center rounded-full bg-whatsapp text-white transition hover:scale-105"
           >
             <WhatsAppIcon className="h-5 w-5" />
           </a>
+          {/* Hamburger — 44×44, hidden on lg+ */}
           <Button
             variant="ghost"
             size="icon"
@@ -130,32 +139,51 @@ export function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile menu */}
+      {/* ── Mobile menu drawer ── A.12 */}
       {open && (
         <div
           id="mobile-menu"
           role="dialog"
           aria-modal="true"
           aria-label="Navigation"
-          className="fixed inset-0 z-50 flex flex-col bg-primary p-6 text-primary-foreground animate-in fade-in lg:hidden"
+          className="fixed inset-0 z-60 flex flex-col overflow-y-auto bg-primary text-primary-foreground animate-in fade-in lg:hidden"
+          style={{
+            paddingTop: `max(1.5rem, env(safe-area-inset-top))`,
+            paddingBottom: `max(1.5rem, env(safe-area-inset-bottom))`,
+            paddingLeft: `max(1.5rem, env(safe-area-inset-left))`,
+            paddingRight: `max(1.5rem, env(safe-area-inset-right))`,
+          }}
         >
+          {/* Header row */}
           <div className="flex items-center justify-between">
             <Logo inverted />
-            <Button
+            <button
               onClick={() => setOpen(false)}
               aria-label="Close menu"
               className="grid h-11 w-11 place-items-center rounded-full bg-primary-foreground/10"
             >
-              <X />
-            </Button>
+              <X className="h-5 w-5" />
+            </button>
           </div>
-          <ul className="mt-8 flex flex-col gap-5">
+
+          {/* Primary CTA — first item per A.12 */}
+          <a
+            href={bookHref}
+            className="mt-8 flex min-h-[52px] items-center justify-center rounded-full bg-highlight px-6 font-medium text-highlight-foreground"
+          >
+            Book a Free Inspection
+          </a>
+
+          {/* Page links — 48px rows */}
+          <ul className="mt-6 flex flex-col divide-y divide-primary-foreground/10">
             {links.map((l) => (
               <li key={l.to}>
                 <Link
                   to={l.to}
-                  className="font-display text-3xl"
-                  activeProps={{ className: "font-display text-3xl underline decoration-accent underline-offset-4" }}
+                  className="flex min-h-[52px] items-center font-display text-2xl"
+                  activeProps={{
+                    className: "flex min-h-[52px] items-center font-display text-2xl underline decoration-accent underline-offset-4",
+                  }}
                   aria-current={pathname === l.to ? "page" : undefined}
                 >
                   {l.label}
@@ -163,12 +191,32 @@ export function Navbar() {
               </li>
             ))}
           </ul>
-          <a
-            href={bookHref}
-            className="mt-auto rounded-full bg-highlight px-6 py-4 text-center font-medium text-highlight-foreground"
-          >
-            Book a Free Inspection
-          </a>
+
+          {/* Bottom row — Call + WhatsApp + Email per A.12 */}
+          <div className="mt-auto pt-8 space-y-3">
+            <a
+              href={`tel:${site.phones[0].tel}`}
+              className="flex min-h-[48px] items-center gap-3 rounded-full border border-primary-foreground/30 px-5 text-sm font-medium text-primary-foreground"
+            >
+              <Phone className="h-4 w-4 shrink-0 text-accent" />
+              {site.phones[0].display}
+            </a>
+            <a
+              href={whatsappLink()}
+              target="_blank"
+              rel="noreferrer"
+              className="flex min-h-[48px] items-center gap-3 rounded-full bg-whatsapp px-5 text-sm font-medium text-white"
+            >
+              <WhatsAppIcon className="h-4 w-4 shrink-0" />
+              Chat on WhatsApp
+            </a>
+            <a
+              href={`mailto:${site.emails[0]}`}
+              className="block truncate text-sm text-primary-foreground/60 underline underline-offset-4"
+            >
+              {site.emails[0]}
+            </a>
+          </div>
         </div>
       )}
     </header>
