@@ -102,7 +102,7 @@
   }
 
   html { scroll-padding-top: 7rem; }
-  body { overflow-wrap: break-word; }
+  body { overflow-wrap: break-word; line-height: 1.65; }
   button, input, select, textarea { min-width: 0; }
   .grid > * { min-width: 0; }
 
@@ -128,10 +128,10 @@
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: none; }
 }
-@utility animate-fade-up { animation: fade-up 0.9s cubic-bezier(.2,.7,.2,1) both; }
+@utility animate-fade-up { animation: fade-up 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
 
 /* ── Plot status colours — WCAG AA fills ── */
 :root {

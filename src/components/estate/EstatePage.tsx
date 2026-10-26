@@ -67,14 +67,14 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
           <span className="eyebrow animate-fade-up rounded-full bg-highlight px-3 py-1 text-highlight-foreground">
             Pre-launch
           </span>
-          <h1 className="mt-5 animate-fade-up text-4xl font-semibold sm:text-6xl">{e.name}</h1>
-          <p className="mt-3 animate-fade-up font-display text-2xl italic text-accent">{e.tagline}</p>
-          <p className="mt-5 flex max-w-2xl animate-fade-up items-start gap-2 text-hero-foreground/85">
+          <h1 className="mt-5 animate-fade-up text-4xl font-semibold sm:text-5xl">{e.name}</h1>
+          <p className="mt-3 animate-fade-up font-display text-xl italic text-accent [animation-delay:80ms]">{e.tagline}</p>
+          <p className="mt-5 flex max-w-2xl animate-fade-up items-start gap-2 text-hero-foreground/85 [animation-delay:160ms]">
             <MapPin className="mt-1 h-5 w-5 shrink-0 text-accent" />
             {e.fullAddress}
           </p>
           {/* Inline hero CTAs */}
-          <div className="mt-8 flex animate-fade-up flex-wrap gap-3 [animation-delay:360ms]">
+          <div className="mt-8 flex animate-fade-up flex-wrap gap-3 [animation-delay:240ms]">
             <a
               href="#book"
               className="rounded-full bg-highlight px-7 py-3.5 font-medium text-highlight-foreground transition hover:brightness-110"

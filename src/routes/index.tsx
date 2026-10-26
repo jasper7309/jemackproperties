@@ -65,14 +65,14 @@ function Index() {
         <div className="relative mx-auto w-full max-w-7xl px-6 pt-28 pb-32">
           <div className="max-w-2xl text-hero-foreground">
             <p className="eyebrow animate-fade-up text-accent">Pre-launch · Asaba, Delta State</p>
-            <h1 className="mt-4 animate-fade-up text-4xl font-semibold leading-tight [animation-delay:120ms] sm:text-6xl">
+            <h1 className="mt-4 animate-fade-up text-4xl font-semibold leading-tight [animation-delay:80ms] sm:text-5xl">
               Own Land in Asaba with C&nbsp;of&nbsp;O
             </h1>
-            <p className="mt-6 max-w-xl animate-fade-up text-base text-hero-foreground/85 [animation-delay:240ms] sm:text-lg">
+            <p className="mt-6 max-w-xl animate-fade-up text-base text-hero-foreground/85 [animation-delay:180ms] sm:text-lg">
               Oliveness Garden Estate: 464m² plots with paved roads, drainage, street lights and 24/7 security.
               Backed by Jemack's engineering team, so you can buy and build with one company.
             </p>
-            <div className="mt-8 flex animate-fade-up flex-wrap gap-3 [animation-delay:360ms]">
+            <div className="mt-8 flex animate-fade-up flex-wrap gap-3 [animation-delay:260ms]">
               <a
                 href={bookHref}
                 className="rounded-full bg-highlight px-7 py-3.5 font-medium text-highlight-foreground transition hover:brightness-110"
@@ -88,8 +88,8 @@ function Index() {
                 View the Estate
               </Link>
             </div>
-            {/* Plain text badge — no avatar chips */}
-            <p className="mt-8 animate-fade-up rounded-full border border-hero-foreground/30 px-5 py-2.5 text-sm text-hero-foreground/80 [animation-delay:480ms] inline-block">
+            {/* Plain text badge */}
+            <p className="mt-8 animate-fade-up rounded-full border border-hero-foreground/30 px-5 py-2.5 text-sm text-hero-foreground/80 [animation-delay:340ms] inline-block">
               464m² plots · Certificate of Occupancy
             </p>
           </div>
@@ -328,7 +328,7 @@ function Index() {
 
       {/* ── WHY JEMACK ── */}
       <section className="mx-auto max-w-7xl px-6 py-24">
-        <SectionHead eyebrow="Why Jemack" title="Built on trust, delivered with care" />
+        <SectionHead eyebrow="Why Jemack" title="Trusted delivery since 2008" />
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
           {[
             { icon: Award, t: "Proven delivery", d: "Track record on large projects." },
@@ -338,7 +338,7 @@ function Index() {
             { icon: BadgeCheck, t: "Reputable firm", d: "A registered, trusted company." },
           ].map(({ icon: Icon, t, d }) => (
             <div key={t} className="rounded-3xl bg-card p-6 text-center shadow-soft">
-              <Icon className="mx-auto h-8 w-8 text-accent" />
+              <Icon className="mx-auto h-6 w-6 text-accent" />
               <h3 className="mt-4 text-lg font-semibold text-primary">{t}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{d}</p>
             </div>

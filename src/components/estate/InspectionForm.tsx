@@ -54,6 +54,7 @@ function formatDate(iso: string) {
 export function InspectionForm({ estateName }: { estateName: string }) {
   const [errors, setErrors] = useState<Partial<Record<keyof z.infer<typeof schema>, string>>>({});
   const [done, setDone] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [people, setPeople] = useState(1);
   const [selectedDate, setSelectedDate] = useState("");
   const [whatsappUrl, setWhatsappUrl] = useState<string>();
@@ -68,8 +69,8 @@ export function InspectionForm({ estateName }: { estateName: string }) {
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (submitting) return;
     const raw = Object.fromEntries(new FormData(e.currentTarget));
-    // inject stepper value (not a real input)
     raw.people = String(people);
     const parsed = schema.safeParse(raw);
     if (!parsed.success) {
@@ -77,6 +78,7 @@ export function InspectionForm({ estateName }: { estateName: string }) {
       if (formRef.current) focusFirstError(formRef.current);
       return;
     }
+    setSubmitting(true);
     const d = parsed.data;
     const msg = [
       `Hello Jemack Properties, I'd like to book an inspection at ${estateName}.`,
@@ -92,6 +94,7 @@ export function InspectionForm({ estateName }: { estateName: string }) {
     setWhatsappUrl(url);
     setErrors({});
     setDone(true);
+    setSubmitting(false);
   };
 
   if (done) {
@@ -213,7 +216,9 @@ export function InspectionForm({ estateName }: { estateName: string }) {
 
       <button
         type="submit"
-        className="flex items-center justify-center gap-2 rounded-full bg-highlight px-7 py-3.5 font-medium text-highlight-foreground transition hover:brightness-110 sm:col-span-2"
+        disabled={submitting}
+        aria-busy={submitting}
+        className="flex items-center justify-center gap-2 rounded-full bg-highlight px-7 py-3.5 font-medium text-highlight-foreground transition hover:brightness-110 disabled:opacity-60 sm:col-span-2"
       >
         <WhatsAppIcon className="h-5 w-5" />
         Book My Free Inspection on WhatsApp

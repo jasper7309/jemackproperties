@@ -70,7 +70,7 @@ export function SuccessCard({
   onReset: () => void;
 }) {
   return (
-    <div className="rounded-3xl bg-card p-10 text-center shadow-soft">
+    <div role="status" aria-live="polite" className="rounded-3xl bg-card p-10 text-center shadow-soft">
       <CheckCircle2 className="mx-auto h-14 w-14 text-status-available" />
       <h3 className="mt-4 text-2xl font-semibold text-primary">{title}</h3>
       <p className="mt-2 text-muted-foreground">{text}</p>

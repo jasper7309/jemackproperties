@@ -206,22 +206,22 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
           )}
 
           {/* Before you pay */}
-          <section className="rounded-3xl border border-amber-200 bg-amber-50 p-6">
-            <h2 className="flex items-center gap-2 text-lg font-semibold text-amber-800">
-              <AlertCircle className="h-5 w-5 shrink-0" />
+          <section className="rounded-3xl border border-border bg-secondary p-6">
+            <h2 className="flex items-center gap-2 text-lg font-semibold text-primary">
+              <AlertCircle className="h-5 w-5 shrink-0 text-accent-text" />
               Before you pay
             </h2>
-            <ul className="mt-4 space-y-2 text-sm text-amber-900">
+            <ul className="mt-4 space-y-2 text-sm text-foreground">
               <li className="flex items-start gap-2">
-                <span className="mt-0.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-600" />
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-text" />
                 Request the title documents, survey and draft sale agreement before committing.
               </li>
               <li className="flex items-start gap-2">
-                <span className="mt-0.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-600" />
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-text" />
                 Take independent legal advice.
               </li>
               <li className="flex items-start gap-2">
-                <span className="mt-0.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-600" />
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-text" />
                 Confirm payment instructions through an independently verified Jemack contact.
               </li>
             </ul>

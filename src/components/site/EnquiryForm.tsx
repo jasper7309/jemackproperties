@@ -26,13 +26,14 @@ type Fields = keyof z.infer<typeof schema>;
 export function EnquiryForm({ service, topics = false }: { service?: string; topics?: boolean }) {
   const [errors, setErrors] = useState<Partial<Record<Fields, string>>>({});
   const [ready, setReady] = useState<string>();
+  const [submitting, setSubmitting] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const copy = pageCopy.form;
 
   function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (submitting) return;
     const raw = Object.fromEntries(new FormData(e.currentTarget));
-    // strip empty optional fields so zod doesn't see empty string as invalid
     if (!raw.email) delete raw.email;
     if (!raw.location || raw.location === '') delete raw.location;
     const parsed = schema.safeParse({
@@ -44,6 +45,7 @@ export function EnquiryForm({ service, topics = false }: { service?: string; top
       if (formRef.current) focusFirstError(formRef.current);
       return;
     }
+    setSubmitting(true);
     const d = parsed.data;
     const lines = [
       service ? `${pageCopy.quote.intro} ${service}.` : pageCopy.enquiry.intro,
@@ -58,6 +60,7 @@ export function EnquiryForm({ service, topics = false }: { service?: string; top
     window.open(url, '_blank', 'noopener,noreferrer');
     setReady(url);
     setErrors({});
+    setSubmitting(false);
   }
 
   if (ready) {
@@ -159,7 +162,9 @@ export function EnquiryForm({ service, topics = false }: { service?: string; top
 
       <Button
         type="submit"
-        className="flex h-auto items-center justify-center gap-2 whitespace-normal rounded-full px-5 py-3 sm:col-span-2"
+        disabled={submitting}
+        aria-busy={submitting}
+        className="flex h-auto items-center justify-center gap-2 whitespace-normal rounded-full px-5 py-3 sm:col-span-2 disabled:opacity-60"
       >
         <WhatsAppIcon className="h-5 w-5" />
         {service ? pageCopy.quote.submit : pageCopy.enquiry.submit}
