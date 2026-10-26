@@ -91,6 +91,7 @@ export const properties: Property[] = [
     title: "Amen Estate Phase 3: 4-Bedroom Carcass Duplex (with BQ)",
     description:
       "4-bedroom carcass duplex with BQ in a fully serviced estate on the Lekki–Epe Expressway.",
+    image: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793044038/photo_2026-10-26_20-43-55_jnhspk.jpg",
     location: "Ibeju-Lekki, Lekki–Epe Expressway (5 minutes' drive from Pan-Atlantic University)",
     state: "Lagos",
     type: "duplex",
@@ -119,6 +120,7 @@ export const properties: Property[] = [
     title: "Tiara 2.0",
     description:
       "Residential and commercial plots off the Lekki–Epe Expressway, along the proposed Lekki International Airport Road.",
+    image: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793044037/photo_2026-10-26_20-44-00_eyw60g.jpg",
     location: "Off the Lekki–Epe Expressway, along the proposed Lekki International Airport Road",
     state: "Lagos",
     type: "land",
@@ -157,6 +159,7 @@ export const properties: Property[] = [
     title: "The Villagio Apartments",
     description:
       "1, 2 and 3-bedroom apartments at The Makarios Champions Place, Elerangbe, Ibeju-Lekki.",
+    image: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793044013/photo_2026-10-26_20-44-23_qrolm7.jpg",
     location:
       "The Makarios Champions Place, Elerangbe, Lekki–Epe Expressway, Ibeju-Lekki",
     state: "Lagos",
@@ -196,6 +199,7 @@ export const properties: Property[] = [
     title: "Goshen Apartments",
     description:
       "Semi-furnished 2-bedroom apartments with C of O on the Lekki Peninsula Scheme II.",
+    image: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793044037/photo_2026-10-26_20-43-45_duxm3y.jpg",
     location: "Lekki Peninsula Scheme II",
     state: "Lagos",
     type: "flat",
@@ -220,6 +224,7 @@ export const properties: Property[] = [
     slug: "city-nest-6",
     title: "City Nest 6",
     description: "Gated residential plots in Ibefun, Ogun State with government allocation title.",
+    image: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793044013/photo_2026-10-26_20-44-28_r0llsk.jpg",
     location: "Ibefun, Ogun State",
     state: "Ogun",
     type: "land",
@@ -244,6 +249,7 @@ export const properties: Property[] = [
     title: "Landview City Port Harcourt",
     description:
       "Surveyed plots with C of O in Rukpokwu, Aluu, Port Harcourt, Rivers State.",
+    image: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793044037/photo_2026-10-26_20-43-50_qupn7f.jpg",
     location: "Rukpokwu, Aluu, Port Harcourt",
     state: "Rivers",
     type: "land",
@@ -278,6 +284,7 @@ export const properties: Property[] = [
     title: "Landview Resort",
     description:
       "Pre-launch plots on the Benin–Asaba Expressway with resort-style amenities planned.",
+    image: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793044013/photo_2026-10-26_20-44-16_cufnoj.jpg",
     location: "Benin–Asaba Expressway, Delta State",
     state: "Delta",
     type: "land",
