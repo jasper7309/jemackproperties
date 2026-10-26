@@ -129,7 +129,7 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
           <Head eyebrow="Plot map" title="Estate layout" />
           <div className="overflow-hidden rounded-3xl border bg-white shadow-soft">
             <img
-              src="https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793045123/photo_2026-10-26_21-04-01_oqimoe.jpg"
+              src="https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793046334/oliveness_garden_estate_plot_map_nw9siy.png"
               alt={`Official plot layout for ${e.name}`}
               width={1200}
               height={900}
