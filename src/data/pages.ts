@@ -1,6 +1,6 @@
-import engineering from '@/assets/engineering.jpg';
-import estate from '@/assets/estate.jpg';
-import terrace from '@/assets/terrace.jpg';
+import engineering from '@/assets/engineering.webp';
+import estate from '@/assets/estate.webp';
+import terrace from '@/assets/terrace.webp';
 export const about = {
   eyebrow: 'Our company', title: 'About Jemack', intro: 'Property expertise. Engineering foundations. A long-term commitment to the places we build.',
   storyTitle: 'Building in Nigeria since 2008',

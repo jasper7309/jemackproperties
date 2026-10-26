@@ -20,6 +20,7 @@ const links = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const hash = useRouterState({ select: (s) => s.location.hash });
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
@@ -28,7 +29,7 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => setOpen(false), [pathname, hash]);
   useEffect(() => {
     if (!open) return;
     const previous = document.body.style.overflow;
@@ -52,7 +53,7 @@ export function Navbar() {
     <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? "bg-surface shadow-soft" : "pt-4 sm:pt-6"}`}>
       <nav
         className={`mx-auto flex max-w-7xl items-center justify-between gap-2 bg-surface transition-all duration-300 ${
-          scrolled ? "px-4 py-3 sm:px-8" : "mx-4 max-w-7xl rounded-full px-4 py-2.5 shadow-soft sm:px-6 xl:mx-auto"
+          scrolled ? "px-4 py-3 sm:px-8" : "mx-2 max-w-7xl rounded-full px-2 py-2.5 shadow-soft sm:mx-4 sm:px-6 xl:mx-auto"
         }`}
       >
         <Link to="/" aria-label={site.name} className="shrink-0"><Logo /></Link>
@@ -65,8 +66,8 @@ export function Navbar() {
             </li>
           ))}
         </ul>
-        <div className="flex items-center gap-2">
-          <InspectionCTA className="px-3 text-xs sm:px-4 sm:text-sm"/>
+        <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+          <InspectionCTA className="px-2 text-xs sm:px-4 sm:text-sm"/>
           {site.phone&&<a href={`tel:${site.phone.replace(/\s/g,'')}`} className="hidden min-h-11 items-center text-sm text-primary 2xl:flex">{site.phone}</a>}
           <a href={whatsappLink()} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" className="grid h-11 w-11 place-items-center rounded-full bg-whatsapp text-whatsapp-foreground transition hover:scale-105">
             <WhatsAppIcon className="h-5 w-5" />
@@ -82,9 +83,10 @@ export function Navbar() {
           </div>
           <ul className="mt-8 flex flex-col gap-5">
             {links.map((l) => (
-              <li key={l.to}><Link to={l.to} className="font-display text-3xl">{l.label}</Link></li>
+              <li key={l.to}><Link to={l.to} activeOptions={{exact:l.to==="/"}} activeProps={{className:"underline underline-offset-8", "aria-current":"page"}} onClick={()=>setOpen(false)} className="inline-flex min-h-11 items-center font-display text-3xl">{l.label}</Link></li>
             ))}
           </ul>
+          {site.phone&&<a href={`tel:${site.phone.replace(/\s/g,'')}`} className="mt-6 inline-flex min-h-11 items-center text-base">{site.phone}</a>}
           <InspectionCTA className="mt-auto"/>
         </div>
       )}

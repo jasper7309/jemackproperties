@@ -3,8 +3,8 @@ import {
   ArrowRight, ArrowUpRight, BadgeCheck, Building2, Droplets, Fence, Fuel, Hammer, HardHat, Lamp, MapPin,
   Radio, Route as RoadIcon, Ruler, ShieldCheck, Trees, Users, Waves, Wrench, Award, HeartHandshake, Landmark,
 } from "lucide-react";
-import hero from "@/assets/hero.jpg";
-import estateImg from "@/assets/estate.jpg";
+import hero from "@/assets/hero.webp";
+import estateImg from "@/assets/estate.webp";
 import { estates } from "@/data/estates";
 import { properties } from "@/data/properties";
 import { services, type Service } from "@/data/services";
@@ -62,7 +62,7 @@ function Index() {
             </p>
             <div className="mt-8 flex animate-fade-up flex-wrap gap-3 [animation-delay:360ms]">
               <InspectionCTA/>
-              <Link to="/properties/$slug" params={{ slug: estate.slug }} className="inline-flex min-h-11 items-center rounded-full border border-hero-foreground/70 px-7 py-3.5 font-medium text-hero-foreground transition hover:bg-hero-foreground hover:text-primary">View the Estate</Link>
+              <Link to="/properties/$slug" params={{ slug: estate.slug }} className="inline-flex min-h-11 items-center rounded-full border border-hero-foreground/70 px-7 py-3.5 font-medium text-hero-foreground transition hover:bg-hero-foreground hover:text-primary">{experience.viewEstate}</Link>
             </div>
           </div>
         </div>
@@ -84,12 +84,12 @@ function Index() {
             <Link key={p.slug} to="/properties/$slug" params={{ slug: p.slug }} className="group rounded-3xl bg-card p-5 shadow-soft transition hover:-translate-y-1 hover:shadow-lift">
               <div className="flex items-center justify-between gap-3 border-b pb-4">
                 <h3 className="text-xl font-semibold text-primary">{p.title}</h3>
-                <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full transition ${i === 0 ? "bg-highlight text-highlight-foreground" : "bg-muted text-foreground group-hover:bg-highlight group-hover:text-highlight-foreground"}`}>
+                <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-full transition ${i === 0 ? "bg-primary text-primary-foreground" : "bg-muted text-foreground group-hover:bg-primary group-hover:text-primary-foreground"}`}>
                   <ArrowRight className="h-4 w-4" />
                 </span>
               </div>
               <p className="mt-4 text-sm text-muted-foreground">{p.description}</p>
-              <img src={p.image} alt={p.title} loading="lazy" width={1024} height={768} className="mt-5 aspect-[4/3] w-full rounded-3xl object-cover" />
+              <img src={p.image} alt="" loading="lazy" width={1024} height={768} className="mt-5 aspect-[4/3] w-full rounded-3xl object-cover" />
             </Link>
           ))}
         </div>
@@ -120,7 +120,7 @@ function Index() {
               ))}
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/properties/$slug" params={{ slug: estate.slug }} className="rounded-full border border-primary px-7 py-3.5 font-medium text-primary">View the Estate</Link>
+              <Link to="/properties/$slug" params={{ slug: estate.slug }} className="rounded-full border border-primary px-7 py-3.5 font-medium text-primary">{experience.viewEstate}</Link>
               <InspectionCTA/>
             </div>
           </div>
@@ -164,7 +164,7 @@ function Index() {
               ))}
             </ul>
           </div>
-          <a href={directionsLink(estate.fullAddress)} target="_blank" rel="noreferrer" className="inline-flex min-h-11 w-fit items-center gap-2 rounded-full border border-primary-foreground px-6 py-3">Get directions<ArrowUpRight className="h-5 w-5"/></a>
+          <a href={directionsLink(estate.fullAddress)} target="_blank" rel="noreferrer" className="inline-flex min-h-11 w-fit items-center gap-2 rounded-full border border-primary-foreground px-6 py-3">{experience.getDirections}<ArrowUpRight className="h-5 w-5"/></a>
         </div>
       </section>
 

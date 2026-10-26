@@ -19,3 +19,8 @@
 - ConsentProvider controls Google Maps and YouTube embeds across the shared shell; load third-party embeds only after optional-embed consent.
 - Financial and document visibility is gated by the public policy module in all public property views so display exclusions stay consistent.
 - Use native TanStack route head metadata, not react-helmet-async, to preserve SSR and route-specific social metadata.
+
+- Shared InspectionCTA owns estate booking links and responsive labels so inspection destinations remain consistent.
+- Form validation lives in a browser-safe shared module and is tested independently; WhatsApp messages have fallback links, never stored submissions.
+- PlotMap gates all status presentation behind the data verification flag and offers a keyboard-accessible table and mobile details sheet.
+- App image imports use bundled WebP assets with explicit dimensions to reduce download size.
