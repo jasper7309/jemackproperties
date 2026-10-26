@@ -36,7 +36,7 @@ function Properties() {
       p.published && (!s.type || p.type === s.type) &&
       (!s.location || p.location === s.location) &&
       (!s.status || p.status === s.status) &&
-      (!publicPolicy.showFinancialFigures || (p.price >= range.min && p.price < range.max)) &&
+      (!publicPolicy.showFinancialFigures || (p.price !== undefined && p.price >= range.min && p.price < range.max)) &&
       (!q || `${p.title} ${p.location} ${p.description}`.toLowerCase().includes(q)),
   );
   const view = s.view === "list" ? "list" : "grid";

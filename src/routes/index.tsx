@@ -62,7 +62,7 @@ function Index() {
             </p>
             <div className="mt-8 flex animate-fade-up flex-wrap gap-3 [animation-delay:360ms]">
               <InspectionCTA/>
-              <Link to="/properties/$slug" params={{ slug: estate.slug }} className="inline-flex min-h-11 items-center rounded-full border border-hero-foreground/70 px-7 py-3.5 font-medium text-hero-foreground transition hover:bg-hero-foreground hover:text-primary">View the Estate</Link>
+              <Link to="/properties/$slug" params={{ slug: estate.slug }} className="inline-flex min-h-11 items-center rounded-full border border-hero-foreground/70 px-7 py-3.5 font-medium text-hero-foreground transition hover:bg-hero-foreground hover:text-primary">{experience.viewEstate}</Link>
             </div>
           </div>
         </div>
@@ -120,7 +120,7 @@ function Index() {
               ))}
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/properties/$slug" params={{ slug: estate.slug }} className="rounded-full border border-primary px-7 py-3.5 font-medium text-primary">View the Estate</Link>
+              <Link to="/properties/$slug" params={{ slug: estate.slug }} className="rounded-full border border-primary px-7 py-3.5 font-medium text-primary">{experience.viewEstate}</Link>
               <InspectionCTA/>
             </div>
           </div>
@@ -164,7 +164,7 @@ function Index() {
               ))}
             </ul>
           </div>
-          <a href={directionsLink(estate.fullAddress)} target="_blank" rel="noreferrer" className="inline-flex min-h-11 w-fit items-center gap-2 rounded-full border border-primary-foreground px-6 py-3">Get directions<ArrowUpRight className="h-5 w-5"/></a>
+          <a href={directionsLink(estate.fullAddress)} target="_blank" rel="noreferrer" className="inline-flex min-h-11 w-fit items-center gap-2 rounded-full border border-primary-foreground px-6 py-3">{experience.getDirections}<ArrowUpRight className="h-5 w-5"/></a>
         </div>
       </section>
 

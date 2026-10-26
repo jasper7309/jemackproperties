@@ -20,6 +20,7 @@ const links = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const hash = useRouterState({ select: (s) => s.location.hash });
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   useEffect(() => {
@@ -28,7 +29,7 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => setOpen(false), [pathname, hash]);
   useEffect(() => {
     if (!open) return;
     const previous = document.body.style.overflow;
@@ -85,6 +86,7 @@ export function Navbar() {
               <li key={l.to}><Link to={l.to} activeOptions={{exact:l.to==="/"}} activeProps={{className:"underline underline-offset-8", "aria-current":"page"}} onClick={()=>setOpen(false)} className="inline-flex min-h-11 items-center font-display text-3xl">{l.label}</Link></li>
             ))}
           </ul>
+          {site.phone&&<a href={`tel:${site.phone.replace(/\s/g,'')}`} className="mt-6 inline-flex min-h-11 items-center text-base">{site.phone}</a>}
           <InspectionCTA className="mt-auto"/>
         </div>
       )}

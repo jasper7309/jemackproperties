@@ -44,7 +44,7 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
           <h1 className="mt-5 animate-fade-up text-4xl font-semibold sm:text-6xl">{e.name}</h1>
           <p className="mt-3 animate-fade-up font-display text-2xl italic text-accent">{e.tagline}</p>
           <p className="mt-5 flex max-w-2xl animate-fade-up items-start gap-2 text-hero-foreground/85"><MapPin className="mt-1 h-5 w-5 shrink-0 text-accent" />{e.fullAddress}</p>
-          <div className="mt-6 flex flex-wrap gap-3"><InspectionCTA/><Button asChild variant="ghost" className="h-auto min-h-11 rounded-full text-hero-foreground"><a href="#plot-map">View plot map</a></Button></div>
+          <div className="mt-6 flex flex-wrap gap-3"><InspectionCTA/><Button asChild variant="ghost" className="h-auto min-h-11 rounded-full text-hero-foreground"><a href="#plot-map">{experience.viewPlotMap}</a></Button></div>
         </div>
       </section>
       <div className="border-b bg-surface px-6 py-6"><p className="mx-auto max-w-7xl text-base font-medium text-primary">{e.plotSize} plots · Certificate of Occupancy · Asaba, Delta State · Buy &amp; Build</p></div>
