@@ -18,7 +18,7 @@ export function Countdown({ endsAt }: { endsAt: string }) {
   ];
   return (
     <div className="flex flex-wrap items-center justify-center gap-3">
-      <span className="eyebrow text-highlight">Offer ends in</span>
+      <span className="eyebrow text-accent-text">Offer ends in</span>
       {parts.map((p) => (
         <span key={p.l} className="min-w-16 rounded-2xl bg-primary px-3 py-2 text-center text-primary-foreground">
           <span className="block font-display text-2xl font-semibold tabular-nums">{String(p.v).padStart(2, "0")}</span>

@@ -3,8 +3,8 @@ import {
   ArrowRight, ArrowUpRight, BadgeCheck, Building2, Droplets, Fence, Fuel, Hammer, HardHat, Lamp, MapPin,
   Radio, Route as RoadIcon, Ruler, ShieldCheck, Trees, Users, Waves, Wrench, Award, HeartHandshake, Landmark,
 } from "lucide-react";
-import hero from "@/assets/hero.jpg";
-import estateImg from "@/assets/estate.jpg";
+import hero from "@/assets/hero.webp";
+import estateImg from "@/assets/estate.webp";
 import { estates } from "@/data/estates";
 import { properties } from "@/data/properties";
 import { services, type Service } from "@/data/services";
@@ -84,12 +84,12 @@ function Index() {
             <Link key={p.slug} to="/properties/$slug" params={{ slug: p.slug }} className="group rounded-3xl bg-card p-5 shadow-soft transition hover:-translate-y-1 hover:shadow-lift">
               <div className="flex items-center justify-between gap-3 border-b pb-4">
                 <h3 className="text-xl font-semibold text-primary">{p.title}</h3>
-                <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full transition ${i === 0 ? "bg-highlight text-highlight-foreground" : "bg-muted text-foreground group-hover:bg-highlight group-hover:text-highlight-foreground"}`}>
+                <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-full transition ${i === 0 ? "bg-primary text-primary-foreground" : "bg-muted text-foreground group-hover:bg-primary group-hover:text-primary-foreground"}`}>
                   <ArrowRight className="h-4 w-4" />
                 </span>
               </div>
               <p className="mt-4 text-sm text-muted-foreground">{p.description}</p>
-              <img src={p.image} alt={p.title} loading="lazy" width={1024} height={768} className="mt-5 aspect-[4/3] w-full rounded-3xl object-cover" />
+              <img src={p.image} alt="" loading="lazy" width={1024} height={768} className="mt-5 aspect-[4/3] w-full rounded-3xl object-cover" />
             </Link>
           ))}
         </div>

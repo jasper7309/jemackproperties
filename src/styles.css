@@ -90,7 +90,7 @@
 @utility bg-hero-overlay { background-image: var(--gradient-hero); }
 
 @utility eyebrow {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -132,3 +132,5 @@
 button, [role="switch"] { touch-action: manipulation; }
 
 @utility bg-map-fade { background-image: var(--gradient-map-fade); }
+
+footer a { display: inline-flex; min-height: 44px; align-items: center; }

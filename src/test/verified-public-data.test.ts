@@ -1,0 +1,34 @@
+import { describe, expect, it } from 'vitest';
+import { site, whatsappLink, directionsLink } from '@/data/site';
+import { properties } from '@/data/properties';
+import { estates, plotStatusVerified } from '@/data/estates';
+import { about, projects, pageCopy, faqGroups, privacySections, termsSections } from '@/data/pages';
+import { agents, agentsIntro, becomeAgentSteps } from '@/data/agents';
+import { posts } from '@/data/posts';
+import { services, supportServices, serviceProcess } from '@/data/services';
+import { experience } from '@/data/experience';
+import { organizationSchema } from '@/data/launch';
+import { enquirySchema, inspectionSchema, todayDate } from '@/lib/form-validation';
+const strings = (v:unknown):string[] => typeof v==='string'?[v]:Array.isArray(v)?v.flatMap(strings):v&&typeof v==='object'?Object.values(v).flatMap(strings):[];
+describe('Verified public information',()=>{
+ it('uses the exact WhatsApp chat',()=>expect(new URL(whatsappLink('Test')).pathname).toBe('/2348022224248'));
+ it('uses all three exact phones in primary order',()=>expect(site.phones.map(p=>p.replace(/\s/g,''))).toEqual(['+2348022224248','+2348036278554','+2348062591354']));
+ it('uses both exact emails in primary order',()=>expect(site.emails).toEqual(['services@jemackfacilities.com.ng','jemackfacilities@yahoo.com']));
+ it('lists exactly the three verified offices and addresses',()=>expect(site.offices).toEqual([{city:'Lagos',address:'House 20 Greenlight Estate, Alatushe, Ibeju-Lekki, Lagos, Nigeria'},{city:'Asaba',address:'Shop 8 & 9, Osinmili North Ultramodern Shopping Complex, Okpanam, Asaba, Delta State, Nigeria'},{city:'Umuahia',address:'No. 85 Cameroon Street, Umuahia, Abia State, Nigeria'}]));
+ it('exposes only the verified YouTube social',()=>expect(site.socials).toEqual({youtube:'https://www.youtube.com/@jemackproperties2'}));
+ it('has no response-time promise',()=>expect(site.responseTime).toBe(''));
+ it('keeps plot statuses unverified',()=>expect(plotStatusVerified).toBe(false));
+ it('keeps credentials unverified',()=>expect(about.credentialsVerified).toBe(false));
+ it('publishes only the flagship estate',()=>expect(properties.filter(p=>p.published).map(p=>p.slug)).toEqual(['oliveness-garden-estate']));
+ it('emits the verified contact information in structured data',()=>{const schema=organizationSchema();expect(schema.telephone).toBe('+2348022224248');expect(schema.email).toBe('services@jemackfacilities.com.ng');expect(schema.address).toHaveLength(3);expect(schema.address.map(a=>a.addressCountry)).toEqual(['NG','NG','NG']);});
+ it('encodes each real address in directions',()=>site.offices.forEach(o=>expect(new URL(directionsLink(o.address??'')).searchParams.get('query')).toBe(o.address)));
+ it('has no placeholder in a public rendered data field',()=>{const data=[site,properties.filter(p=>p.published),estates,about,projects,pageCopy,faqGroups,privacySections,termsSections,agents,agentsIntro,becomeAgentSteps,posts,services,supportServices,serviceProcess,experience];expect(strings(data).filter(s=>/placeholder|coming soon|to be provided|verification pending|Port Harcourt/i.test(s))).toEqual([]);});
+});
+describe('WhatsApp form rules',()=>{
+ const enquiry={name:'Test Visitor',phone:'08030000000',email:'',location:'',message:'Please arrange a site visit',topic:'Property'};
+ it('allows empty optional email and city',()=>expect(enquirySchema.safeParse(enquiry).success).toBe(true));
+ for(const field of ['name','phone','message','topic'] as const)it(`requires ${field}`,()=>expect(enquirySchema.safeParse({...enquiry,[field]:''}).success).toBe(false));
+ const inspection={name:'Test Visitor',phone:'08030000000',email:'',date:todayDate(),people:1,message:''};
+ it('allows an inspection today',()=>expect(inspectionSchema.safeParse(inspection).success).toBe(true));
+ it('rejects past inspection dates',()=>expect(inspectionSchema.safeParse({...inspection,date:'2000-01-01'}).success).toBe(false));
+});

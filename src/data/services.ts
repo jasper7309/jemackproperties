@@ -1,4 +1,4 @@
-import engineering from '@/assets/engineering.jpg';
+import engineering from '@/assets/engineering.webp';
 export type Service = {slug:string;title:string;summary:string;icon:'building'|'road'|'droplets'|'fuel'|'wrench'|'radio';overview:string;capabilities:string[];sectors:string[];image:string;faqs:{q:string;a:string}[]};
 const make = (slug:string,title:string,summary:string,icon:Service['icon'],capabilities:string[],sectors:string[]):Service => ({slug,title,summary,icon,overview:`${summary} Our team works with you to define the scope, understand site requirements and coordinate a practical delivery plan.`,capabilities,sectors,image:engineering,faqs:[{q:'What information do you need to start?',a:'Share the project location, intended use, available drawings and your proposed timeline. We will discuss any site assessment and approvals required.'},{q:'Can you work with an existing project team?',a:'We can discuss coordination with your designers, consultants and contractors. Responsibilities are agreed before work begins.'}]});
 export const services:Service[] = [

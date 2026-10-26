@@ -4,10 +4,10 @@ import { InspectionCTA } from "@/components/site/InspectionCTA";
 import { experience, isRealText } from "@/data/experience";
 import { whatsappLink } from "@/data/site";
 import { CalendarCheck, Download, FileCheck2, Hammer, Landmark, MapPin, Ruler, ShieldCheck, Sparkles, CheckCircle2 } from "lucide-react";
-import hero from "@/assets/hero.jpg";
-import estateImg from "@/assets/estate.jpg";
-import land from "@/assets/land.jpg";
-import terrace from "@/assets/terrace.jpg";
+import hero from "@/assets/hero.webp";
+import estateImg from "@/assets/estate.webp";
+import land from "@/assets/land.webp";
+import terrace from "@/assets/terrace.webp";
 import type { Estate } from "@/data/estates";
 import { publicPolicy } from "@/data/launch";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -65,7 +65,7 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
               <p className="mt-2 text-sm text-muted-foreground">{d}</p>
             </div>
           ))}
-        <Button asChild className="mt-8 h-auto min-h-11 whitespace-normal rounded-full bg-whatsapp py-3 text-whatsapp-foreground"><a href={whatsappLink(experience.priceMessage)} target="_blank" rel="noreferrer">{experience.priceList}</a></Button></div>
+        </div><Button asChild className="mt-8 h-auto min-h-11 whitespace-normal rounded-full bg-whatsapp py-3 text-whatsapp-foreground"><a href={whatsappLink(experience.priceMessage)} target="_blank" rel="noreferrer">{experience.priceList}</a></Button>
       </section>
 
       <section className="mx-auto max-w-7xl px-6 pb-20">

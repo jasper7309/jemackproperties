@@ -1,6 +1,6 @@
-import estate from "@/assets/estate.jpg";
-import land from "@/assets/land.jpg";
-import terrace from "@/assets/terrace.jpg";
+import estate from "@/assets/estate.webp";
+import land from "@/assets/land.webp";
+import terrace from "@/assets/terrace.webp";
 
 export const propertyTypes = ["land", "house", "duplex", "bungalow", "flat"] as const;
 export type PropertyType = (typeof propertyTypes)[number];
