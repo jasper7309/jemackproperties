@@ -97,10 +97,10 @@ function Index() {
 
       {/* ── FEATURED PROPERTIES — dark olive band ── */}
       {(() => {
-        const featured = getFeaturedProperties(8);
+        const featured = getFeaturedProperties(4);
         if (featured.length === 0) return null;
         const total = publishedProperties.filter((p) => p.featured !== false).length;
-        const viewLabel = total > 8 ? `View all ${total} properties` : "View all properties";
+        const viewLabel = total > 4 ? `View all ${total} properties` : "View all properties";
         return (
           <section className="bg-primary py-16 text-primary-foreground md:py-20 xl:py-28">
             <div className="site-container">
