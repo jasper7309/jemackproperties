@@ -1,9 +1,8 @@
 import {
+import {
   CalendarCheck, CheckCircle2, Download, FileCheck2, Hammer, Landmark,
   MapPin, Ruler, ShieldCheck,
-} from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import hero from "@/assets/hero.jpg";
+} from "lucide-react";import hero from "@/assets/hero.jpg";
 import estateImg from "@/assets/estate.jpg";
 import land from "@/assets/land.jpg";
 import type { Estate } from "@/data/estates";
@@ -31,20 +30,6 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
     { src: estateImg, alt: "Example home on the estate", caption: "Illustrative render" },
     { src: land, alt: "Surveyed plots on site", caption: "Surveyed plots" },
   ];
-
-  const bookRef = useRef<HTMLElement | null>(null);
-  const [pillVisible, setPillVisible] = useState(true);
-  useEffect(() => {
-    const el = document.getElementById("book");
-    if (!el) return;
-    bookRef.current = el;
-    const obs = new IntersectionObserver(
-      ([entry]) => setPillVisible(!entry.isIntersecting),
-      { threshold: 0.1 },
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
 
   const priceListMsg = `Hello Jemack Properties, please send me the current price list and payment plans for ${e.name}.`;
 
@@ -102,17 +87,7 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
         </div>
       </div>
 
-      {/* Floating pill */}
-      {pillVisible && (
-        <a
-          href="#book"
-          className="fixed bottom-5 left-4 z-40 flex items-center gap-2 rounded-full bg-highlight px-5 py-3.5 text-sm font-medium text-highlight-foreground shadow-lift transition hover:brightness-110 sm:left-1/2 sm:-translate-x-1/2"
-        >
-          <CalendarCheck className="h-5 w-5" />
-          <span className="hidden sm:inline">Book a Free Inspection</span>
-          <span className="sm:hidden">Free Inspection</span>
-        </a>
-      )}
+
 
       {/* ── OVERVIEW — 3 cols ── */}
       <section className="site-container py-16 md:py-20 xl:py-28">
