@@ -88,8 +88,8 @@ export function Navbar() {
         "fixed inset-x-0 top-0 z-50 transition-transform duration-300",
         // slide off-screen when hidden
         visible ? "translate-y-0" : "-translate-y-full",
-        // background: transparent at top, solid once scrolled
-        atTop ? "bg-transparent" : "bg-surface shadow-soft",
+        // background: always solid
+        "bg-surface shadow-soft",
       ].join(" ")}
     >
       <nav className="site-container flex items-center justify-between gap-4 py-4">
