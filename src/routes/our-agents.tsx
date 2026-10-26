@@ -41,18 +41,21 @@ function Agents() {
   };
 
   return (
-    <main className="pt-32 pb-24">
-      <section className="mx-auto max-w-7xl px-6">
+    <main className="pb-16 pt-32 md:pb-20 xl:pb-28">
+      {/* Agents grid */}
+      <section className="site-container">
         <p className="eyebrow text-highlight">Our team</p>
-        <h1 className="mt-3 text-4xl font-semibold text-primary sm:text-5xl">{agentsIntro.title}</h1>
-        <p className="mt-4 max-w-2xl text-muted-foreground">{agentsIntro.text}</p>
+        <h1 className="mt-3 max-w-[24ch] text-4xl font-semibold text-primary sm:text-5xl">{agentsIntro.title}</h1>
+        <p className="mt-4 measure text-muted-foreground">{agentsIntro.text}</p>
         <div className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
           {agents.map((a) => (
-            <figure key={a.name} className="text-center">
+            <figure key={a.name}>
               {a.photo ? (
                 <img src={a.photo} alt={a.name} loading="lazy" className="aspect-square w-full rounded-3xl object-cover shadow-soft" />
               ) : (
-                <div className="grid aspect-square w-full place-items-center rounded-3xl bg-secondary shadow-soft"><UserRound className="h-1/2 w-1/2 text-primary/30" /></div>
+                <div className="grid aspect-square w-full place-items-center rounded-3xl bg-secondary shadow-soft">
+                  <UserRound className="h-1/2 w-1/2 text-primary/30" />
+                </div>
               )}
               <figcaption className="mt-3 font-display text-lg font-semibold text-primary">{a.name}</figcaption>
             </figure>
@@ -60,10 +63,11 @@ function Agents() {
         </div>
       </section>
 
-      <section className="mx-auto mt-24 max-w-7xl px-6">
+      {/* Become an agent */}
+      <section className="site-container mt-16 md:mt-20 xl:mt-24">
         <div className="rounded-3xl bg-primary p-8 text-primary-foreground sm:p-12">
           <p className="eyebrow text-accent">Join us</p>
-          <h2 className="mt-2 text-3xl font-semibold sm:text-4xl">Become a Jemack Properties Agent</h2>
+          <h2 className="mt-2 max-w-[28ch] text-3xl font-semibold sm:text-4xl">Become a Jemack Properties Agent</h2>
           <ol className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {becomeAgentSteps.map((s, i) => (
               <li key={s.title} className="rounded-3xl bg-primary-foreground/5 p-6">
@@ -74,19 +78,30 @@ function Agents() {
             ))}
           </ol>
         </div>
-        <div className="mx-auto mt-12 max-w-3xl">
-          <h2 className="mb-6 text-center text-3xl font-semibold text-primary">Apply to Become an Agent</h2>
+
+        {/* Application form */}
+        <div className="mt-12">
+          <h2 className="mb-6 max-w-[28ch] text-3xl font-semibold text-primary">Apply to Become an Agent</h2>
           {done ? (
-            <SuccessCard title="Application ready" text="We opened WhatsApp with your details. Send the message and our team will be in touch." onReset={() => setDone(false)} />
+            <SuccessCard
+              title="Application ready"
+              text="We opened WhatsApp with your details. Send the message and our team will be in touch."
+              onReset={() => setDone(false)}
+            />
           ) : (
-            <form onSubmit={submit} noValidate className="grid gap-4 rounded-3xl bg-card p-6 shadow-soft sm:grid-cols-2 sm:p-8">
+            <form onSubmit={submit} noValidate className="grid gap-4 rounded-3xl bg-card p-6 shadow-soft sm:grid-cols-2 sm:p-8 lg:grid-cols-4">
               <Field label="Full name" error={errors.name}><input name="name" className={inputClass} autoComplete="name" /></Field>
               <Field label="Phone" error={errors.phone}><input name="phone" type="tel" className={inputClass} autoComplete="tel" /></Field>
               <Field label="Email" error={errors.email}><input name="email" type="email" className={inputClass} autoComplete="email" /></Field>
               <Field label="City" error={errors.city}><input name="city" className={inputClass} /></Field>
-              <div className="sm:col-span-2"><Field label="Short message (optional)" error={errors.message}><textarea name="message" rows={3} className={inputClass} /></Field></div>
-              <button type="submit" className="flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 font-medium text-primary-foreground sm:col-span-2">
-                <WhatsAppIcon className="h-5 w-5" />Apply via WhatsApp
+              <div className="sm:col-span-2 lg:col-span-4">
+                <Field label="Short message (optional)" error={errors.message}>
+                  <textarea name="message" rows={3} className={inputClass} />
+                </Field>
+              </div>
+              <button type="submit" className="flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 font-medium text-primary-foreground transition hover:bg-primary/90 sm:col-span-2 lg:col-span-4">
+                <WhatsAppIcon className="h-5 w-5" />
+                Apply via WhatsApp
               </button>
             </form>
           )}

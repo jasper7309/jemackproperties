@@ -21,10 +21,7 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [
-      // Preload hero image for LCP
-      { rel: "preload", as: "image", href: hero },
-    ],
+    links: [{ rel: "preload", as: "image", href: hero }],
   }),
   component: Index,
 });
@@ -36,11 +33,12 @@ const serviceIcons: Record<Service["icon"], typeof Building2> = {
   building: Building2, road: RoadIcon, droplets: Droplets, fuel: Fuel, wrench: Building2, radio: Radio,
 };
 
-function SectionHead({ eyebrow, title, center = true }: { eyebrow: string; title: string; center?: boolean }) {
+/** Left-aligned section heading with optional eyebrow */
+function SectionHead({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
-    <div className={center ? "text-center" : ""}>
+    <div>
       <p className="eyebrow text-accent-text">{eyebrow}</p>
-      <h2 className="mt-2 text-3xl font-semibold text-primary sm:text-4xl">{title}</h2>
+      <h2 className="mt-2 max-w-[28ch] text-3xl font-semibold text-primary sm:text-4xl">{title}</h2>
     </div>
   );
 }
@@ -62,13 +60,13 @@ function Index() {
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-hero-overlay" />
-        <div className="relative mx-auto w-full max-w-7xl px-6 pt-28 pb-32">
-          <div className="max-w-2xl text-hero-foreground">
+        <div className="site-container relative w-full pt-28 pb-32">
+          <div className="max-w-[720px] text-hero-foreground">
             <p className="eyebrow animate-fade-up text-accent">Pre-launch · Asaba, Delta State</p>
             <h1 className="mt-4 animate-fade-up text-4xl font-semibold leading-tight [animation-delay:80ms] sm:text-5xl">
               Own Land in Asaba with C&nbsp;of&nbsp;O
             </h1>
-            <p className="mt-6 max-w-xl animate-fade-up text-base text-hero-foreground/85 [animation-delay:180ms] sm:text-lg">
+            <p className="mt-6 animate-fade-up measure text-base text-hero-foreground/85 [animation-delay:180ms] sm:text-lg">
               Oliveness Garden Estate: 464m² plots with paved roads, drainage, street lights and 24/7 security.
               Backed by Jemack's engineering team, so you can buy and build with one company.
             </p>
@@ -88,8 +86,7 @@ function Index() {
                 View the Estate
               </Link>
             </div>
-            {/* Plain text badge */}
-            <p className="mt-8 animate-fade-up rounded-full border border-hero-foreground/30 px-5 py-2.5 text-sm text-hero-foreground/80 [animation-delay:340ms] inline-block">
+            <p className="mt-8 animate-fade-up inline-block rounded-full border border-hero-foreground/30 px-5 py-2.5 text-sm text-hero-foreground/80 [animation-delay:340ms]">
               464m² plots · Certificate of Occupancy
             </p>
           </div>
@@ -97,44 +94,45 @@ function Index() {
       </section>
 
       {/* ── FEATURED ESTATE ── */}
-      <section className="mx-auto max-w-7xl px-6 py-24">
+      <section className="site-container py-16 md:py-20 xl:py-28">
         <SectionHead eyebrow="Our estate" title="Featured estate" />
-        <div className="mt-12">
-          {/* Show only the Oliveness estate listing */}
+        <div className="mt-10">
           <Link
             to="/properties/$slug"
             params={{ slug: estate.slug }}
-            className="group flex flex-col overflow-hidden rounded-3xl bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-lift sm:flex-row"
+            className="group grid overflow-hidden rounded-3xl bg-card shadow-soft transition hover:-translate-y-1 hover:shadow-lift lg:grid-cols-[7fr_5fr]"
           >
-            <img
-              src={estateImg}
-              alt=""
-              loading="lazy"
-              width={1024}
-              height={768}
-              className="aspect-[4/3] w-full object-cover sm:w-72 sm:shrink-0"
-            />
-            <div className="flex min-w-0 flex-1 flex-col p-6">
+            <div className="overflow-hidden">
+              <img
+                src={estateImg}
+                alt=""
+                loading="lazy"
+                width={1024}
+                height={768}
+                className="aspect-[4/3] h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
+              />
+            </div>
+            <div className="flex min-w-0 flex-col justify-center p-8 xl:p-12">
               <p className="text-xs font-semibold uppercase tracking-widest text-accent-text">Land</p>
-              <h3 className="mt-1 text-xl font-semibold text-primary">{estate.name}</h3>
+              <h3 className="mt-1 text-2xl font-semibold text-primary lg:text-3xl">{estate.name}</h3>
               <p className="mt-1 text-xs text-muted-foreground">Jemack estate</p>
-              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
+              <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
                 <span className="flex items-center gap-1"><MapPin className="h-4 w-4" />{estate.location}</span>
                 <span className="flex items-center gap-1"><Ruler className="h-4 w-4" />{estate.plotSize}</span>
               </div>
-              <p className="mt-3 text-sm text-muted-foreground">
+              <p className="mt-4 text-muted-foreground">
                 464m² plots with C of O in Ubulu-Okiti, Asaba. Buy and build in a serene, fully serviced estate.
               </p>
-              <div className="mt-auto flex items-center justify-between pt-5">
+              <div className="mt-8 flex items-center justify-between">
                 <span className="text-sm text-primary">Contact us for current terms</span>
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-highlight text-highlight-foreground">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-highlight text-highlight-foreground">
                   <ArrowRight className="h-4 w-4" />
                 </span>
               </div>
             </div>
           </Link>
         </div>
-        <div className="mt-6 text-center">
+        <div className="mt-6">
           <Link
             to="/properties"
             className="inline-flex items-center gap-2 rounded-full border border-primary px-6 py-3 text-sm font-medium text-primary transition hover:bg-primary hover:text-primary-foreground"
@@ -145,17 +143,17 @@ function Index() {
         </div>
       </section>
 
-      {/* ── SPOTLIGHT ── */}
-      <section className="bg-surface py-24">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2">
-          <div className="relative">
+      {/* ── SPOTLIGHT — image bleeds on xl, text beside it ── */}
+      <section className="bg-surface py-16 md:py-20 xl:py-28">
+        <div className="site-container grid items-center gap-10 lg:grid-cols-[7fr_5fr] xl:gap-14">
+          <div className="relative overflow-hidden rounded-3xl shadow-lift">
             <img
               src={estateImg}
               alt="Illustrative home at Oliveness Garden Estate"
               loading="lazy"
               width={1280}
               height={960}
-              className="aspect-[4/3] w-full rounded-3xl object-cover shadow-lift"
+              className="aspect-[4/3] w-full object-cover"
             />
             {publicPolicy.showFinancialFigures && (
               <div className="absolute -bottom-5 left-6 rounded-2xl bg-highlight px-5 py-3 text-highlight-foreground shadow-lift">
@@ -165,9 +163,9 @@ function Index() {
             )}
           </div>
           <div>
-            <SectionHead center={false} eyebrow="Estate spotlight" title={estate.name} />
+            <SectionHead eyebrow="Estate spotlight" title={estate.name} />
             <p className="mt-4 font-display text-xl italic text-accent">{estate.tagline}</p>
-            <p className="mt-4 text-muted-foreground">
+            <p className="mt-4 measure text-muted-foreground">
               A secure, fully serviced estate in a fast-rising part of Asaba. Buy your plot today, then
               build at your own pace with support from our engineering team.
             </p>
@@ -178,27 +176,17 @@ function Index() {
                 { icon: Hammer, label: "Buy & Build" },
                 { icon: MapPin, label: estate.location },
               ].map(({ icon: Icon, label }) => (
-                <span
-                  key={label}
-                  className="inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground"
-                >
+                <span key={label} className="inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground">
                   <Icon className="h-4 w-4 text-accent" />
                   {label}
                 </span>
               ))}
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href={bookHref}
-                className="rounded-full bg-highlight px-7 py-3.5 font-medium text-highlight-foreground transition hover:brightness-110"
-              >
+              <a href={bookHref} className="rounded-full bg-highlight px-7 py-3.5 font-medium text-highlight-foreground transition hover:brightness-110">
                 Book a Free Inspection
               </a>
-              <Link
-                to="/properties/$slug"
-                params={{ slug: estate.slug }}
-                className="rounded-full border border-primary px-7 py-3.5 font-medium text-primary transition hover:bg-primary hover:text-primary-foreground"
-              >
+              <Link to="/properties/$slug" params={{ slug: estate.slug }} className="rounded-full border border-primary px-7 py-3.5 font-medium text-primary transition hover:bg-primary hover:text-primary-foreground">
                 View the Estate
               </Link>
             </div>
@@ -206,10 +194,10 @@ function Index() {
         </div>
       </section>
 
-      {/* ── FEATURES ── */}
-      <section className="mx-auto max-w-7xl px-6 py-24">
+      {/* ── FEATURES — 3 cols lg, 4 cols 2xl ── */}
+      <section className="site-container py-16 md:py-20 xl:py-28">
         <SectionHead eyebrow="Estate features" title="Everything ready for you to build" />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-10 2xl:grid-cols-4">
           {[
             { icon: Fence, t: "Perimeter fence", d: "A fully fenced estate boundary for privacy and peace of mind." },
             { icon: RoadIcon, t: "Paved roads", d: "Well-laid internal roads that stay accessible all year round." },
@@ -229,25 +217,20 @@ function Index() {
         </div>
       </section>
 
-      {/* ── LOCATION ── single column with Get directions link, no map panel */}
-      <section className="bg-primary py-24 text-primary-foreground">
-        <div className="mx-auto max-w-7xl px-6">
+      {/* ── LOCATION ── */}
+      <section className="bg-primary py-16 text-primary-foreground md:py-20 xl:py-28">
+        <div className="site-container">
           <p className="eyebrow text-accent">Location</p>
-          <h2 className="mt-2 text-3xl font-semibold sm:text-4xl">Nearby landmarks</h2>
-          <p className="mt-4 text-primary-foreground/75">{estate.location}, close to key Asaba landmarks.</p>
-          <ul className="mt-8 max-w-2xl space-y-3">
+          <h2 className="mt-2 max-w-[28ch] text-3xl font-semibold sm:text-4xl">Nearby landmarks</h2>
+          <p className="mt-4 measure text-primary-foreground/75">{estate.location}, close to key Asaba landmarks.</p>
+          <ul className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-1">
             {estate.landmarks.map((l) => (
-              <li
-                key={l.name}
-                className="flex items-center justify-between gap-4 rounded-2xl bg-primary-foreground/5 px-5 py-4"
-              >
+              <li key={l.name} className="flex items-center justify-between gap-4 rounded-2xl bg-primary-foreground/5 px-5 py-4">
                 <span className="flex min-w-0 items-center gap-3">
                   <Landmark className="h-5 w-5 shrink-0 text-accent" />
                   <span>{l.name}</span>
                 </span>
-                {l.distance && (
-                  <span className="shrink-0 text-xs text-primary-foreground/60">{l.distance}</span>
-                )}
+                {l.distance && <span className="shrink-0 text-xs text-primary-foreground/60">{l.distance}</span>}
               </li>
             ))}
           </ul>
@@ -265,28 +248,20 @@ function Index() {
 
       {/* ── PAYMENT PLANS (gated) ── */}
       {publicPolicy.showFinancialFigures && (
-        <section className="mx-auto max-w-7xl px-6 py-24">
+        <section className="site-container py-16 md:py-20 xl:py-28">
           <SectionHead eyebrow="Payment plans" title="Flexible ways to own your plot" />
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
             {estate.paymentPlans.map((p) => (
-              <div
-                key={p.name}
-                className={`relative rounded-3xl p-8 shadow-soft ${p.featured ? "bg-primary text-primary-foreground" : "bg-card"}`}
-              >
+              <div key={p.name} className={`relative rounded-3xl p-8 shadow-soft ${p.featured ? "bg-primary text-primary-foreground" : "bg-card"}`}>
                 {p.featured && (
-                  <span className="absolute -top-3 right-6 rounded-full bg-highlight px-3 py-1 text-xs font-semibold text-highlight-foreground">
-                    Popular
-                  </span>
+                  <span className="absolute -top-3 right-6 rounded-full bg-highlight px-3 py-1 text-xs font-semibold text-highlight-foreground">Popular</span>
                 )}
                 <h3 className={`text-2xl font-semibold ${p.featured ? "" : "text-primary"}`}>{p.name}</h3>
                 <p className={`text-sm ${p.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{p.duration}</p>
                 <p className="mt-6 font-display text-4xl font-semibold text-accent">{p.price}</p>
                 {p.deposit && <p className="mt-1 text-sm font-medium">{p.deposit}</p>}
                 <p className={`mt-4 text-sm ${p.featured ? "text-primary-foreground/80" : "text-muted-foreground"}`}>{p.note}</p>
-                <a
-                  href={bookHref}
-                  className={`mt-8 inline-flex w-full justify-center rounded-full px-6 py-3 text-sm font-medium ${p.featured ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"}`}
-                >
+                <a href={bookHref} className={`mt-8 inline-flex w-full justify-center rounded-full px-6 py-3 text-sm font-medium ${p.featured ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"}`}>
                   Get started
                 </a>
               </div>
@@ -295,11 +270,11 @@ function Index() {
         </section>
       )}
 
-      {/* ── SERVICES ── */}
-      <section className="bg-surface py-24">
-        <div className="mx-auto max-w-7xl px-6">
+      {/* ── SERVICES — 3 cols lg, 4 cols 2xl ── */}
+      <section className="bg-surface py-16 md:py-20 xl:py-28">
+        <div className="site-container">
           <SectionHead eyebrow="Engineering & facilities" title="Backed by a full engineering company" />
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-10 2xl:grid-cols-4">
             {services.map((s) => {
               const Icon = serviceIcons[s.icon];
               return (
@@ -326,10 +301,10 @@ function Index() {
         </div>
       </section>
 
-      {/* ── WHY JEMACK ── */}
-      <section className="mx-auto max-w-7xl px-6 py-24">
+      {/* ── WHY JEMACK — 5 cards across ── */}
+      <section className="site-container py-16 md:py-20 xl:py-28">
         <SectionHead eyebrow="Why Jemack" title="Trusted delivery since 2008" />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5 xl:gap-8">
           {[
             { icon: Award, t: "Proven delivery", d: "Track record on large projects." },
             { icon: HardHat, t: "Safety & quality", d: "Standards on every site." },
@@ -337,16 +312,16 @@ function Index() {
             { icon: Users, t: "Experienced team", d: "Engineers and estate experts." },
             { icon: BadgeCheck, t: "Reputable firm", d: "A registered, trusted company." },
           ].map(({ icon: Icon, t, d }) => (
-            <div key={t} className="rounded-3xl bg-card p-6 text-center shadow-soft">
-              <Icon className="mx-auto h-6 w-6 text-accent" />
+            <div key={t} className="rounded-3xl bg-card p-6 shadow-soft">
+              <Icon className="h-6 w-6 text-accent" />
               <h3 className="mt-4 text-lg font-semibold text-primary">{t}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{d}</p>
             </div>
           ))}
         </div>
 
-        {/* Stats row — 2008 + 3 offices only */}
-        <div className="mt-10 grid gap-6 rounded-3xl bg-primary p-8 text-primary-foreground sm:grid-cols-4">
+        {/* Stats row */}
+        <div className="mt-10 grid gap-6 rounded-3xl bg-primary p-8 text-primary-foreground sm:grid-cols-4 xl:p-10">
           <div>
             <p className="font-display text-4xl font-semibold text-accent">2008</p>
             <p className="text-sm text-primary-foreground/70">Serving since</p>
@@ -361,8 +336,8 @@ function Index() {
       </section>
 
       {/* ── CTA BAND ── */}
-      <section className="px-6 pb-24">
-        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl">
+      <section className="site-container pb-16 md:pb-20 xl:pb-28">
+        <div className="relative overflow-hidden rounded-3xl">
           <img
             src={hero}
             alt="Illustrative estate landscape"
@@ -373,7 +348,7 @@ function Index() {
           />
           <div className="absolute inset-0 bg-hero-overlay" />
           <div className="relative flex flex-col items-start gap-6 p-10 text-hero-foreground sm:p-16 lg:flex-row lg:items-center lg:justify-between">
-            <h2 className="max-w-xl text-3xl font-semibold sm:text-4xl">
+            <h2 className="max-w-[28ch] text-3xl font-semibold sm:text-4xl">
               Ready to see the land? Book a free inspection.
             </h2>
             <a

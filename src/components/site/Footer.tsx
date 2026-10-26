@@ -14,7 +14,7 @@ export function Footer() {
 
   return (
     <footer className="bg-primary pb-24 text-primary-foreground">
-      <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="site-container grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-5">
 
         {/* Brand column */}
         <div className="lg:col-span-2">
@@ -101,7 +101,7 @@ export function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-primary-foreground/10">
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-6 py-6 text-xs text-primary-foreground/60 sm:flex-row sm:justify-between">
+        <div className="site-container flex flex-col gap-2 py-6 text-xs text-primary-foreground/60 sm:flex-row sm:justify-between">
           <span>© {new Date().getFullYear()} {site.name}. All rights reserved.</span>
           <div className="flex flex-wrap items-center gap-4">
             <Link to="/privacy-policy">{pageCopy.legal.privacyTitle}</Link>

@@ -20,20 +20,18 @@ function Head({ eyebrow, title, light = false }: { eyebrow: string; title: strin
   return (
     <div className="mb-10">
       <p className={`eyebrow ${light ? "text-accent" : "text-accent-text"}`}>{eyebrow}</p>
-      <h2 className={`mt-2 text-3xl font-semibold sm:text-4xl ${light ? "" : "text-primary"}`}>{title}</h2>
+      <h2 className={`mt-2 max-w-[28ch] text-3xl font-semibold sm:text-4xl ${light ? "" : "text-primary"}`}>{title}</h2>
     </div>
   );
 }
 
 export function EstatePage({ estate: e }: { estate: Estate }) {
-  // Distinct images with captions — no duplicates
   const gallery = [
     { src: hero, alt: "Aerial view of the estate", caption: "Illustrative render" },
     { src: estateImg, alt: "Example home on the estate", caption: "Illustrative render" },
     { src: land, alt: "Surveyed plots on site", caption: "Surveyed plots" },
   ];
 
-  // Floating pill: hide when #book section is visible
   const bookRef = useRef<HTMLElement | null>(null);
   const [pillVisible, setPillVisible] = useState(true);
   useEffect(() => {
@@ -54,47 +52,33 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
     <main>
       {/* ── HERO ── */}
       <section className="relative flex min-h-[80svh] items-end overflow-hidden">
-        <img
-          src={hero}
-          alt={e.name}
-          width={1920}
-          height={1088}
-          fetchPriority="high"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+        <img src={hero} alt={e.name} width={1920} height={1088} fetchPriority="high" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-hero-overlay" />
-        <div className="relative mx-auto w-full max-w-7xl px-6 pb-16 pt-40 text-hero-foreground">
-          <span className="eyebrow animate-fade-up rounded-full bg-highlight px-3 py-1 text-highlight-foreground">
-            Pre-launch
-          </span>
-          <h1 className="mt-5 animate-fade-up text-4xl font-semibold sm:text-5xl">{e.name}</h1>
-          <p className="mt-3 animate-fade-up font-display text-xl italic text-accent [animation-delay:80ms]">{e.tagline}</p>
-          <p className="mt-5 flex max-w-2xl animate-fade-up items-start gap-2 text-hero-foreground/85 [animation-delay:160ms]">
-            <MapPin className="mt-1 h-5 w-5 shrink-0 text-accent" />
-            {e.fullAddress}
-          </p>
-          {/* Inline hero CTAs */}
-          <div className="mt-8 flex animate-fade-up flex-wrap gap-3 [animation-delay:240ms]">
-            <a
-              href="#book"
-              className="rounded-full bg-highlight px-7 py-3.5 font-medium text-highlight-foreground transition hover:brightness-110"
-            >
-              <span className="hidden sm:inline">Book a Free Inspection</span>
-              <span className="sm:hidden">Free Inspection</span>
-            </a>
-            <a
-              href="#plot-map"
-              className="rounded-full border border-hero-foreground/60 px-7 py-3.5 font-medium text-hero-foreground transition hover:bg-hero-foreground/10"
-            >
-              View plot map
-            </a>
+        <div className="site-container relative w-full pb-16 pt-40 text-hero-foreground">
+          <div className="max-w-[720px]">
+            <span className="eyebrow animate-fade-up rounded-full bg-highlight px-3 py-1 text-highlight-foreground">Pre-launch</span>
+            <h1 className="mt-5 animate-fade-up text-4xl font-semibold sm:text-5xl">{e.name}</h1>
+            <p className="mt-3 animate-fade-up font-display text-xl italic text-accent [animation-delay:80ms]">{e.tagline}</p>
+            <p className="mt-5 flex max-w-2xl animate-fade-up items-start gap-2 text-hero-foreground/85 [animation-delay:160ms]">
+              <MapPin className="mt-1 h-5 w-5 shrink-0 text-accent" />
+              {e.fullAddress}
+            </p>
+            <div className="mt-8 flex animate-fade-up flex-wrap gap-3 [animation-delay:240ms]">
+              <a href="#book" className="rounded-full bg-highlight px-7 py-3.5 font-medium text-highlight-foreground transition hover:brightness-110">
+                <span className="hidden sm:inline">Book a Free Inspection</span>
+                <span className="sm:hidden">Free Inspection</span>
+              </a>
+              <a href="#plot-map" className="rounded-full border border-hero-foreground/60 px-7 py-3.5 font-medium text-hero-foreground transition hover:bg-hero-foreground/10">
+                View plot map
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── FACTS STRIP ── */}
       <div className="bg-primary text-primary-foreground">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-6 py-5 text-sm">
+        <div className="site-container flex flex-wrap items-center justify-between gap-3 py-5 text-sm">
           {[
             { icon: Ruler, text: `${e.plotSize} plots` },
             { icon: ShieldCheck, text: `${e.title} title` },
@@ -106,7 +90,6 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
               {text}
             </span>
           ))}
-          {/* Get price list button — prices remain hidden */}
           <a
             href={whatsappLink(priceListMsg)}
             target="_blank"
@@ -119,11 +102,11 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
         </div>
       </div>
 
-      {/* Floating "Book Inspection" pill — hides when #book is on screen */}
+      {/* Floating pill */}
       {pillVisible && (
         <a
           href="#book"
-          className="fixed bottom-5 left-4 z-40 sm:left-1/2 sm:-translate-x-1/2 flex items-center gap-2 rounded-full bg-highlight px-5 py-3.5 text-sm font-medium text-highlight-foreground shadow-lift transition hover:brightness-110"
+          className="fixed bottom-5 left-4 z-40 flex items-center gap-2 rounded-full bg-highlight px-5 py-3.5 text-sm font-medium text-highlight-foreground shadow-lift transition hover:brightness-110 sm:left-1/2 sm:-translate-x-1/2"
         >
           <CalendarCheck className="h-5 w-5" />
           <span className="hidden sm:inline">Book a Free Inspection</span>
@@ -131,10 +114,10 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
         </a>
       )}
 
-      {/* ── OVERVIEW ── */}
-      <section className="mx-auto max-w-7xl px-6 py-20">
+      {/* ── OVERVIEW — 3 cols ── */}
+      <section className="site-container py-16 md:py-20 xl:py-28">
         <Head eyebrow="Overview" title="A secure plot, ready for your home" />
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-3 xl:gap-10">
           {[
             { icon: Ruler, t: `${e.plotSize} plots`, d: "Generous, well-surveyed plots for a detached home with garden." },
             { icon: FileCheck2, t: `${e.title} title`, d: "Certificate of Occupancy for full peace of mind on ownership." },
@@ -151,29 +134,26 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
         </div>
       </section>
 
-      {/* ── GALLERY ── */}
-      <section className="mx-auto max-w-7xl px-6 pb-20">
+      {/* ── GALLERY — wider mosaic ── */}
+      <section className="site-container pb-16 md:pb-20 xl:pb-28">
         <Head eyebrow="Gallery" title="See the estate" />
         <Gallery images={gallery} />
-        <p className="mt-4 text-center text-xs text-muted-foreground">
+        <p className="mt-4 text-xs text-muted-foreground">
           Renders and the plot layout are illustrative only and do not represent the finished estate.
         </p>
       </section>
 
-      {/* ── PLOT MAP ── new position: before Features */}
-      <section
-        id="plot-map"
-        className="scroll-mt-28 bg-surface py-20"
-      >
-        <div className="mx-auto max-w-7xl px-6">
+      {/* ── PLOT MAP ── */}
+      <section id="plot-map" className="scroll-mt-28 bg-surface py-16 md:py-20 xl:py-28">
+        <div className="site-container">
           <Head eyebrow="Plot map" title="Choose your plot" />
           <PlotMap plots={e.plots} estateName={e.name} plotStatusVerified={e.plotStatusVerified} />
         </div>
       </section>
 
       {/* ── FEATURES + LANDMARKS ── */}
-      <section className="bg-primary py-20 text-primary-foreground">
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-2">
+      <section className="bg-primary py-16 text-primary-foreground md:py-20 xl:py-28">
+        <div className="site-container grid gap-10 lg:grid-cols-2 xl:gap-14">
           <div>
             <Head light eyebrow="Features" title="Estate infrastructure" />
             <ul className="grid gap-3 sm:grid-cols-2">
@@ -186,7 +166,6 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
             </ul>
           </div>
           <div>
-            {/* Heading changes based on whether distances are available */}
             <Head
               light
               eyebrow="Location"
@@ -194,17 +173,12 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
             />
             <ul className="space-y-3">
               {e.landmarks.map((l) => (
-                <li
-                  key={l.name}
-                  className="flex items-center justify-between gap-4 rounded-2xl bg-primary-foreground/5 px-4 py-3"
-                >
+                <li key={l.name} className="flex items-center justify-between gap-4 rounded-2xl bg-primary-foreground/5 px-4 py-3">
                   <span className="flex min-w-0 items-center gap-3">
                     <Landmark className="h-5 w-5 shrink-0 text-accent" />
                     <span>{l.name}</span>
                   </span>
-                  {l.distance && (
-                    <span className="shrink-0 text-xs text-primary-foreground/60">{l.distance}</span>
-                  )}
+                  {l.distance && <span className="shrink-0 text-xs text-primary-foreground/60">{l.distance}</span>}
                 </li>
               ))}
             </ul>
@@ -214,13 +188,9 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
 
       {/* ── PRICING (gated) ── */}
       {publicPolicy.showFinancialFigures && (
-        <section className="mx-auto max-w-7xl px-6 py-20">
+        <section className="site-container py-16 md:py-20 xl:py-28">
           <Head eyebrow="Pricing" title="Prices & payment plans" />
-          {e.promoEndsAt && (
-            <div className="mb-8">
-              <Countdown endsAt={e.promoEndsAt} />
-            </div>
-          )}
+          {e.promoEndsAt && <div className="mb-8"><Countdown endsAt={e.promoEndsAt} /></div>}
           <div className="grid gap-5 md:grid-cols-3">
             <div className="rounded-3xl bg-card p-7 shadow-soft">
               <p className="text-sm font-medium text-muted-foreground">Pre-launch outright</p>
@@ -254,25 +224,20 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
         </section>
       )}
 
-      {/* ── HOW TO BUY — numbered stepper ── */}
-      <section className="mx-auto max-w-7xl px-6 py-20">
+      {/* ── HOW TO BUY — 5 across on lg ── */}
+      <section className="site-container py-16 md:py-20 xl:py-28">
         <Head eyebrow="How to buy" title="Five simple steps" />
         <ol className="relative grid gap-8 lg:grid-cols-5">
-          {/* Connecting line on desktop */}
           <li className="pointer-events-none absolute top-8 left-0 right-0 hidden h-0.5 bg-border lg:block" aria-hidden="true" />
           {e.howToBuy.map((s, i) => (
             <li key={s.title} className="relative flex flex-col rounded-3xl bg-card p-6 shadow-soft">
-              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-3xl font-semibold text-accent font-display">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary font-display text-3xl font-semibold text-accent">
                 {i + 1}
               </span>
               <h3 className="mt-4 text-lg font-semibold text-primary">{s.title}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{s.text}</p>
-              {/* CTA after step 1 */}
               {i === 0 && (
-                <a
-                  href="#book"
-                  className="mt-4 inline-flex items-center gap-1 rounded-full bg-highlight px-4 py-2 text-xs font-medium text-highlight-foreground transition hover:brightness-110"
-                >
+                <a href="#book" className="mt-4 inline-flex items-center gap-1 rounded-full bg-highlight px-4 py-2 text-xs font-medium text-highlight-foreground transition hover:brightness-110">
                   <CalendarCheck className="h-3.5 w-3.5" />
                   Book a Free Inspection
                 </a>
@@ -282,12 +247,12 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
         </ol>
       </section>
 
-      {/* ── INSPECTION FORM ── */}
-      <section id="book" className="scroll-mt-28 bg-secondary py-20">
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-[1fr_1.4fr]">
+      {/* ── INSPECTION FORM — left text, right form ── */}
+      <section id="book" className="scroll-mt-28 bg-secondary py-16 md:py-20 xl:py-28">
+        <div className="site-container grid gap-10 lg:grid-cols-[2fr_3fr] xl:gap-14">
           <div>
             <Head eyebrow="Free inspection" title="Book your site visit" />
-            <p className="text-muted-foreground">
+            <p className="measure text-muted-foreground">
               Tell us when you'd like to visit. We'll confirm on WhatsApp and guide you to the estate.
             </p>
             <ul className="mt-6 space-y-2 text-sm">
@@ -299,10 +264,7 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
               ))}
             </ul>
             {publicPolicy.showInternalDocuments && e.brochureUrl !== "#" && (
-              <a
-                href={e.brochureUrl}
-                className="mt-8 inline-flex items-center gap-2 rounded-full border border-primary px-6 py-3 text-sm font-medium text-primary transition hover:bg-primary hover:text-primary-foreground"
-              >
+              <a href={e.brochureUrl} className="mt-8 inline-flex items-center gap-2 rounded-full border border-primary px-6 py-3 text-sm font-medium text-primary transition hover:bg-primary hover:text-primary-foreground">
                 <Download className="h-4 w-4" />
                 Download brochure
               </a>
@@ -312,19 +274,24 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
         </div>
       </section>
 
-      {/* ── FAQS ── */}
-      <section className="mx-auto max-w-3xl px-6 py-20">
-        <Head eyebrow="FAQs" title="Questions about this estate" />
-        <Accordion type="single" collapsible className="rounded-3xl bg-card px-6 shadow-soft">
-          {e.faqs.map((f, i) => (
-            <AccordionItem key={f.q} value={`f${i}`}>
-              <AccordionTrigger className="text-left font-sans font-semibold text-base text-primary">
-                {f.q}
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+      {/* ── FAQS — two cols on lg ── */}
+      <section className="site-container py-16 md:py-20 xl:py-28">
+        <div className="grid gap-10 lg:grid-cols-[1fr_2fr] xl:gap-14">
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <Head eyebrow="FAQs" title="Questions about this estate" />
+            <p className="measure text-sm text-muted-foreground">Common questions about plots, titles and the buying process.</p>
+          </div>
+          <Accordion type="single" collapsible className="rounded-3xl bg-card px-6 shadow-soft">
+            {e.faqs.map((f, i) => (
+              <AccordionItem key={f.q} value={`f${i}`}>
+                <AccordionTrigger className="text-left font-sans text-base font-semibold text-primary">
+                  {f.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
       </section>
     </main>
   );

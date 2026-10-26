@@ -70,10 +70,10 @@ export function Navbar() {
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? "bg-surface shadow-soft" : "pt-4 sm:pt-6"}`}
     >
       <nav
-        className={`mx-auto flex max-w-7xl items-center justify-between gap-4 bg-surface transition-all duration-300 ${
+        className={`site-container flex items-center justify-between gap-4 bg-surface transition-all duration-300 ${
           scrolled
-            ? "px-4 py-3 sm:px-8"
-            : "mx-4 max-w-6xl rounded-full px-4 py-2.5 shadow-soft sm:px-6 xl:mx-auto"
+            ? "py-3"
+            : "mx-4 rounded-full py-2.5 shadow-soft xl:mx-auto"
         }`}
       >
         <Link to="/" aria-label={site.name} className="shrink-0">

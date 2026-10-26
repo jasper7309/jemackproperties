@@ -112,6 +112,22 @@
   }
 }
 
+/* ── Shared layout container ── */
+@utility site-container {
+  width: 100%;
+  max-width: 1920px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  @media (min-width: 768px)  { padding-inline: 2.5rem; }
+  @media (min-width: 1280px) { padding-inline: 4rem; }
+  @media (min-width: 1536px) { padding-inline: 6rem; }
+}
+
+/* ── Readable text measure — keeps long-form text to ~70 characters ── */
+@utility measure {
+  max-width: 70ch;
+}
+
 /* ── Hero overlay — adds uniform 35% scrim on mobile so text stays readable ── */
 @utility bg-hero-overlay {
   background-image: var(--gradient-hero-mobile), var(--gradient-hero);

@@ -61,102 +61,60 @@ function Properties() {
     });
 
   return (
-    <main className="pt-32 pb-24">
-      <section className="mx-auto max-w-7xl px-6">
+    <main className="pb-16 pt-32 md:pb-20 xl:pb-28">
+      <section className="site-container">
         <p className="eyebrow text-accent-text">Listings</p>
-        <h1 className="mt-3 text-4xl font-semibold text-primary sm:text-5xl">Properties</h1>
-        <p className="mt-4 max-w-2xl text-muted-foreground">
+        <h1 className="mt-3 max-w-[24ch] text-4xl font-semibold text-primary sm:text-5xl">Properties</h1>
+        <p className="mt-4 measure text-muted-foreground">
           Land and homes with secure titles across Nigeria.
         </p>
 
-        {/* Filter panel */}
+        {/* Filter panel — all controls in one row on lg */}
         <div className="mt-10 rounded-3xl bg-card p-5 shadow-soft">
-          <div className="relative">
-            <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <input
-              value={s.q}
-              onChange={(e) => set({ q: e.target.value })}
-              placeholder="Search by name, location, developer or state"
-              aria-label="Search properties"
-              className={`${inputClass} pl-11`}
-            />
-          </div>
-          {/* Two columns on mobile, three on lg */}
-          <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-3">
-            <select
-              aria-label="Property type"
-              value={s.type}
-              onChange={(e) => set({ type: e.target.value })}
-              className={`${inputClass} capitalize`}
-            >
+          <div className="grid gap-3 lg:grid-cols-[2fr_1fr_1fr_1fr]">
+            <div className="relative">
+              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <input
+                value={s.q}
+                onChange={(e) => set({ q: e.target.value })}
+                placeholder="Search by name, location, developer or state"
+                aria-label="Search properties"
+                className={`${inputClass} pl-11`}
+              />
+            </div>
+            <select aria-label="Property type" value={s.type} onChange={(e) => set({ type: e.target.value })} className={`${inputClass} capitalize`}>
               <option value="">All types</option>
-              {publishedTypes.map((t) => (
-                <option key={t} value={t} className="capitalize">{t}</option>
-              ))}
+              {publishedTypes.map((t) => (<option key={t} value={t} className="capitalize">{t}</option>))}
             </select>
-
-            <select
-              aria-label="State"
-              value={s.state}
-              onChange={(e) => set({ state: e.target.value })}
-              className={inputClass}
-            >
+            <select aria-label="State" value={s.state} onChange={(e) => set({ state: e.target.value })} className={inputClass}>
               <option value="">All states</option>
-              {propertyStates.map((st) => (
-                <option key={st} value={st}>{st}</option>
-              ))}
+              {propertyStates.map((st) => (<option key={st} value={st}>{st}</option>))}
             </select>
-
-            <select
-              aria-label="Status"
-              value={s.status}
-              onChange={(e) => set({ status: e.target.value })}
-              className={inputClass}
-            >
+            <select aria-label="Status" value={s.status} onChange={(e) => set({ status: e.target.value })} className={inputClass}>
               <option value="">Any status</option>
-              {propertyStatuses.map((st) => (
-                <option key={st} value={st}>{statusLabels[st]}</option>
-              ))}
+              {propertyStatuses.map((st) => (<option key={st} value={st}>{statusLabels[st]}</option>))}
             </select>
           </div>
         </div>
 
         {/* Results bar */}
         <div className="mt-8 flex items-center justify-between gap-4">
-          <p
-            className="text-sm text-muted-foreground"
-            aria-live="polite"
-            aria-atomic="true"
-          >
+          <p className="text-sm text-muted-foreground" aria-live="polite" aria-atomic="true">
             {results.length} {results.length === 1 ? "property" : "properties"}
           </p>
-
           <div className="flex items-center gap-3">
             {active && (
-              <button
-                onClick={clearAll}
-                className="flex min-h-[44px] items-center gap-1.5 rounded-full border border-accent-text px-4 text-sm font-medium text-accent-text transition hover:bg-accent/10"
-              >
+              <button onClick={clearAll} className="flex min-h-[44px] items-center gap-1.5 rounded-full border border-accent-text px-4 text-sm font-medium text-accent-text transition hover:bg-accent/10">
                 <X className="h-3.5 w-3.5" />
                 Clear filters
               </button>
             )}
-
             <div className="flex rounded-full bg-card p-1 shadow-soft">
               {(["grid", "list"] as const).map((v) => {
                 const Icon = v === "grid" ? LayoutGrid : List;
                 return (
-                  <button
-                    key={v}
-                    onClick={() => set({ view: v })}
-                    aria-label={`${v} view`}
-                    aria-pressed={view === v}
-                    className={`grid h-11 w-11 place-items-center rounded-full transition ${
-                      view === v
-                        ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground"
-                    }`}
-                  >
+                  <button key={v} onClick={() => set({ view: v })} aria-label={`${v} view`} aria-pressed={view === v}
+                    className={`grid h-11 w-11 place-items-center rounded-full transition ${view === v ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}>
                     <Icon className="h-4 w-4" />
                   </button>
                 );
@@ -166,17 +124,11 @@ function Properties() {
         </div>
 
         {results.length ? (
-          <div
-            className={`mt-6 grid gap-6 ${
-              view === "grid" ? "sm:grid-cols-2 lg:grid-cols-3" : ""
-            }`}
-          >
-            {results.map((p) => (
-              <PropertyCard key={p.slug} property={p} layout={view} />
-            ))}
+          <div className={`mt-6 grid gap-6 ${view === "grid" ? "sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4" : ""}`}>
+            {results.map((p) => (<PropertyCard key={p.slug} property={p} layout={view} />))}
           </div>
         ) : (
-          <div className="mt-6 rounded-3xl bg-card p-12 text-center text-muted-foreground shadow-soft">
+          <div className="mt-6 rounded-3xl bg-card p-12 text-muted-foreground shadow-soft">
             No properties match these filters.
           </div>
         )}

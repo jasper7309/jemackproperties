@@ -104,16 +104,14 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
   ].filter((f): f is { label: string; value: string } => Boolean(f.value));
 
   return (
-    <main className="pb-24">
+    <main className="pb-16 md:pb-20 xl:pb-28">
       {/* ── Header ── */}
-      <section className="mx-auto max-w-5xl px-6 pt-32">
+      <section className="site-container pt-32">
         <div className="flex flex-wrap items-center gap-3">
           <StatusBadge status={p.status} label={statusLabels[p.status]} />
-          <span className="text-xs font-semibold uppercase tracking-widest text-accent-text capitalize">
-            {p.type}
-          </span>
+          <span className="text-xs font-semibold uppercase tracking-widest text-accent-text capitalize">{p.type}</span>
         </div>
-        <h1 className="mt-4 text-3xl font-semibold text-primary sm:text-4xl lg:text-5xl leading-tight">
+        <h1 className="mt-4 max-w-[24ch] text-3xl font-semibold leading-tight text-primary sm:text-4xl lg:text-5xl">
           {p.title}
         </h1>
         <p className="mt-2 text-sm font-medium text-muted-foreground">{developerLabel}</p>
@@ -124,56 +122,38 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
       </section>
 
       {/* ── Hero image or placeholder ── */}
-      <section className="mx-auto max-w-5xl px-6 mt-8">
+      <section className="site-container mt-8">
         {p.image ? (
-          <img
-            src={p.image}
-            alt={p.title}
-            width={1280}
-            height={560}
-            className="aspect-[16/7] w-full rounded-3xl object-cover"
-          />
+          <img src={p.image} alt={p.title} width={1280} height={560} className="aspect-[16/7] w-full rounded-3xl object-cover" />
         ) : (
           <HeroPlaceholder type={p.type} />
         )}
       </section>
 
-      <div className="mx-auto mt-12 max-w-5xl px-6 grid gap-10 lg:grid-cols-[1fr_340px]">
+      <div className="site-container mt-12 grid gap-10 lg:grid-cols-[1fr_360px] xl:gap-14">
         {/* ── Left column ── */}
         <div className="space-y-10">
-          {/* Key facts grid */}
           <section>
             <h2 className="text-2xl font-semibold text-primary">Key details</h2>
             <dl className="mt-5 grid gap-3 sm:grid-cols-2">
               {facts.map((f) => (
-                <div
-                  key={f.label}
-                  className="rounded-2xl bg-card px-5 py-4 shadow-soft"
-                >
-                  <dt className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                    {f.label}
-                  </dt>
+                <div key={f.label} className="rounded-2xl bg-card px-5 py-4 shadow-soft">
+                  <dt className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{f.label}</dt>
                   <dd className="mt-1 font-medium text-primary">{f.value}</dd>
                 </div>
               ))}
             </dl>
           </section>
 
-          {/* Features */}
           {p.features && p.features.length > 0 && (
             <section>
               <h2 className="text-2xl font-semibold text-primary">
                 Estate features{" "}
-                <span className="text-base font-normal text-muted-foreground">
-                  (as supplied by the developer)
-                </span>
+                <span className="text-base font-normal text-muted-foreground">(as supplied by the developer)</span>
               </h2>
               <ul className="mt-5 grid gap-2 sm:grid-cols-2">
                 {p.features.map((f) => (
-                  <li
-                    key={f}
-                    className="flex items-center gap-3 rounded-2xl bg-card px-4 py-3 shadow-soft text-sm"
-                  >
+                  <li key={f} className="flex items-center gap-3 rounded-2xl bg-card px-4 py-3 shadow-soft text-sm">
                     <ShieldCheck className="h-4 w-4 shrink-0 text-accent" />
                     {f}
                   </li>
@@ -182,21 +162,15 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
             </section>
           )}
 
-          {/* Landmarks */}
           {p.landmarks && p.landmarks.length > 0 && (
             <section>
               <h2 className="text-2xl font-semibold text-primary">
                 Nearby{" "}
-                <span className="text-base font-normal text-muted-foreground">
-                  (as supplied by the developer)
-                </span>
+                <span className="text-base font-normal text-muted-foreground">(as supplied by the developer)</span>
               </h2>
               <ul className="mt-5 space-y-2">
                 {p.landmarks.map((l) => (
-                  <li
-                    key={l}
-                    className="flex items-center gap-3 rounded-2xl bg-card px-4 py-3 shadow-soft text-sm"
-                  >
+                  <li key={l} className="flex items-center gap-3 rounded-2xl bg-card px-4 py-3 shadow-soft text-sm">
                     <Landmark className="h-4 w-4 shrink-0 text-accent" />
                     {l}
                   </li>
@@ -205,86 +179,58 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
             </section>
           )}
 
-          {/* Before you pay */}
           <section className="rounded-3xl border border-border bg-secondary p-6">
             <h2 className="flex items-center gap-2 text-lg font-semibold text-primary">
               <AlertCircle className="h-5 w-5 shrink-0 text-accent-text" />
               Before you pay
             </h2>
             <ul className="mt-4 space-y-2 text-sm text-foreground">
-              <li className="flex items-start gap-2">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-text" />
-                Request the title documents, survey and draft sale agreement before committing.
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-text" />
-                Take independent legal advice.
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-text" />
-                Confirm payment instructions through an independently verified Jemack contact.
-              </li>
+              {[
+                "Request the title documents, survey and draft sale agreement before committing.",
+                "Take independent legal advice.",
+                "Confirm payment instructions through an independently verified Jemack contact.",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-text" />
+                  {item}
+                </li>
+              ))}
             </ul>
           </section>
 
-          {/* Disclosure footnote */}
-          <p className="text-xs text-muted-foreground border-t pt-6">
-            Listing details are supplied by the developer. Availability, title and terms must be
-            confirmed in writing before payment.
+          <p className="border-t pt-6 text-xs text-muted-foreground">
+            Listing details are supplied by the developer. Availability, title and terms must be confirmed in writing before payment.
           </p>
         </div>
 
-        {/* ── Right column — CTA panel ── */}
+        {/* ── Right column — sticky CTA ── */}
         <aside className="space-y-4 lg:sticky lg:top-28 lg:self-start">
           <div className="rounded-3xl bg-primary p-6 text-primary-foreground shadow-lift">
             <p className="text-sm text-primary-foreground/70">Interested in this property?</p>
             <p className="mt-1 font-display text-xl font-semibold">{p.title}</p>
-
-            {/* 1 — Book inspection */}
-            <a
-              href={inspectUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-5 flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-highlight px-5 py-3 text-sm font-medium text-highlight-foreground transition hover:brightness-110"
-            >
+            <a href={inspectUrl} target="_blank" rel="noreferrer"
+              className="mt-5 flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-highlight px-5 py-3 text-sm font-medium text-highlight-foreground transition hover:brightness-110">
               <CalendarCheck className="h-4 w-4 shrink-0" />
               Book a Free Inspection
             </a>
-
-            {/* 2 — Get price & plan */}
-            <a
-              href={priceUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-3 flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-whatsapp px-5 py-3 text-sm font-medium text-white transition hover:brightness-110"
-            >
+            <a href={priceUrl} target="_blank" rel="noreferrer"
+              className="mt-3 flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-whatsapp px-5 py-3 text-sm font-medium text-white transition hover:brightness-110">
               <WhatsAppIcon className="h-4 w-4 shrink-0" />
               Get price &amp; payment plan on WhatsApp
             </a>
-
-            {/* 3 — Call */}
-            <a
-              href={`tel:${primaryPhone.tel}`}
-              className="mt-3 flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-primary-foreground/30 px-5 py-3 text-sm font-medium text-primary-foreground transition hover:bg-primary-foreground/10"
-            >
+            <a href={`tel:${primaryPhone.tel}`}
+              className="mt-3 flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-primary-foreground/30 px-5 py-3 text-sm font-medium text-primary-foreground transition hover:bg-primary-foreground/10">
               <Phone className="h-4 w-4 shrink-0" />
               {primaryPhone.display}
             </a>
           </div>
-
-          {/* Quick message */}
           <div className="rounded-3xl bg-card p-5 shadow-soft text-sm text-muted-foreground">
-            <p className="font-medium text-primary flex items-center gap-2">
+            <p className="flex items-center gap-2 font-medium text-primary">
               <MessageCircle className="h-4 w-4" />
               Have a specific question?
             </p>
-            <p className="mt-2">
-              Send us a WhatsApp message mentioning this property and we will get back to you.
-            </p>
-            <Link
-              to="/contact"
-              className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-accent-text underline-offset-4 hover:underline"
-            >
+            <p className="mt-2">Send us a WhatsApp message mentioning this property and we will get back to you.</p>
+            <Link to="/contact" className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-accent-text underline-offset-4 hover:underline">
               Other ways to contact us
             </Link>
           </div>
