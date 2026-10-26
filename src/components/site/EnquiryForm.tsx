@@ -79,14 +79,12 @@ export function EnquiryForm({ service, topics = false }: { service?: string; top
       ref={formRef}
       onSubmit={submit}
       noValidate
-      className="grid gap-4 rounded-3xl bg-card p-5 shadow-soft sm:grid-cols-2 sm:p-8"
+      className="grid gap-4 rounded-3xl bg-card p-6 shadow-soft sm:grid-cols-2 sm:p-8"
     >
       <Field label={copy.name} error={errors.name}>
         <input
           name="name"
           autoComplete="name"
-          inputMode="text"
-          enterKeyHint="next"
           required
           placeholder="e.g. Emeka Obi"
           className={inputClass}
@@ -98,8 +96,6 @@ export function EnquiryForm({ service, topics = false }: { service?: string; top
           name="phone"
           type="tel"
           autoComplete="tel"
-          inputMode="tel"
-          enterKeyHint="next"
           required
           placeholder="e.g. 0803 000 0000"
           className={inputClass}
@@ -111,8 +107,6 @@ export function EnquiryForm({ service, topics = false }: { service?: string; top
           name="email"
           type="email"
           autoComplete="email"
-          inputMode="email"
-          enterKeyHint="next"
           placeholder="e.g. emeka@email.com"
           className={inputClass}
         />
@@ -147,7 +141,6 @@ export function EnquiryForm({ service, topics = false }: { service?: string; top
             required
             rows={4}
             maxLength={1500}
-            enterKeyHint="send"
             placeholder="Which plot or service are you asking about?"
             className={inputClass}
           />
@@ -171,7 +164,7 @@ export function EnquiryForm({ service, topics = false }: { service?: string; top
         type="submit"
         disabled={submitting}
         aria-busy={submitting}
-        className="flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full px-5 sm:col-span-2 disabled:opacity-60"
+        className="flex h-auto items-center justify-center gap-2 whitespace-normal rounded-full px-5 py-3 sm:col-span-2 disabled:opacity-60"
       >
         <WhatsAppIcon className="h-5 w-5" />
         {service ? pageCopy.quote.submit : pageCopy.enquiry.submit}

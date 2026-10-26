@@ -13,45 +13,45 @@ const bookHref = `/properties/${estates[0]?.slug ?? 'oliveness-garden-estate'}#b
 function About() {
   return (
     <PageShell eyebrow={about.eyebrow} title={about.title} intro={about.intro}>
-      {/* Story — image above text on mobile, side-by-side on lg */}
-      <section className="grid items-center gap-8 lg:grid-cols-2 xl:gap-14">
+      {/* Story — text left, image right fills column */}
+      <section className="grid items-center gap-10 lg:grid-cols-2 xl:gap-14">
+        <div>
+          <h2 className="max-w-[28ch] text-3xl text-primary">{about.storyTitle}</h2>
+          {about.story.map((p) => (
+            <p key={p} className="mt-5 measure text-muted-foreground">{p}</p>
+          ))}
+        </div>
         <img
           src={about.image}
           alt="Illustrative Jemack engineering team on a construction site"
           width={1536}
           height={1024}
           loading="lazy"
-          className="aspect-[3/2] w-full rounded-3xl object-cover lg:order-last"
+          className="aspect-[3/2] w-full rounded-3xl object-cover"
         />
-        <div>
-          <h2 className="max-w-[28ch] text-primary">{about.storyTitle}</h2>
-          {about.story.map((p) => (
-            <p key={p} className="mt-4 measure text-muted-foreground">{p}</p>
-          ))}
-        </div>
       </section>
 
-      {/* Vision + Mission — stacked on mobile */}
-      <section className="mt-12 grid gap-8 border-y py-10 md:grid-cols-2 xl:gap-14 sm:mt-16 sm:py-12">
+      {/* Vision + Mission — side by side */}
+      <section className="mt-16 grid gap-10 border-y py-12 md:grid-cols-2 xl:gap-14">
         {[
           { title: pageCopy.labels.vision, text: about.vision },
           { title: pageCopy.labels.mission, text: about.mission },
         ].map((x) => (
           <div key={x.title}>
-            <h2 className="text-primary">{x.title}</h2>
+            <h2 className="text-2xl text-primary">{x.title}</h2>
             <p className="mt-4 measure text-muted-foreground">{x.text}</p>
           </div>
         ))}
       </section>
 
-      {/* Values — 2 cols on mobile, 4 on lg */}
-      <section className="mt-12 sm:mt-16">
-        <h2 className="max-w-[28ch] text-primary">{pageCopy.labels.values}</h2>
-        <div className="mt-6 grid grid-cols-2 gap-6 lg:grid-cols-4">
+      {/* Values — 4 across */}
+      <section className="mt-16">
+        <h2 className="max-w-[28ch] text-3xl text-primary">{pageCopy.labels.values}</h2>
+        <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {about.values.map((v) => (
             <div key={v.title}>
-              <h3 className="text-lg font-semibold text-primary">{v.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{v.text}</p>
+              <h3 className="text-xl text-primary">{v.title}</h3>
+              <p className="mt-3 text-sm text-muted-foreground">{v.text}</p>
             </div>
           ))}
         </div>

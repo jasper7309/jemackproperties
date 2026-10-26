@@ -45,120 +45,90 @@
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.966 0.012 80);
-  --foreground: oklch(0.27 0.01 120);
+  --background: oklch(0.966 0.012 80);        /* #F7F3EC cream */
+  --foreground: oklch(0.27 0.01 120);         /* charcoal */
   --surface: oklch(1 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.27 0.01 120);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.27 0.01 120);
-  --primary: oklch(0.34 0.06 125);
+  --primary: oklch(0.34 0.06 125);            /* olive green */
   --primary-foreground: oklch(0.97 0.012 80);
   --secondary: oklch(0.93 0.02 95);
   --secondary-foreground: oklch(0.34 0.06 125);
   --muted: oklch(0.93 0.015 85);
   --muted-foreground: oklch(0.5 0.015 110);
-  --accent: oklch(0.68 0.13 108);
-  --accent-text: oklch(0.38 0.08 108);
+  --accent: oklch(0.68 0.13 108);             /* olive gold — for use on dark */
+  --accent-text: oklch(0.38 0.08 108);        /* darker gold — ≥4.5:1 on cream/white */
   --accent-foreground: oklch(0.22 0.04 125);
-  --highlight: oklch(0.57 0.2 30);
+  --highlight: oklch(0.57 0.2 30);            /* red — reserved for single primary CTA */
   --highlight-foreground: oklch(0.99 0 0);
   --destructive: oklch(0.57 0.2 30);
   --destructive-foreground: oklch(0.99 0 0);
   --hero-foreground: oklch(0.99 0 0);
-  --whatsapp: oklch(0.68 0.19 150);
-  --whatsapp-dark: oklch(0.42 0.14 150);
+  --whatsapp: oklch(0.68 0.19 150);           /* #25D366-style — darker for contrast */
+  --whatsapp-dark: oklch(0.42 0.14 150);      /* dark green text on whatsapp bg ≥4.5:1 */
   --border: oklch(0.89 0.015 85);
   --input: oklch(0.89 0.015 85);
-  --ring: oklch(0.34 0.06 125);
+  --ring: oklch(0.34 0.06 125);              /* primary ring on light bg */
 
-  /* Hero gradient */
+  /* Hero gradient — left-to-right + uniform 35% dark base on mobile */
   --gradient-hero: linear-gradient(
     90deg,
     oklch(0.15 0.03 125 / 0.85) 0%,
     oklch(0.15 0.03 125 / 0.45) 55%,
     oklch(0.15 0.03 125 / 0.15) 100%
   );
-  /* Mobile: 40% uniform dark overlay ensures text readability on any photo */
   --gradient-hero-mobile: linear-gradient(
-    oklch(0.15 0.03 125 / 0.40),
-    oklch(0.15 0.03 125 / 0.40)
+    oklch(0.15 0.03 125 / 0.35),
+    oklch(0.15 0.03 125 / 0.35)
   );
 }
 
 @layer base {
   * { border-color: var(--color-border); }
-
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    /* A.5 — fluid base type: 16px on phones, scales to 18px at 1280px */
-    font-size: clamp(1rem, 1vw + 0.875rem, 1.125rem);
-    line-height: 1.65;
-    overflow-wrap: anywhere;       /* A.2 — prevent overflow from long words/URLs */
-    overflow-x: clip;              /* A.2 — last-resort horizontal overflow guard */
-    text-wrap: pretty;             /* A.5 — nicer paragraph wrapping */
+    font-size: 1rem; /* keep body text ≥14px */
   }
+  h1, h2, h3, h4 { font-family: var(--font-display); }
 
-  h1, h2, h3, h4 {
-    font-family: var(--font-display);
-    text-wrap: balance;            /* A.5 — balanced heading wrapping */
-  }
-
-  /* A.5 — Fluid headings */
-  h1 { font-size: clamp(2rem, 8vw, 3rem); }
-  @media (min-width: 640px) { h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); } }
-
-  h2 { font-size: clamp(1.75rem, 6vw, 2.25rem); }
-  @media (min-width: 640px) { h2 { font-size: clamp(2rem, 4vw, 2.75rem); } }
-
-  /* :focus-visible ring */
+  /* Visible focus ring for keyboard nav */
   :focus-visible {
     outline: 2px solid var(--primary);
     outline-offset: 4px;
   }
 
-  /* A.8 — scroll-margin so fixed header doesn't cover focused/scrolled fields */
-  html { scroll-padding-top: 6rem; }
-
+  html { scroll-padding-top: 7rem; }
+  body { overflow-wrap: break-word; line-height: 1.65; }
   button, input, select, textarea { min-width: 0; }
   .grid > * { min-width: 0; }
 
-  img, video { max-width: 100%; height: auto; }
-
-  /* A.2 — allow long email/URL text to wrap */
-  a[href^="mailto:"],
-  a[href^="tel:"] {
-    overflow-wrap: anywhere;
-    word-break: break-all;
-  }
-
-  /* accent-text token */
+  /* accent-text: use darker token on light backgrounds, keep gold on dark/hero */
   .text-accent:not(.bg-primary .text-accent):not(.text-hero-foreground .text-accent):not(.text-primary-foreground .text-accent) {
     color: var(--accent-text);
   }
 }
 
-/* ── A.6 Shared layout container ── */
+/* ── Shared layout container ── */
 @utility site-container {
   width: 100%;
   max-width: 1920px;
   margin-inline: auto;
-  /* 20px at 320–389px, 24px from 390px, 40px from 768px, 64px from 1280px, 96px from 1536px */
-  padding-inline: 1.25rem;
-  @media (min-width: 390px)  { padding-inline: 1.5rem; }
+  padding-inline: 1.5rem;
   @media (min-width: 768px)  { padding-inline: 2.5rem; }
   @media (min-width: 1280px) { padding-inline: 4rem; }
   @media (min-width: 1536px) { padding-inline: 6rem; }
 }
 
-/* ── Readable measure ── */
+/* ── Readable text measure — keeps long-form text to ~70 characters ── */
 @utility measure {
   max-width: 70ch;
 }
 
-/* ── Hero overlay — 40% solid scrim on mobile, gradient on sm+ ── */
+/* ── Hero overlay — adds uniform 35% scrim on mobile so text stays readable ── */
 @utility bg-hero-overlay {
   background-image: var(--gradient-hero-mobile), var(--gradient-hero);
   @media (min-width: 640px) {
@@ -173,52 +143,23 @@
   text-transform: uppercase;
 }
 
-/* ── Animations ── */
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: none; }
 }
 @utility animate-fade-up { animation: fade-up 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
 
-/* ── A.4 Safe-area helpers ── */
-@utility safe-top    { padding-top: env(safe-area-inset-top); }
-@utility safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
-@utility safe-left   { padding-left: env(safe-area-inset-left); }
-@utility safe-right  { padding-right: env(safe-area-inset-right); }
-
-/* ── A.8 Form inputs — 48px min height, 16px text ── */
-@utility input-mobile {
-  min-height: 3rem;   /* 48px */
-  font-size: 1rem;    /* 16px — prevents iOS zoom */
-}
-
-/* ── Featured Properties mobile carousel ── */
-@utility featured-carousel {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: 1.25rem;
-  gap: 1rem;
-  /* hide scrollbar visually but keep scroll functionality */
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  -webkit-overflow-scrolling: touch;
-  &::-webkit-scrollbar { display: none; }
-  @media (min-width: 390px) { scroll-padding-inline: 1.5rem; }
-}
-@utility carousel-card {
-  flex: 0 0 85%;
-  scroll-snap-align: start;
-  min-width: 0;
-  @media (min-width: 400px) { flex: 0 0 82%; }
-}
-
-/* ── Plot status colours ── */
+/* ── Plot status colours — WCAG AA fills ── */
 :root {
+  /* Available: dark green, white numerals pass 4.5:1 */
   --status-available: oklch(0.44 0.13 150);
+  /* Reserved: amber, dark text required */
   --status-reserved: oklch(0.75 0.14 75);
+  /* Sold: dark grey, white numerals pass 4.5:1 */
   --status-sold: oklch(0.40 0.01 100);
+  /* Unverified neutral — olive-tinted mid-grey */
   --status-neutral: oklch(0.55 0.03 130);
+  /* Park / open zone */
   --park: oklch(0.82 0.08 130);
 }
 @theme inline {
