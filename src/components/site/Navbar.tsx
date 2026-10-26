@@ -34,11 +34,11 @@ export function Navbar() {
       if (y < 10) {
         setVisible(true);
       } else if (y < lastY.current) {
-        // scrolling UP — hide
-        setVisible(false);
-      } else {
-        // scrolling DOWN — show
+        // scrolling UP — show
         setVisible(true);
+      } else {
+        // scrolling DOWN — hide
+        setVisible(false);
       }
       lastY.current = y;
     };
