@@ -26,11 +26,14 @@ function Head({ eyebrow, title, light = false }: { eyebrow: string; title: strin
 }
 
 export function EstatePage({ estate: e }: { estate: Estate }) {
-  const gallery = [
-    { src: hero, alt: "Aerial view of the estate", caption: "Illustrative render" },
-    { src: estateImg, alt: "Example home on the estate", caption: "Illustrative render" },
-    { src: land, alt: "Surveyed plots on site", caption: "Surveyed plots" },
-  ];
+  // Use real estate photos when available; fall back to illustrative assets
+  const gallery = e.images && e.images.length > 0
+    ? e.images
+    : [
+        { src: hero, alt: "Aerial view of the estate", caption: "Illustrative render" },
+        { src: estateImg, alt: "Example home on the estate", caption: "Illustrative render" },
+        { src: land, alt: "Surveyed plots on site", caption: "Surveyed plots" },
+      ];
 
   const priceListMsg = `Hello Jemack Properties, please send me the current price list and payment plans for ${e.name}.`;
 
@@ -114,16 +117,46 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
       <section className="site-container pb-16 md:pb-20 xl:pb-28">
         <Head eyebrow="Gallery" title="See the estate" />
         <Gallery images={gallery} />
-        <p className="mt-4 text-xs text-muted-foreground">
-          Renders and the plot layout are illustrative only and do not represent the finished estate.
-        </p>
+        {(!e.images || e.images.length === 0) && (
+          <p className="mt-4 text-xs text-muted-foreground">
+            Renders and the plot layout are illustrative only and do not represent the finished estate.
+          </p>
+        )}
       </section>
 
       {/* ── PLOT MAP ── */}
       <section id="plot-map" className="scroll-mt-28 bg-surface py-16 md:py-20 xl:py-28">
         <div className="site-container">
           <Head eyebrow="Plot map" title="Choose your plot" />
-          <PlotMap plots={e.plots} estateName={e.name} plotStatusVerified={e.plotStatusVerified} />
+          {e.plotMapImageUrl ? (
+            <div className="space-y-4">
+              {/* Show the official survey image in full */}
+              <div className="overflow-hidden rounded-3xl border bg-white shadow-soft">
+                <img
+                  src={e.plotMapImageUrl}
+                  alt={`Official plot layout for ${e.name}`}
+                  width={1200}
+                  height={900}
+                  loading="lazy"
+                  className="w-full object-contain"
+                />
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Official survey layout — Oliveness Garden Estate, Ubulu-Okiti, Asaba. Total area: 28,666.701 sq metres.
+              </p>
+              <a
+                href={whatsappLink(`Hello Jemack Properties, I'd like to enquire about an available plot at ${e.name}.`)}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-whatsapp px-6 py-3 text-sm font-medium text-white transition hover:brightness-110"
+              >
+                <WhatsAppIcon className="h-4 w-4" />
+                Enquire about a plot on WhatsApp
+              </a>
+            </div>
+          ) : (
+            <PlotMap plots={e.plots} estateName={e.name} plotStatusVerified={e.plotStatusVerified} />
+          )}
         </div>
       </section>
 
