@@ -14,6 +14,7 @@ import { Gallery } from "./Gallery";
 import { Countdown } from "./Countdown";
 import { InspectionForm } from "./InspectionForm";
 import { WhatsAppIcon } from "@/components/site/WhatsAppIcon";
+import { OptionalEmbed } from "@/components/site/Consent";
 
 function Head({ eyebrow, title, light = false }: { eyebrow: string; title: string; light?: boolean }) {
   return (
@@ -115,12 +116,23 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
       {/* ── GALLERY — wider mosaic ── */}
       <section className="site-container pb-16 md:pb-20 xl:pb-28">
         <Head eyebrow="Gallery" title="See the estate" />
-        <Gallery images={gallery} />
+        {/* Images at 80% of container width */}
+        <div className="w-4/5">
+          <Gallery images={gallery} />
+        </div>
         {(!e.images || e.images.length === 0) && (
           <p className="mt-4 text-xs text-muted-foreground">
             Renders and the plot layout are illustrative only and do not represent the finished estate.
           </p>
         )}
+        {/* Estate video */}
+        <div className="mt-8">
+          <p className="mb-3 text-sm font-medium text-primary">Estate walkthrough</p>
+          <OptionalEmbed
+            src="https://www.youtube-nocookie.com/embed/PcUFar8W2Cg"
+            title="Oliveness Garden Estate walkthrough"
+          />
+        </div>
       </section>
 
       {/* ── PLOT MAP ── */}
