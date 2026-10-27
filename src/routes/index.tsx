@@ -140,7 +140,7 @@ function Index() {
       </section>
 
       {/* ── HERO → FEATURED PROPERTIES gradient bridge ── */}
-      <div className="h-48 w-full" style={{ background: "linear-gradient(to bottom, transparent, #011627)" }} />
+      <div className="h-48 w-full" style={{ background: "linear-gradient(to bottom, transparent 0%, #ffffff 60%, #011627 100%)" }} />
 
       {/* ── FEATURED PROPERTIES — dark navy band ── */}
       {(() => {
