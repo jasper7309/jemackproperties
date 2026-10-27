@@ -4,19 +4,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ─────────────────────────────────────────────────────────────
-   DESIGN-SYSTEM TOKENS
-   Defined once here; consumed everywhere via Tailwind utilities.
-   ───────────────────────────────────────────────────────────── */
-
 @theme inline {
-  /* Fonts — Montserrat for all text; kept as a single family for both
-     "display" (headings) and "sans" (body) roles so the codebase's
-     font-display and font-sans utilities both resolve to Montserrat. */
+  /* Font — Montserrat for both display and body roles */
   --font-display: "Montserrat", system-ui, sans-serif;
   --font-sans:    "Montserrat", system-ui, sans-serif;
 
-  /* Radius scale — unchanged */
   --radius-sm:  calc(var(--radius) - 4px);
   --radius-md:  calc(var(--radius) - 2px);
   --radius-lg:  var(--radius);
@@ -24,57 +16,52 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 14px);
 
-  /* Color bridges — Tailwind reads these to generate bg-*, text-*, etc. */
-  --color-background:        var(--background);
-  --color-foreground:        var(--foreground);
-  --color-card:              var(--card);
-  --color-card-foreground:   var(--card-foreground);
-  --color-popover:           var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary:           var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary:         var(--secondary);
+  --color-background:           var(--background);
+  --color-foreground:           var(--foreground);
+  --color-card:                 var(--card);
+  --color-card-foreground:      var(--card-foreground);
+  --color-popover:              var(--popover);
+  --color-popover-foreground:   var(--popover-foreground);
+  --color-primary:              var(--primary);
+  --color-primary-foreground:   var(--primary-foreground);
+  --color-secondary:            var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted:             var(--muted);
-  --color-muted-foreground:  var(--muted-foreground);
-  --color-accent:            var(--accent);
-  --color-accent-text:       var(--accent-text);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive:       var(--destructive);
+  --color-muted:                var(--muted);
+  --color-muted-foreground:     var(--muted-foreground);
+  --color-accent:               var(--accent);
+  --color-accent-text:          var(--accent-text);
+  --color-accent-foreground:    var(--accent-foreground);
+  --color-destructive:          var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
-  --color-highlight:         var(--highlight);
+  --color-highlight:            var(--highlight);
   --color-highlight-foreground: var(--highlight-foreground);
-  --color-surface:           var(--surface);
-  --color-hero-foreground:   var(--hero-foreground);
-  --color-whatsapp:          var(--whatsapp);
-  --color-whatsapp-dark:     var(--whatsapp-dark);
-  --color-border:            var(--border);
-  --color-input:             var(--input);
-  --color-ring:              var(--ring);
-
-  /* Shadows — use navy-tinted shadow to match new palette */
+  --color-surface:              var(--surface);
+  --color-hero-foreground:      var(--hero-foreground);
+  --color-whatsapp:             var(--whatsapp);
+  --color-whatsapp-dark:        var(--whatsapp-dark);
+  --color-border:               var(--border);
+  --color-input:                var(--input);
+  --color-ring:                 var(--ring);
   --shadow-soft: 0 10px 30px -12px color-mix(in oklab, var(--primary) 22%, transparent);
   --shadow-lift: 0 24px 50px -20px color-mix(in oklab, var(--primary) 35%, transparent);
 }
 
 /* ─────────────────────────────────────────────────────────────
-   DESIGN-SYSTEM PALETTE  (change values here; classes follow)
+   DESIGN-SYSTEM PALETTE
    ───────────────────────────────────────────────────────────── */
 :root {
   --radius: 0.75rem;
 
-  /* Core design-system colors */
-  --ds-red:        #D94948;   /* --color-primary buttons / accents */
-  --ds-navy:       #011627;   /* footer, dark sections, headings    */
-  --ds-text:       #666666;   /* body text                          */
-  --ds-bg:         #FFFFFF;   /* page background                    */
-  --ds-bg-soft:    #F9F8F8;   /* alternate section background       */
-  --ds-border:     #EAEAEA;   /* borders                            */
-  --ds-green:      #61CE70;   /* CTA band / optional accent         */
+  /* Raw design-system colour values */
+  --ds-red:     #D94948;   /* primary CTA / accent */
+  --ds-navy:    #011627;   /* dark sections, headings, footer */
+  --ds-text:    #666666;   /* body text */
+  --ds-bg:      #FFFFFF;   /* page background */
+  --ds-bg-soft: #F9F8F8;   /* alternate section background */
+  --ds-border:  #EAEAEA;   /* borders */
+  --ds-green:   #61CE70;   /* CTA band / accent on dark */
 
-  /* ── Token assignments ─────────────────────────────────── */
-
-  /* page & surface backgrounds */
+  /* ── Token assignments ─────────────────────────────────────── */
   --background:   var(--ds-bg);
   --surface:      var(--ds-bg-soft);
   --card:         var(--ds-bg);
@@ -82,7 +69,7 @@
   --popover:      var(--ds-bg);
   --popover-foreground: var(--ds-navy);
 
-  /* primary = navy  (dark sections, headings, the olive-green role) */
+  /* primary = navy */
   --primary:            var(--ds-navy);
   --primary-foreground: #FFFFFF;
 
@@ -94,36 +81,35 @@
   --muted:            var(--ds-bg-soft);
   --muted-foreground: var(--ds-text);
 
-  /* foreground (body text) */
+  /* foreground (general text) */
   --foreground: var(--ds-navy);
 
-  /* accent = green (was olive-gold; used for eyebrows and highlights
-     on dark backgrounds; kept accessible against navy) */
+  /* accent = green */
   --accent:            var(--ds-green);
-  --accent-text:       #1a7a2a;   /* darker green — ≥4.5:1 on white   */
+  --accent-text:       #1a7a2a;   /* darker green — ≥4.5:1 on white */
   --accent-foreground: var(--ds-navy);
 
-  /* highlight = red  (single primary CTA colour) */
+  /* highlight = red */
   --highlight:            var(--ds-red);
   --highlight-foreground: #FFFFFF;
 
-  /* destructive = same red */
+  /* destructive = red */
   --destructive:            var(--ds-red);
   --destructive-foreground: #FFFFFF;
 
   /* hero text */
   --hero-foreground: #FFFFFF;
 
-  /* WhatsApp green — unchanged */
+  /* WhatsApp */
   --whatsapp:      oklch(0.68 0.19 150);
   --whatsapp-dark: oklch(0.42 0.14 150);
 
-  /* borders / inputs */
+  /* borders / inputs / ring */
   --border: var(--ds-border);
   --input:  var(--ds-border);
-  --ring:   var(--ds-red);   /* focus ring matches primary CTA */
+  --ring:   var(--ds-red);
 
-  /* Hero gradient — dark overlay so hero text stays white */
+  /* Hero gradient — navy-based scrim */
   --gradient-hero: linear-gradient(
     90deg,
     rgb(1 22 39 / 0.82) 0%,
@@ -137,27 +123,19 @@
 }
 
 /* ─────────────────────────────────────────────────────────────
-   BASE STYLES
+   BASE STYLES  (typography left entirely to Tailwind utilities)
    ───────────────────────────────────────────────────────────── */
 @layer base {
   * { border-color: var(--color-border); }
 
   body {
     background-color: var(--color-background);
-    color: var(--ds-text);           /* body text: #666666 */
-    font-family: var(--font-sans);   /* Montserrat */
-    font-size: 0.8125rem;            /* 13px */
-    font-weight: 300;
-    line-height: 1.55;
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: 1rem;
   }
 
-  /* All headings — Montserrat, navy */
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display);
-    color: var(--ds-navy);
-    font-weight: 700;
-    line-height: 1.2;
-  }
+  h1, h2, h3, h4 { font-family: var(--font-display); }
 
   /* Visible focus ring for keyboard nav */
   :focus-visible {
@@ -166,121 +144,20 @@
   }
 
   html { scroll-padding-top: 7rem; }
-  body { overflow-wrap: break-word; }
+  body { overflow-wrap: break-word; line-height: 1.65; }
   button, input, select, textarea { min-width: 0; }
   .grid > * { min-width: 0; }
 
-  /* ── Typography scale (desktop) ────────────────────────────── */
-
-  /* Hero headline */
-  h1.hero-headline {
-    font-size: 1.875rem; /* 30px */
-    font-weight: 700;
-    text-transform: uppercase;
-    color: #FFFFFF;
-  }
-
-  /* Page H1 */
-  h1 {
-    font-size: 1.75rem;  /* 28px */
-    font-weight: 700;
-  }
-
-  /* Section H2 */
-  h2 {
-    font-size: 1.5rem;   /* 24px */
-    font-weight: 600;
-  }
-
-  /* Card / feature H3 */
-  h3 {
-    font-size: 1.25rem;  /* 20px */
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-  }
-
-  /* H4 and below */
-  h4 { font-size: 1rem; font-weight: 600; }
-
-  /* ── Responsive scale (mobile) ─────────────────────────────── */
-  @media (max-width: 639px) {
-    h1 { font-size: 1.375rem; } /* ~22px */
-    h2 { font-size: 1.25rem;  } /* ~20px */
-    body { font-size: 0.875rem; line-height: 1.6; } /* 14px min */
-  }
-
-  /* ── Override Tailwind text-* size utilities used inline ────── *
-   * The pages use Tailwind responsive classes like text-4xl, text-5xl
-   * which override the base heading sizes above.  We remap the most
-   * used ones to the design-system scale so the visual result matches
-   * whether the element uses a base tag rule or a utility class.     */
-  .text-5xl  { font-size: 1.875rem !important; }   /* hero  → 30px  */
-  .text-4xl  { font-size: 1.75rem  !important; }   /* h1    → 28px  */
-  .text-3xl  { font-size: 1.5rem   !important; }   /* h2    → 24px  */
-  .text-2xl  { font-size: 1.25rem  !important; }   /* h2-sm → 20px  */
-  .text-xl   { font-size: 1.125rem !important; }   /* h3    → 18px  */
-  .text-lg   { font-size: 1rem     !important; }   /* sub   → 16px  */
-  .text-base { font-size: 0.875rem !important; }   /* body  → 14px  */
-  .text-sm   { font-size: 0.8125rem !important; }  /* small → 13px  */
-  .text-xs   { font-size: 0.75rem  !important; }   /* xs    → 12px  */
-
-  /* ── Buttons — pill shape, red fill, white bold uppercase ───── */
-  /* Applied to any <a> or <Link> that uses rounded-full with bg-highlight */
-  .rounded-full {
-    border-radius: 50px !important;
-  }
-
-  /* Inline CTA links — ensure bold uppercase on primary CTAs */
-  a.rounded-full,
-  button.rounded-full {
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 0.8125rem; /* 13px */
-    letter-spacing: 0.04em;
-  }
-
-  /* Nav links */
-  nav a, nav button {
-    font-size: 0.875rem; /* 13-14px */
-  }
-
-  /* Footer headings — 17px, regular weight, white */
-  footer h3 {
-    font-size: 1.0625rem; /* 17px */
-    font-weight: 400;
-    color: #FFFFFF;
-    text-transform: none;
-    letter-spacing: normal;
-  }
-
-  /* Footer text & links — 13px, white */
-  footer, footer a, footer li, footer p, footer span {
-    font-size: 0.8125rem; /* 13px */
-    color: #FFFFFF;
-  }
-
-  /* Footer links — inherit white */
-  footer a { color: inherit; }
-  footer a:hover { color: var(--ds-green); }
-
-  /* Project card titles — 14px, bold */
-  .project-card-title {
-    font-size: 0.875rem;
-    font-weight: 700;
-  }
-
-  /* accent-text: on light backgrounds show the darker green token */
+  /* accent-text: use darker token on light backgrounds */
   .text-accent:not(.bg-primary .text-accent):not(.text-hero-foreground .text-accent):not(.text-primary-foreground .text-accent) {
     color: var(--accent-text);
   }
 }
 
 /* ─────────────────────────────────────────────────────────────
-   UTILITY CLASSES
+   UTILITIES
    ───────────────────────────────────────────────────────────── */
 
-/* Shared layout container */
 @utility site-container {
   width: 100%;
   max-width: 1920px;
@@ -291,12 +168,10 @@
   @media (min-width: 1536px) { padding-inline: 6rem; }
 }
 
-/* Readable text measure (~70 chars) */
 @utility measure {
   max-width: 70ch;
 }
 
-/* Hero overlay — dark navy scrim */
 @utility bg-hero-overlay {
   background-image: var(--gradient-hero-mobile), var(--gradient-hero);
   @media (min-width: 640px) {
@@ -304,25 +179,21 @@
   }
 }
 
-/* Eyebrow label — small caps */
 @utility eyebrow {
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 
-/* Fade-up animation */
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: none; }
 }
-@utility animate-fade-up {
-  animation: fade-up 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
-}
+@utility animate-fade-up { animation: fade-up 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
 
 /* ─────────────────────────────────────────────────────────────
-   PLOT STATUS COLOURS — WCAG AA fills (unchanged)
+   PLOT STATUS COLOURS
    ───────────────────────────────────────────────────────────── */
 :root {
   --status-available: oklch(0.44 0.13 150);
@@ -339,9 +210,6 @@
   --color-park:             var(--park);
 }
 
-/* ─────────────────────────────────────────────────────────────
-   REDUCED MOTION
-   ───────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
