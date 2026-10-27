@@ -73,7 +73,7 @@ export function FeaturedPropertyCard({ property: p }: { property: Property }) {
             loading="lazy"
             width={800}
             height={600}
-            className="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+            className="aspect-[4/3] w-full object-contain transition duration-500 group-hover:scale-[1.03]"
           />
         ) : (
           <PlaceholderTile type={p.type} />

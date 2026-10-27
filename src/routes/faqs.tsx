@@ -94,7 +94,7 @@ function Faqs() {
             href={bookHref}
             className="mt-8 inline-flex rounded-full bg-highlight px-8 py-4 font-medium text-highlight-foreground transition hover:brightness-110"
           >
-            Book a Free Inspection
+            Book an Inspection
           </a>
         </div>
       </div>

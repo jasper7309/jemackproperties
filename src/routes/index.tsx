@@ -77,8 +77,7 @@ function Index() {
                 href={bookHref}
                 className="rounded-full bg-highlight px-7 py-3.5 font-medium text-highlight-foreground transition hover:brightness-110"
               >
-                <span className="hidden sm:inline">Book a Free Inspection</span>
-                <span className="sm:hidden">Free Inspection</span>
+                Book an Inspection
               </a>
               <Link
                 to="/properties/$slug"
@@ -156,14 +155,14 @@ function Index() {
       {/* ── SPOTLIGHT — image bleeds on xl, text beside it ── */}
       <section className="bg-surface py-16 md:py-20 xl:py-28">
         <div className="site-container grid items-center gap-10 lg:grid-cols-[7fr_5fr] xl:gap-14">
-          <div className="relative overflow-hidden rounded-3xl shadow-lift">
+          <div className="relative overflow-hidden rounded-3xl bg-secondary shadow-lift">
             <img
               src={estateImg}
               alt="Illustrative home at Oliveness Garden Estate"
               loading="lazy"
               width={1280}
               height={960}
-              className="aspect-[4/3] w-full object-cover"
+              className="aspect-[4/3] w-full object-contain"
             />
             {publicPolicy.showFinancialFigures && (
               <div className="absolute -bottom-5 left-6 rounded-2xl bg-highlight px-5 py-3 text-highlight-foreground shadow-lift">
@@ -194,7 +193,7 @@ function Index() {
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href={bookHref} className="rounded-full bg-highlight px-7 py-3.5 font-medium text-highlight-foreground transition hover:brightness-110">
-                Book a Free Inspection
+                Book an Inspection
               </a>
               <Link to="/properties/$slug" params={{ slug: estate.slug }} className="rounded-full border border-primary px-7 py-3.5 font-medium text-primary transition hover:bg-primary hover:text-primary-foreground">
                 View the Estate
@@ -365,7 +364,7 @@ function Index() {
               href={bookHref}
               className="shrink-0 rounded-full bg-highlight px-8 py-4 font-medium text-highlight-foreground transition hover:brightness-110"
             >
-              Book a Free Inspection
+              Book an Inspection
             </a>
           </div>
         </div>

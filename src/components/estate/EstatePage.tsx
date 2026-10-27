@@ -53,8 +53,7 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
             </p>
             <div className="mt-8 flex animate-fade-up flex-wrap gap-3 [animation-delay:240ms]">
               <a href="#book" className="rounded-full bg-highlight px-7 py-3.5 font-medium text-highlight-foreground transition hover:brightness-110">
-                <span className="hidden sm:inline">Book a Free Inspection</span>
-                <span className="sm:hidden">Free Inspection</span>
+                Book an Inspection
               </a>
               <a href="#plot-map" className="rounded-full border border-hero-foreground/60 px-7 py-3.5 font-medium text-hero-foreground transition hover:bg-hero-foreground/10">
                 View plot map
@@ -119,12 +118,12 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
         <div className="w-4/5">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             {gallery.map((img, i) => (
-              <div key={i} className="overflow-hidden rounded-3xl">
+              <div key={i} className="overflow-hidden rounded-3xl bg-secondary">
                 <img
                   src={img.src}
                   alt={img.alt}
                   loading={i === 0 ? "eager" : "lazy"}
-                  className="aspect-[4/3] w-full object-cover"
+                  className="aspect-[4/3] w-full object-contain"
                 />
               </div>
             ))}
@@ -256,7 +255,7 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
               {i === 0 && (
                 <a href="#book" className="mt-4 inline-flex items-center gap-1 rounded-full bg-highlight px-4 py-2 text-xs font-medium text-highlight-foreground transition hover:brightness-110">
                   <CalendarCheck className="h-3.5 w-3.5" />
-                  Book a Free Inspection
+                  Book an Inspection
                 </a>
               )}
             </li>

@@ -124,7 +124,7 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
       {/* ── Hero image or placeholder ── */}
       <section className="site-container mt-8">
         {p.image ? (
-          <img src={p.image} alt={p.title} width={1280} height={560} className="aspect-[16/7] w-full rounded-3xl object-cover" />
+          <img src={p.image} alt={p.title} width={1280} height={560} className="aspect-[16/7] w-full rounded-3xl bg-secondary object-contain" />
         ) : (
           <HeroPlaceholder type={p.type} />
         )}
@@ -211,7 +211,7 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
             <a href={inspectUrl} target="_blank" rel="noreferrer"
               className="mt-5 flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-highlight px-5 py-3 text-sm font-medium text-highlight-foreground transition hover:brightness-110">
               <CalendarCheck className="h-4 w-4 shrink-0" />
-              Book a Free Inspection
+              Book an Inspection
             </a>
             <a href={priceUrl} target="_blank" rel="noreferrer"
               className="mt-3 flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-whatsapp px-5 py-3 text-sm font-medium text-white transition hover:brightness-110">

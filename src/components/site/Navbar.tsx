@@ -120,8 +120,7 @@ export function Navbar() {
             href={bookHref}
             className="hidden rounded-full bg-highlight px-5 py-2.5 text-sm font-medium text-highlight-foreground transition hover:brightness-110 sm:inline-flex"
           >
-            <span className="hidden lg:inline">Book a Free Inspection</span>
-            <span className="lg:hidden">Free Inspection</span>
+            Book an Inspection
           </a>
           <Button
             variant="ghost"
@@ -174,7 +173,7 @@ export function Navbar() {
             href={bookHref}
             className="mt-auto rounded-full bg-highlight px-6 py-4 text-center font-medium text-highlight-foreground"
           >
-            Book a Free Inspection
+            Book an Inspection
           </a>
         </div>
       )}

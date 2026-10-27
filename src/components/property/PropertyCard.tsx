@@ -46,7 +46,7 @@ export function PropertyCard({
       }`}
     >
       {/* Image or placeholder tile */}
-      <div className={`relative shrink-0 overflow-hidden ${list ? "sm:w-72" : ""}`}>
+      <div className={`relative shrink-0 overflow-hidden bg-secondary ${list ? "sm:w-72" : ""}`}>
         {p.image ? (
           <img
             src={p.image}
@@ -54,7 +54,7 @@ export function PropertyCard({
             loading="lazy"
             width={1024}
             height={768}
-            className="aspect-[4/3] h-full w-full object-cover"
+            className="aspect-[4/3] h-full w-full object-contain"
           />
         ) : (
           <PlaceholderTile type={p.type} layout={layout} />

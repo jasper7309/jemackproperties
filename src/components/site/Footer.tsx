@@ -48,7 +48,7 @@ export function Footer() {
             <li><Link to="/faqs">FAQs</Link></li>
             <li>
               <a href={bookHref} className="font-medium text-accent">
-                Book a Free Inspection
+                Book an Inspection
               </a>
             </li>
           </ul>
