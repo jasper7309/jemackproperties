@@ -11,6 +11,7 @@ import {
 import { PageShell, seo } from "@/components/site/PageShell";
 import { services, supportServices, type Service } from "@/data/services";
 import { pageCopy } from "@/data/pages";
+import { ClientLogos } from "@/components/site/ClientLogos";
 
 export const Route = createFileRoute("/services")({
   head: () => seo("Engineering Services | Jemack Properties", pageCopy.services.metaDescription),
@@ -71,6 +72,7 @@ function Services() {
           ))}
         </ul>
       </section>
+      <ClientLogos />
     </PageShell>
   );
 }

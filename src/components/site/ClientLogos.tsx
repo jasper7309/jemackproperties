@@ -18,7 +18,7 @@ export function ClientLogos() {
         {clientLogos.map((src, i) => (
           <div
             key={src}
-            className="flex h-14 w-28 items-center justify-center rounded-xl bg-secondary p-3 sm:h-16 sm:w-32"
+            className="flex h-28 w-56 items-center justify-center rounded-xl bg-secondary p-4 sm:h-32 sm:w-64"
           >
             <img
               src={src}
