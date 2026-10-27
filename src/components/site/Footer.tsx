@@ -13,7 +13,7 @@ export function Footer() {
   const bookHref = `/properties/${estates[0]?.slug ?? "oliveness-garden-estate"}#book`;
 
   return (
-    <footer className="bg-primary pb-24 text-primary-foreground">
+    <footer className="bg-primary text-primary-foreground">
       <div className="site-container grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-5">
         {/* Brand column */}
         <div className="lg:col-span-2">
