@@ -139,7 +139,10 @@ function Index() {
         </div>
       </section>
 
-      {/* ── FEATURED PROPERTIES — dark olive band ── */}
+      {/* ── HERO → FEATURED PROPERTIES gradient bridge ── */}
+      <div className="h-16 w-full" style={{ background: "linear-gradient(to bottom, transparent, #011627)" }} />
+
+      {/* ── FEATURED PROPERTIES — dark navy band ── */}
       {(() => {
         const featured = getFeaturedProperties(4);
         if (featured.length === 0) return null;
