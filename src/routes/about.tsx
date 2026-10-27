@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Award, BadgeCheck, HardHat, HeartHandshake, Users, type LucideIcon } from "lucide-react";
 import { PageShell, seo } from "@/components/site/PageShell";
 import { about, pageCopy, clientNamesApproved } from "@/data/pages";
-import { estates } from "@/data/estates";
 import { ClientLogos } from "@/components/site/ClientLogos";
 
 export const Route = createFileRoute("/about")({
@@ -10,7 +9,6 @@ export const Route = createFileRoute("/about")({
   component: About,
 });
 
-const bookHref = `/properties/${estates[0]?.slug ?? "oliveness-garden-estate"}#book`;
 
 const valueIcons: Record<string, LucideIcon> = {
   expertise: BadgeCheck,
@@ -129,19 +127,6 @@ function About() {
       {/* Clients — organisations we have served */}
       {clientNamesApproved && <ClientLogos />}
 
-      {/* Closing CTA band — centred text is intentional for CTA bands */}
-      <section className="mt-20 overflow-hidden rounded-3xl bg-primary px-10 py-12 text-primary-foreground sm:px-16">
-        <p className="eyebrow text-accent">Ready to take the next step?</p>
-        <h2 className="mt-3 max-w-[28ch] text-3xl font-semibold sm:text-4xl">
-          Book a free inspection of Oliveness Garden Estate.
-        </h2>
-        <a
-          href={bookHref}
-          className="mt-8 inline-flex rounded-full bg-highlight px-8 py-4 font-medium text-highlight-foreground transition hover:brightness-110"
-        >
-          Book an Inspection
-        </a>
-      </section>
     </PageShell>
   );
 }
