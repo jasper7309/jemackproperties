@@ -139,8 +139,8 @@ export type Project = {
   summary: string;
   /** Service slugs this project relates to (for service-page "Related project" links) */
   services: string[];
-  /** Optional image — when absent a neutral tile with icon is shown instead */
-  image?: string;
+  /** Optional images — first is used as the card thumbnail; all shown in the gallery. When absent a neutral tile with icon is shown. */
+  images?: string[];
 };
 
 export const projectCategories = ["All", "Property", "Engineering"] as const;
@@ -156,6 +156,12 @@ export const projects: Project[] = [
     icon: "fuel",
     summary: "Project management contract for a tank farm at the Lekki Free Trade Zone.",
     services: ["oil-and-gas"],
+    images: [
+      "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793105305/328780e3-e3ac-4d25-a9ff-6068463869a8_wearon.png",
+      "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793105306/77563a89-eb8f-4063-94ca-e2c17eb16f93_etqyvs.png",
+      "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793105305/e4cbd0d0-cc44-4f26-a6ea-e87fc5589c67_fuj4qb.png",
+      "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793105306/80b6c5f6-924e-4da3-9b37-71de4168c713_xaz7vv.png",
+    ],
   },
   {
     slug: "pal-pensions-remodelling",
@@ -167,6 +173,12 @@ export const projects: Project[] = [
     icon: "wrench",
     summary: "Remodelling of a regional office for PAL Pensions in Maryland, Lagos.",
     services: ["facilities-management"],
+    images: [
+      "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793103346/a7e08b49-e82b-45fe-8b6e-7255c2b78c21_xb4shp.png",
+      "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793104062/8c8e6f65-a47d-452a-916c-dfa8ceae78ba_gcuy4z.png",
+      "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793104062/e09f2a7c-0179-4b53-88f8-9eeaf0845af7_hsdkib.png",
+      "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793104062/e9e3171d-3d09-48f4-b509-7b1498849065_srwzec.png",
+    ],
   },
   {
     slug: "agungbuji-ogbete-road",
@@ -177,6 +189,12 @@ export const projects: Project[] = [
     icon: "road",
     summary: "Highway construction for a 4 km section of the 21.7 km Agungbuji-Ogbete Road.",
     services: ["highways-and-civil-works"],
+    images: [
+      "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793106091/ed7f0bbf-55fc-4b85-a90a-65648384516a_vqyjji.png",
+      "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793106091/22ac711e-7d74-4909-b4a1-5e8d5d4c959c_qm1b1x.png",
+      "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793106090/f3fc64b2-16a3-4c70-aee9-5a51689326e2_o0danj.png",
+      "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793106090/f0226dd6-24c2-400f-8a3c-1edecbf1e96a_kjajmi.png",
+    ],
   },
   {
     slug: "lekki-avana-phase-ii",
@@ -188,6 +206,10 @@ export const projects: Project[] = [
     icon: "building",
     summary: "Residential building construction for a luxury bungalow resort at Elerangbe.",
     services: ["building-and-construction"],
+    images: [
+      "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793106599/c9798d91-82e0-4b6c-80ac-7c35d83ac3f0_g6algm.png",
+      "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793106599/a23418d4-0df3-4e66-aa7c-5f7a80ff9cde_ht9elm.png",
+    ],
   },
 ];
 
