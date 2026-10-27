@@ -1,14 +1,20 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import {
   AlertCircle,
+  ArrowRight,
+  BarChart2,
   Building2,
   CalendarCheck,
+  Download,
   Home,
+  Key,
   Landmark,
+  Leaf,
   MapPin,
   MessageCircle,
   Phone,
   ShieldCheck,
+  Star,
 } from "lucide-react";
 import { estates } from "@/data/estates";
 import { publishedProperties as properties, statusLabels, type Property } from "@/data/properties";
@@ -57,16 +63,15 @@ function PropertyDetail() {
   return <AdvertisedPropertyPage property={p} />;
 }
 
-// ── Icon for the placeholder hero tile ───────────────────────────────────────
-function HeroPlaceholder({ type }: { type: Property["type"] }) {
-  const Icon = type === "flat" ? Building2 : type === "land" ? Landmark : Home;
-  return (
-    <div className="flex aspect-[16/7] w-full flex-col items-center justify-center gap-3 rounded-3xl bg-primary/10">
-      <Icon className="h-16 w-16 text-primary/30" />
-      <span className="text-sm font-medium text-primary/40">Photos on request</span>
-    </div>
-  );
-}
+// ── Highlight icon map ────────────────────────────────────────────────────────
+const highlightIcons = {
+  leaf:   Leaf,
+  shield: ShieldCheck,
+  chart:  BarChart2,
+  star:   Star,
+  home:   Home,
+  key:    Key,
+};
 
 // ── Badge colour by status ────────────────────────────────────────────────────
 function StatusBadge({ status, label }: { status: Property["status"]; label: string }) {
@@ -103,31 +108,119 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
     { label: "Developer", value: p.developer },
   ].filter((f): f is { label: string; value: string } => Boolean(f.value));
 
+  const heroParagraph = p.heroParagraph ?? p.description;
+
   return (
     <main className="pb-16 md:pb-20 xl:pb-28">
-      {/* ── Header ── */}
-      <section className="site-container pt-32">
-        <div className="flex flex-wrap items-center gap-3">
-          <StatusBadge status={p.status} label={statusLabels[p.status]} />
-          <span className="text-xs font-semibold uppercase tracking-widest text-accent-text capitalize">{p.type}</span>
-        </div>
-        <h1 className="mt-4 max-w-[24ch] text-3xl font-semibold leading-tight text-primary sm:text-4xl lg:text-5xl">
-          {p.title}
-        </h1>
-        <p className="mt-2 text-sm font-medium text-muted-foreground">{developerLabel}</p>
-        <p className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground">
-          <MapPin className="h-4 w-4 shrink-0 text-accent" />
-          {p.location}
-        </p>
-      </section>
 
-      {/* ── Hero image or placeholder ── */}
-      <section className="site-container mt-8">
-        {p.image ? (
-          <img src={p.image} alt={p.title} width={1280} height={560} className="aspect-[16/7] w-full rounded-3xl bg-secondary object-contain" />
-        ) : (
-          <HeroPlaceholder type={p.type} />
-        )}
+      {/* ── Two-column hero ── */}
+      <section className="site-container pt-32">
+        <div className="grid items-center gap-10 lg:grid-cols-[45fr_55fr] xl:gap-14">
+
+          {/* Left — text */}
+          <div>
+            {/* Badges row */}
+            <div className="flex flex-wrap items-center gap-3">
+              <StatusBadge status={p.status} label={statusLabels[p.status]} />
+              <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground capitalize">
+                {p.type}
+              </span>
+            </div>
+
+            {/* Title */}
+            <h1 className="mt-4 text-3xl font-semibold leading-tight text-primary sm:text-4xl lg:text-5xl">
+              {p.title}
+            </h1>
+
+            {/* Developer + location */}
+            <p className="mt-2 text-sm font-medium text-muted-foreground">{developerLabel}</p>
+            <p className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground">
+              <MapPin className="h-4 w-4 shrink-0 text-primary" />
+              {p.location}
+            </p>
+
+            {/* Optional headline */}
+            {(p.heroHeadline || p.heroHeadlineAccent) && (
+              <h2 className="mt-6 text-2xl font-bold leading-tight text-primary sm:text-3xl">
+                {p.heroHeadline && <span>{p.heroHeadline} </span>}
+                {p.heroHeadlineAccent && (
+                  <span className="text-accent-text">{p.heroHeadlineAccent}</span>
+                )}
+              </h2>
+            )}
+
+            {/* Paragraph */}
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{heroParagraph}</p>
+
+            {/* Highlights */}
+            {p.highlights && p.highlights.length > 0 && (
+              <ul className="mt-6 space-y-4">
+                {p.highlights.map((h) => {
+                  const Icon = highlightIcons[h.icon];
+                  return (
+                    <li key={h.title} className="flex items-start gap-3">
+                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-secondary text-primary">
+                        <Icon className="h-4 w-4" />
+                      </span>
+                      <div>
+                        <p className="text-sm font-semibold text-primary">{h.title}</p>
+                        <p className="text-xs text-muted-foreground">{h.subtitle}</p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+
+            {/* CTA buttons */}
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href={priceUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
+              >
+                <ArrowRight className="h-4 w-4" />
+                Enquire Now
+              </a>
+              {p.brochureUrl && (
+                <a
+                  href={p.brochureUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex min-h-[48px] items-center gap-2 rounded-full border border-primary px-6 py-3 text-sm font-semibold text-primary transition hover:bg-primary hover:text-primary-foreground"
+                >
+                  <Download className="h-4 w-4" />
+                  Download Brochure
+                </a>
+              )}
+            </div>
+          </div>
+
+          {/* Right — image */}
+          <div>
+            {p.image ? (
+              <img
+                src={p.image}
+                alt={p.title}
+                width={900}
+                height={900}
+                className="w-full rounded-2xl object-contain shadow-lift"
+              />
+            ) : (
+              <div className="flex aspect-square w-full flex-col items-center justify-center gap-3 rounded-2xl bg-secondary shadow-soft">
+                {p.type === "flat" ? (
+                  <Building2 className="h-16 w-16 text-primary/30" />
+                ) : p.type === "land" ? (
+                  <Landmark className="h-16 w-16 text-primary/30" />
+                ) : (
+                  <Home className="h-16 w-16 text-primary/30" />
+                )}
+                <span className="text-sm font-medium text-primary/40">Photos on request</span>
+              </div>
+            )}
+          </div>
+        </div>
       </section>
 
       <div className="site-container mt-12 grid gap-10 lg:grid-cols-[1fr_360px] xl:gap-14">

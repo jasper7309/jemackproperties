@@ -62,6 +62,18 @@ export type Property = {
    * Defaults to true (all published listings are featured unless opted out).
    */
   featured?: boolean;
+
+  // ── Hero section optional fields ──────────────────────────────────────────
+  /** First line of the hero headline (plain text). */
+  heroHeadline?: string;
+  /** Second line of the hero headline — rendered in the accent/brand colour. */
+  heroHeadlineAccent?: string;
+  /** Short paragraph shown below the headline in the hero. Falls back to description. */
+  heroParagraph?: string;
+  /** Up to 3 feature highlights shown in the hero left column. */
+  highlights?: { icon: "leaf" | "shield" | "chart" | "star" | "home" | "key"; title: string; subtitle: string }[];
+  /** URL for a brochure PDF — enables the "Download Brochure" button. */
+  brochureUrl?: string;
 };
 
 
@@ -284,6 +296,15 @@ export const properties: Property[] = [
     title: "Landview Resort",
     description:
       "Pre-launch plots on the Benin–Asaba Expressway with resort-style amenities planned.",
+    heroHeadline: "Own a piece of",
+    heroHeadlineAccent: "the resort lifestyle",
+    heroParagraph:
+      "Landview Resort is a premium, resort-inspired land investment that blends natural beauty, modern infrastructure and long-term value. Own a plot in a serene environment designed for comfort, recreation and future growth.",
+    highlights: [
+      { icon: "leaf", title: "Resort-Inspired Living", subtitle: "Enjoy a serene, nature-filled environment." },
+      { icon: "shield", title: "Secure & Well Planned", subtitle: "Developed with modern infrastructure and security." },
+      { icon: "chart", title: "High Investment Value", subtitle: "A smart choice for your future." },
+    ],
     image: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793044013/photo_2026-10-26_20-44-16_cufnoj.jpg",
     location: "Benin–Asaba Expressway, Delta State",
     state: "Delta",
