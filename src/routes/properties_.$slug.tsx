@@ -47,6 +47,11 @@ export const Route = createFileRoute("/properties_/$slug")({
     return {
       ...seo(`${p.title} | Jemack Properties`, p.description),
       scripts: [{ type: "application/ld+json", children: JSON.stringify(ldJson) }],
+      links: [
+        { rel: "preconnect", href: "https://fonts.googleapis.com" },
+        { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+        { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" },
+      ],
     };
   },
   component: PropertyDetail,
@@ -111,7 +116,7 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
   const heroParagraph = p.heroParagraph ?? p.description;
 
   return (
-    <main className="pb-16 md:pb-20 xl:pb-28">
+    <main data-prop-page="" className="pb-16 md:pb-20 xl:pb-28">
 
       {/* ── Two-column hero ── */}
       <section className="site-container pt-32">
