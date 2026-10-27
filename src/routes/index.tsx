@@ -32,6 +32,7 @@ import { services, type Service } from "@/data/services";
 import { site } from "@/data/site";
 import { publicPolicy } from "@/data/launch";
 import { about, clientNamesApproved } from "@/data/pages";
+import { projects } from "@/data/pages";
 import { FeaturedPropertyCard } from "@/components/property/FeaturedPropertyCard";
 import { ClientLogos } from "@/components/site/ClientLogos";
 
@@ -460,29 +461,74 @@ function Index() {
       {/* ── CLIENTS ── */}
       {clientNamesApproved && <ClientLogos />}
 
-      {/* ── CTA BAND ── */}
+      {/* ── OUR PROJECTS ── */}
       <section className="site-container pb-16 md:pb-20 xl:pb-28">
-        <div className="relative overflow-hidden rounded-3xl">
-          <img
-            src={hero}
-            alt="Illustrative estate landscape"
-            loading="lazy"
-            width={1920}
-            height={1088}
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-hero-overlay" />
-          <div className="relative flex flex-col items-start gap-6 p-10 text-hero-foreground sm:p-16 lg:flex-row lg:items-center lg:justify-between">
-            <h2 className="max-w-[28ch] text-3xl font-semibold sm:text-4xl">
-              Ready to see the land? Book a free inspection.
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="eyebrow text-accent-text">Selected work</p>
+            <h2 className="mt-2 max-w-[28ch] text-3xl font-semibold text-primary sm:text-4xl">
+              Our projects
             </h2>
-            <a
-              href={bookHref}
-              className="shrink-0 rounded-full bg-highlight px-8 py-4 font-medium text-highlight-foreground transition hover:brightness-110"
-            >
-              Book an Inspection
-            </a>
+            <p className="mt-3 max-w-[55ch] text-sm text-muted-foreground">
+              A selection of projects delivered by Jemack's engineering team.
+            </p>
           </div>
+          <Link
+            to="/projects"
+            className="hidden shrink-0 items-center gap-2 rounded-full border border-primary px-6 py-3 text-sm font-medium text-primary transition hover:bg-primary hover:text-primary-foreground sm:inline-flex"
+          >
+            View all projects
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {projects.map((p) => {
+            const thumb = p.images?.[0];
+            const Icon = serviceIcons[p.icon] ?? Building2;
+            return (
+              <Link
+                key={p.slug}
+                to="/projects"
+                hash={p.slug}
+                className="group overflow-hidden rounded-3xl bg-card shadow-soft transition hover:-translate-y-1"
+              >
+                {thumb ? (
+                  <img
+                    src={thumb}
+                    alt={p.title}
+                    loading="lazy"
+                    width={800}
+                    height={600}
+                    className="aspect-[4/3] w-full object-cover"
+                  />
+                ) : (
+                  <div className="grid aspect-[4/3] place-items-center bg-secondary">
+                    <Icon className="h-8 w-8 text-accent" />
+                  </div>
+                )}
+                <div className="p-5">
+                  <p className="text-xs font-medium text-highlight">{p.type}</p>
+                  <h3 className="mt-1 text-base font-semibold leading-snug text-primary">
+                    {p.title}
+                  </h3>
+                  {p.location && (
+                    <p className="mt-1 text-xs text-muted-foreground">{p.location}</p>
+                  )}
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+
+        <div className="mt-8 sm:hidden">
+          <Link
+            to="/projects"
+            className="flex w-full items-center justify-center gap-2 rounded-full border border-primary px-6 py-3.5 text-sm font-medium text-primary transition hover:bg-primary hover:text-primary-foreground"
+          >
+            View all projects
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </section>
     </main>
