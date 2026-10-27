@@ -105,8 +105,8 @@ export function Navbar() {
               <Link
                 to={l.to}
                 activeOptions={{ exact: l.to === "/" }}
-                className="text-sm font-medium text-foreground underline-offset-4 transition-colors hover:text-accent-text"
-                activeProps={{ className: "text-accent-text underline" }}
+                className="text-sm font-bold text-foreground underline-offset-4 transition-colors hover:text-accent-text"
+                activeProps={{ className: "text-sm font-bold text-accent-text underline" }}
                 aria-current={pathname === l.to ? "page" : undefined}
               >
                 {l.label}
