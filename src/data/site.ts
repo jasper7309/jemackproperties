@@ -30,6 +30,8 @@ export const site = {
   ] satisfies Office[],
   socials: {
     youtube: "https://www.youtube.com/@jemackproperties2",
+    facebook: "https://www.facebook.com/profile.php?id=100063633145599",
+    instagram: "https://www.instagram.com/jemackfacilities",
   },
   /** Optional: reply-time promise shown in form footnotes. Leave blank to hide. */
   responseTime: "",

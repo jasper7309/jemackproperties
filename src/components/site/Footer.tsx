@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, Phone, Youtube } from "lucide-react";
+import { Facebook, Instagram, Mail, Phone, Youtube } from "lucide-react";
 import { site } from "@/data/site";
 import { services } from "@/data/services";
 import { estates } from "@/data/estates";
@@ -23,15 +23,32 @@ export function Footer() {
             homes built with engineering precision.
           </p>
           <div className="mt-6 flex gap-3">
-            {/* YouTube only */}
             <a
               href={site.socials.youtube}
               aria-label="YouTube"
               target="_blank"
               rel="noreferrer"
-              className="grid h-11 w-11 place-items-center rounded-full bg-primary-foreground/10 transition hover:bg-accent hover:text-accent-foreground"
+              className="grid h-11 w-11 place-items-center rounded-full bg-primary-foreground/10 transition hover:bg-primary-foreground/20"
             >
               <Youtube className="h-5 w-5" />
+            </a>
+            <a
+              href={site.socials.facebook}
+              aria-label="Facebook"
+              target="_blank"
+              rel="noreferrer"
+              className="grid h-11 w-11 place-items-center rounded-full bg-primary-foreground/10 transition hover:bg-primary-foreground/20"
+            >
+              <Facebook className="h-5 w-5" />
+            </a>
+            <a
+              href={site.socials.instagram}
+              aria-label="Instagram"
+              target="_blank"
+              rel="noreferrer"
+              className="grid h-11 w-11 place-items-center rounded-full bg-primary-foreground/10 transition hover:bg-primary-foreground/20"
+            >
+              <Instagram className="h-5 w-5" />
             </a>
           </div>
         </div>
