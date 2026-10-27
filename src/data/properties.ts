@@ -120,7 +120,7 @@ export const properties: Property[] = [
     title: "Tiara 2.0",
     description:
       "Residential and commercial plots off the Lekki–Epe Expressway, along the proposed Lekki International Airport Road.",
-    image: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793044037/photo_2026-10-26_20-44-00_eyw60g.jpg",
+    image: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793094225/tiara_property_card_1200x900_1_wm8iko.jpg",
     location: "Off the Lekki–Epe Expressway, along the proposed Lekki International Airport Road",
     state: "Lagos",
     type: "land",
