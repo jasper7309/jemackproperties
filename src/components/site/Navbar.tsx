@@ -13,6 +13,7 @@ const links = [
   { to: "/properties", label: "Properties" },
   { to: "/our-agents", label: "Our Agents" },
   { to: "/services", label: "Services" },
+  { to: "/projects", label: "Projects" },
   { to: "/about", label: "About" },
   { to: "/faqs", label: "FAQs" },
   { to: "/contact", label: "Contact" },
@@ -161,7 +162,10 @@ export function Navbar() {
                 <Link
                   to={l.to}
                   className="font-display text-3xl"
-                  activeProps={{ className: "font-display text-3xl underline decoration-accent underline-offset-4" }}
+                  activeProps={{
+                    className:
+                      "font-display text-3xl underline decoration-accent underline-offset-4",
+                  }}
                   aria-current={pathname === l.to ? "page" : undefined}
                 >
                   {l.label}

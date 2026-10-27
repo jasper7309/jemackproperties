@@ -15,13 +15,12 @@ export function Footer() {
   return (
     <footer className="bg-primary pb-24 text-primary-foreground">
       <div className="site-container grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-5">
-
         {/* Brand column */}
         <div className="lg:col-span-2">
           <Logo inverted />
           <p className="mt-4 max-w-sm text-sm text-primary-foreground/70">
-            The real estate arm of {site.parent}. Secure titles, serviced estates and homes built
-            with engineering precision.
+            The real estate arm of {site.parent} ({site.rc}). Secure titles, serviced estates and
+            homes built with engineering precision.
           </p>
           <div className="mt-6 flex gap-3">
             {/* YouTube only */}
@@ -41,11 +40,27 @@ export function Footer() {
         <div>
           <h3 className="text-lg text-accent">Quick links</h3>
           <ul className="mt-4 space-y-2 text-sm text-primary-foreground/75">
-            <li><Link to="/properties">Properties</Link></li>
-            <li><Link to="/our-agents">Our Agents</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/blog">Blog</Link></li>
-            <li><Link to="/faqs">FAQs</Link></li>
+            <li>
+              <Link to="/properties">Properties</Link>
+            </li>
+            <li>
+              <Link to="/our-agents">Our Agents</Link>
+            </li>
+            <li>
+              <Link to="/services">Services</Link>
+            </li>
+            <li>
+              <Link to="/projects">Projects</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/blog">Blog</Link>
+            </li>
+            <li>
+              <Link to="/faqs">FAQs</Link>
+            </li>
             <li>
               <a href={bookHref} className="font-medium text-accent">
                 Book an Inspection
@@ -102,7 +117,9 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-primary-foreground/10">
         <div className="site-container flex flex-col gap-2 py-6 text-xs text-primary-foreground/60 sm:flex-row sm:justify-between">
-          <span>© {new Date().getFullYear()} {site.name}. All rights reserved.</span>
+          <span>
+            © {new Date().getFullYear()} {site.name}. All rights reserved.
+          </span>
           <div className="flex flex-wrap items-center gap-4">
             <Link to="/privacy-policy">{pageCopy.legal.privacyTitle}</Link>
             <Link to="/terms">{pageCopy.legal.termsTitle}</Link>

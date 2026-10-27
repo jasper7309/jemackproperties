@@ -3,6 +3,8 @@ export type Office = { city: string; address: string };
 export const site = {
   name: "Jemack Properties",
   parent: "Jemack Facilities & Engineering Services Ltd",
+  legalName: "Jemack Facilities and Engineering Services Limited",
+  rc: "RC 746583",
   tagline: "Secure land and homes, built on engineering excellence.",
   /** Primary display phone (formatted) */
   phone: "+234 802 222 4248",
@@ -14,15 +16,16 @@ export const site = {
   ],
   whatsapp: "2348022224248",
   /** All emails: [0] = primary */
-  emails: [
-    "services@jemackfacilities.com.ng",
-    "jemackfacilities@yahoo.com",
-  ],
+  emails: ["services@jemackfacilities.com.ng", "jemackfacilities@yahoo.com"],
   /** Primary display email */
   email: "services@jemackfacilities.com.ng",
   offices: [
     { city: "Lagos", address: "House 20 Greenlight Estate, Alatushe, Ibeju-Lekki, Lagos, Nigeria" },
-    { city: "Asaba", address: "Shop 8 & 9, Osinmili North Ultramodern Shopping Complex, Okpanam, Asaba, Delta State, Nigeria" },
+    {
+      city: "Asaba",
+      address:
+        "Shop 8 & 9, Osinmili North Ultramodern Shopping Complex, Okpanam, Asaba, Delta State, Nigeria",
+    },
     { city: "Umuahia", address: "No. 85 Cameroon Street, Umuahia, Abia State, Nigeria" },
   ] satisfies Office[],
   socials: {

@@ -1,8 +1,28 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
-  ArrowRight, ArrowUpRight, Building2, Droplets, ExternalLink, Fence, Fuel,
-  Gem, Hammer, HardHat, HeartHandshake, Lamp, Landmark, MapPin,
-  Radio, Route as RoadIcon, Ruler, ShieldCheck, Trees, Users, Waves, Award, BadgeCheck,
+  ArrowRight,
+  ArrowUpRight,
+  Building2,
+  Droplets,
+  ExternalLink,
+  Fence,
+  Fuel,
+  Gem,
+  Hammer,
+  HardHat,
+  HeartHandshake,
+  Lamp,
+  Landmark,
+  MapPin,
+  Radio,
+  Route as RoadIcon,
+  Ruler,
+  ShieldCheck,
+  Trees,
+  Users,
+  Waves,
+  Award,
+  BadgeCheck,
 } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 import estateImg from "@/assets/estate.jpg";
@@ -11,15 +31,24 @@ import { getFeaturedProperties, publishedProperties } from "@/data/properties";
 import { services, type Service } from "@/data/services";
 import { site } from "@/data/site";
 import { publicPolicy } from "@/data/launch";
+import { about, clients, clientNamesApproved, clientHeading } from "@/data/pages";
 import { FeaturedPropertyCard } from "@/components/property/FeaturedPropertyCard";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Jemack Properties | Own Land in Asaba with C of O" },
-      { name: "description", content: "Oliveness Garden Estate, Asaba: 464m² plots with C of O, paved roads, drainage, street lights and security. Book a free inspection." },
+      {
+        name: "description",
+        content:
+          "Oliveness Garden Estate, Asaba: 464m² plots with C of O, paved roads, drainage, street lights and security. Book a free inspection.",
+      },
       { property: "og:title", content: "Jemack Properties | Own Land in Asaba with C of O" },
-      { property: "og:description", content: "464m² plots with C of O at Oliveness Garden Estate, Asaba. Book a free inspection today." },
+      {
+        property: "og:description",
+        content:
+          "464m² plots with C of O at Oliveness Garden Estate, Asaba. Book a free inspection today.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -32,7 +61,20 @@ const estate = estates[0];
 const bookHref = `/properties/${estate?.slug ?? "oliveness-garden-estate"}#book`;
 
 const serviceIcons: Record<Service["icon"], typeof Building2> = {
-  building: Building2, road: RoadIcon, droplets: Droplets, fuel: Fuel, wrench: Building2, radio: Radio,
+  building: Building2,
+  road: RoadIcon,
+  droplets: Droplets,
+  fuel: Fuel,
+  wrench: Building2,
+  radio: Radio,
+};
+
+const valueIcons: Record<string, typeof Award> = {
+  expertise: BadgeCheck,
+  proven: Award,
+  values: HeartHandshake,
+  team: Users,
+  safety: HardHat,
 };
 
 /** Left-aligned section heading with optional eyebrow */
@@ -69,8 +111,9 @@ function Index() {
               Own Land in Asaba with C&nbsp;of&nbsp;O
             </h1>
             <p className="mt-6 animate-fade-up measure text-base text-hero-foreground/85 [animation-delay:180ms] sm:text-lg">
-              Oliveness Garden Estate: 464m² plots with paved roads, drainage, street lights and 24/7 security.
-              Backed by Jemack's engineering team, so you can buy and build with one company.
+              Oliveness Garden Estate: 464m² plots with paved roads, drainage, street lights and
+              24/7 security. Backed by Jemack's engineering team, so you can buy and build with one
+              company.
             </p>
             <div className="mt-8 flex animate-fade-up flex-wrap gap-3 [animation-delay:260ms]">
               <a
@@ -166,7 +209,9 @@ function Index() {
             />
             {publicPolicy.showFinancialFigures && (
               <div className="absolute -bottom-5 left-6 rounded-2xl bg-highlight px-5 py-3 text-highlight-foreground shadow-lift">
-                <p className="text-[10px] font-semibold uppercase tracking-widest">Pre-launch price</p>
+                <p className="text-[10px] font-semibold uppercase tracking-widest">
+                  Pre-launch price
+                </p>
                 <p className="font-display text-2xl font-semibold">{estate.prelaunchPrice}</p>
               </div>
             )}
@@ -175,8 +220,8 @@ function Index() {
             <SectionHead eyebrow="Estate spotlight" title={estate.name} />
             <p className="mt-4 font-display text-xl italic text-accent">{estate.tagline}</p>
             <p className="mt-4 measure text-muted-foreground">
-              A secure, fully serviced estate in a fast-rising part of Asaba. Buy your plot today, then
-              build at your own pace with support from our engineering team.
+              A secure, fully serviced estate in a fast-rising part of Asaba. Buy your plot today,
+              then build at your own pace with support from our engineering team.
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               {[
@@ -185,17 +230,27 @@ function Index() {
                 { icon: Hammer, label: "Buy & Build" },
                 { icon: MapPin, label: estate.location },
               ].map(({ icon: Icon, label }) => (
-                <span key={label} className="inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground">
+                <span
+                  key={label}
+                  className="inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground"
+                >
                   <Icon className="h-4 w-4 text-accent" />
                   {label}
                 </span>
               ))}
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href={bookHref} className="rounded-full bg-highlight px-7 py-3.5 font-medium text-highlight-foreground transition hover:brightness-110">
+              <a
+                href={bookHref}
+                className="rounded-full bg-highlight px-7 py-3.5 font-medium text-highlight-foreground transition hover:brightness-110"
+              >
                 Book an Inspection
               </a>
-              <Link to="/properties/$slug" params={{ slug: estate.slug }} className="rounded-full border border-primary px-7 py-3.5 font-medium text-primary transition hover:bg-primary hover:text-primary-foreground">
+              <Link
+                to="/properties/$slug"
+                params={{ slug: estate.slug }}
+                className="rounded-full border border-primary px-7 py-3.5 font-medium text-primary transition hover:bg-primary hover:text-primary-foreground"
+              >
                 View the Estate
               </Link>
             </div>
@@ -208,12 +263,36 @@ function Index() {
         <SectionHead eyebrow="Estate features" title="Everything ready for you to build" />
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-10 2xl:grid-cols-4">
           {[
-            { icon: Fence, t: "Perimeter fence", d: "A fully fenced estate boundary for privacy and peace of mind." },
-            { icon: RoadIcon, t: "Paved roads", d: "Well-laid internal roads that stay accessible all year round." },
-            { icon: Lamp, t: "Street lights", d: "Bright, well-lit streets across the entire estate." },
-            { icon: Waves, t: "Underground drainage", d: "Engineered drainage that keeps the estate dry in every season." },
-            { icon: ShieldCheck, t: "Security", d: "Gated entry and round-the-clock security personnel." },
-            { icon: Trees, t: "Green areas and playground", d: "Open green spaces and a playground for families to enjoy." },
+            {
+              icon: Fence,
+              t: "Perimeter fence",
+              d: "A fully fenced estate boundary for privacy and peace of mind.",
+            },
+            {
+              icon: RoadIcon,
+              t: "Paved roads",
+              d: "Well-laid internal roads that stay accessible all year round.",
+            },
+            {
+              icon: Lamp,
+              t: "Street lights",
+              d: "Bright, well-lit streets across the entire estate.",
+            },
+            {
+              icon: Waves,
+              t: "Underground drainage",
+              d: "Engineered drainage that keeps the estate dry in every season.",
+            },
+            {
+              icon: ShieldCheck,
+              t: "Security",
+              d: "Gated entry and round-the-clock security personnel.",
+            },
+            {
+              icon: Trees,
+              t: "Green areas and playground",
+              d: "Open green spaces and a playground for families to enjoy.",
+            },
           ].map(({ icon: Icon, t, d }) => (
             <div key={t} className="rounded-3xl bg-card p-7 shadow-soft">
               <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-accent">
@@ -231,15 +310,22 @@ function Index() {
         <div className="site-container">
           <p className="eyebrow text-accent">Location</p>
           <h2 className="mt-2 max-w-[28ch] text-3xl font-semibold sm:text-4xl">Nearby landmarks</h2>
-          <p className="mt-4 measure text-primary-foreground/75">{estate.location}, close to key Asaba landmarks.</p>
+          <p className="mt-4 measure text-primary-foreground/75">
+            {estate.location}, close to key Asaba landmarks.
+          </p>
           <ul className="mt-8 grid max-w-2xl gap-3 sm:grid-cols-1">
             {estate.landmarks.map((l) => (
-              <li key={l.name} className="flex items-center justify-between gap-4 rounded-2xl bg-primary-foreground/5 px-5 py-4">
+              <li
+                key={l.name}
+                className="flex items-center justify-between gap-4 rounded-2xl bg-primary-foreground/5 px-5 py-4"
+              >
                 <span className="flex min-w-0 items-center gap-3">
                   <Landmark className="h-5 w-5 shrink-0 text-accent" />
                   <span>{l.name}</span>
                 </span>
-                {l.distance && <span className="shrink-0 text-xs text-primary-foreground/60">{l.distance}</span>}
+                {l.distance && (
+                  <span className="shrink-0 text-xs text-primary-foreground/60">{l.distance}</span>
+                )}
               </li>
             ))}
           </ul>
@@ -261,16 +347,34 @@ function Index() {
           <SectionHead eyebrow="Payment plans" title="Flexible ways to own your plot" />
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {estate.paymentPlans.map((p) => (
-              <div key={p.name} className={`relative rounded-3xl p-8 shadow-soft ${p.featured ? "bg-primary text-primary-foreground" : "bg-card"}`}>
+              <div
+                key={p.name}
+                className={`relative rounded-3xl p-8 shadow-soft ${p.featured ? "bg-primary text-primary-foreground" : "bg-card"}`}
+              >
                 {p.featured && (
-                  <span className="absolute -top-3 right-6 rounded-full bg-highlight px-3 py-1 text-xs font-semibold text-highlight-foreground">Popular</span>
+                  <span className="absolute -top-3 right-6 rounded-full bg-highlight px-3 py-1 text-xs font-semibold text-highlight-foreground">
+                    Popular
+                  </span>
                 )}
-                <h3 className={`text-2xl font-semibold ${p.featured ? "" : "text-primary"}`}>{p.name}</h3>
-                <p className={`text-sm ${p.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{p.duration}</p>
+                <h3 className={`text-2xl font-semibold ${p.featured ? "" : "text-primary"}`}>
+                  {p.name}
+                </h3>
+                <p
+                  className={`text-sm ${p.featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}
+                >
+                  {p.duration}
+                </p>
                 <p className="mt-6 font-display text-4xl font-semibold text-accent">{p.price}</p>
                 {p.deposit && <p className="mt-1 text-sm font-medium">{p.deposit}</p>}
-                <p className={`mt-4 text-sm ${p.featured ? "text-primary-foreground/80" : "text-muted-foreground"}`}>{p.note}</p>
-                <a href={bookHref} className={`mt-8 inline-flex w-full justify-center rounded-full px-6 py-3 text-sm font-medium ${p.featured ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"}`}>
+                <p
+                  className={`mt-4 text-sm ${p.featured ? "text-primary-foreground/80" : "text-muted-foreground"}`}
+                >
+                  {p.note}
+                </p>
+                <a
+                  href={bookHref}
+                  className={`mt-8 inline-flex w-full justify-center rounded-full px-6 py-3 text-sm font-medium ${p.featured ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"}`}
+                >
                   Get started
                 </a>
               </div>
@@ -282,7 +386,10 @@ function Index() {
       {/* ── SERVICES — 3 cols lg, 4 cols 2xl ── */}
       <section className="bg-surface py-16 md:py-20 xl:py-28">
         <div className="site-container">
-          <SectionHead eyebrow="Engineering & facilities" title="Backed by a full engineering company" />
+          <SectionHead
+            eyebrow="Engineering & facilities"
+            title="Backed by a full engineering company"
+          />
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-10 2xl:grid-cols-4">
             {services.map((s) => {
               const Icon = serviceIcons[s.icon];
@@ -310,27 +417,24 @@ function Index() {
         </div>
       </section>
 
-      {/* ── WHY JEMACK — 5 cards across ── */}
+      {/* ── WHY JEMACK — 5 pillars across ── */}
       <section className="site-container py-16 md:py-20 xl:py-28">
         <SectionHead eyebrow="Why Jemack" title="Trusted delivery since 2008" />
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5 xl:gap-8">
-          {[
-            { icon: Award, t: "Proven delivery", d: "Track record on large projects." },
-            { icon: HardHat, t: "Safety & quality", d: "Standards on every site." },
-            { icon: HeartHandshake, t: "Customer-first", d: "Clear terms, honest advice." },
-            { icon: Users, t: "Experienced team", d: "Engineers and estate experts." },
-            { icon: BadgeCheck, t: "Reputable firm", d: "A registered, trusted company." },
-          ].map(({ icon: Icon, t, d }) => (
-            <div key={t} className="rounded-3xl bg-card p-6 shadow-soft">
-              <Icon className="h-6 w-6 text-accent" />
-              <h3 className="mt-4 text-lg font-semibold text-primary">{t}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{d}</p>
-            </div>
-          ))}
+          {about.values.map((v) => {
+            const Icon = valueIcons[v.icon] ?? BadgeCheck;
+            return (
+              <div key={v.title} className="rounded-3xl bg-card p-6 shadow-soft">
+                <Icon className="h-6 w-6 text-accent" />
+                <h3 className="mt-4 text-lg font-semibold text-primary">{v.shortTitle}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{v.text}</p>
+              </div>
+            );
+          })}
         </div>
 
         {/* Stats row */}
-        <div className="mt-10 grid gap-6 rounded-3xl bg-primary p-8 text-primary-foreground sm:grid-cols-4 xl:p-10">
+        <div className="mt-10 grid gap-6 rounded-3xl bg-primary p-8 text-primary-foreground sm:grid-cols-3 lg:grid-cols-6 xl:p-10">
           <div>
             <p className="font-display text-4xl font-semibold text-accent">2008</p>
             <p className="text-sm text-primary-foreground/70">Serving since</p>
@@ -341,8 +445,35 @@ function Index() {
               <p className="text-sm text-primary-foreground/70">Office</p>
             </div>
           ))}
+          <div>
+            <p className="font-display text-4xl font-semibold text-accent">20+</p>
+            <p className="text-sm text-primary-foreground/70">Team members</p>
+          </div>
+          <div>
+            <p className="font-display text-4xl font-semibold text-accent">6</p>
+            <p className="text-sm text-primary-foreground/70">Service lines</p>
+          </div>
         </div>
       </section>
+
+      {/* ── CLIENTS — organisations we have served ── */}
+      {clientNamesApproved && clients.length > 0 && (
+        <section className="site-container pb-16 md:pb-20 xl:pb-28">
+          <h2 className="max-w-[40ch] text-3xl font-semibold text-primary sm:text-4xl">
+            {clientHeading}
+          </h2>
+          <div className="mt-8 grid gap-x-6 gap-y-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {clients.map((c) => (
+              <div key={c.name} className="flex items-center gap-3">
+                {c.logo ? (
+                  <img src={c.logo} alt={c.name} loading="lazy" className="h-8 w-auto" />
+                ) : null}
+                <span className="text-sm font-medium text-foreground">{c.name}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* ── CTA BAND ── */}
       <section className="site-container pb-16 md:pb-20 xl:pb-28">

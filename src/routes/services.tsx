@@ -1,16 +1,29 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { ArrowUpRight, Building2, Droplets, Fuel, Radio, Route as Road, Wrench } from 'lucide-react';
-import { PageShell, seo } from '@/components/site/PageShell';
-import { services, supportServices, type Service } from '@/data/services';
-import { pageCopy } from '@/data/pages';
+import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  ArrowUpRight,
+  Building2,
+  Droplets,
+  Fuel,
+  Radio,
+  Route as Road,
+  Wrench,
+} from "lucide-react";
+import { PageShell, seo } from "@/components/site/PageShell";
+import { services, supportServices, type Service } from "@/data/services";
+import { pageCopy } from "@/data/pages";
 
-export const Route = createFileRoute('/services')({
-  head: () => seo('Engineering Services | Jemack Properties', pageCopy.services.intro),
+export const Route = createFileRoute("/services")({
+  head: () => seo("Engineering Services | Jemack Properties", pageCopy.services.metaDescription),
   component: Services,
 });
 
-const icons: Record<Service['icon'], typeof Building2> = {
-  building: Building2, road: Road, droplets: Droplets, fuel: Fuel, radio: Radio, wrench: Wrench,
+const icons: Record<Service["icon"], typeof Building2> = {
+  building: Building2,
+  road: Road,
+  droplets: Droplets,
+  fuel: Fuel,
+  radio: Radio,
+  wrench: Wrench,
 };
 
 function Services() {
@@ -52,7 +65,9 @@ function Services() {
         <h2 className="max-w-[28ch] text-2xl text-primary">{pageCopy.labels.support}</h2>
         <ul className="mt-5 grid gap-4 md:grid-cols-3">
           {supportServices.map((s) => (
-            <li key={s} className="text-muted-foreground">{s}</li>
+            <li key={s} className="text-muted-foreground">
+              {s}
+            </li>
           ))}
         </ul>
       </section>

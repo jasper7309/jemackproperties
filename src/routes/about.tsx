@@ -1,14 +1,23 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { PageShell, seo } from '@/components/site/PageShell';
-import { about, pageCopy } from '@/data/pages';
-import { estates } from '@/data/estates';
+import { createFileRoute } from "@tanstack/react-router";
+import { Award, BadgeCheck, HardHat, HeartHandshake, Users, type LucideIcon } from "lucide-react";
+import { PageShell, seo } from "@/components/site/PageShell";
+import { about, pageCopy, clients, clientNamesApproved, clientHeading } from "@/data/pages";
+import { estates } from "@/data/estates";
 
-export const Route = createFileRoute('/about')({
-  head: () => seo('About Jemack | Property & Engineering Since 2008', about.intro),
+export const Route = createFileRoute("/about")({
+  head: () => seo("About Jemack | Property & Engineering Since 2008", about.metaDescription),
   component: About,
 });
 
-const bookHref = `/properties/${estates[0]?.slug ?? 'oliveness-garden-estate'}#book`;
+const bookHref = `/properties/${estates[0]?.slug ?? "oliveness-garden-estate"}#book`;
+
+const valueIcons: Record<string, LucideIcon> = {
+  expertise: BadgeCheck,
+  proven: Award,
+  values: HeartHandshake,
+  team: Users,
+  safety: HardHat,
+};
 
 function About() {
   return (
@@ -18,7 +27,9 @@ function About() {
         <div>
           <h2 className="max-w-[28ch] text-3xl text-primary">{about.storyTitle}</h2>
           {about.story.map((p) => (
-            <p key={p} className="mt-5 measure text-muted-foreground">{p}</p>
+            <p key={p} className="mt-5 measure text-muted-foreground">
+              {p}
+            </p>
           ))}
         </div>
         <img
@@ -44,18 +55,44 @@ function About() {
         ))}
       </section>
 
-      {/* Values — 4 across */}
+      {/* Values — five success pillars */}
       <section className="mt-16">
         <h2 className="max-w-[28ch] text-3xl text-primary">{pageCopy.labels.values}</h2>
-        <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {about.values.map((v) => (
-            <div key={v.title}>
-              <h3 className="text-xl text-primary">{v.title}</h3>
-              <p className="mt-3 text-sm text-muted-foreground">{v.text}</p>
-            </div>
-          ))}
+        <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          {about.values.map((v) => {
+            const Icon = valueIcons[v.icon] ?? BadgeCheck;
+            return (
+              <div key={v.title}>
+                <Icon className="h-6 w-6 text-accent" />
+                <h3 className="mt-3 text-xl text-primary">{v.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{v.text}</p>
+              </div>
+            );
+          })}
         </div>
       </section>
+
+      {/* How we are organised */}
+      {about.organisation && (
+        <section className="mt-16">
+          <h2 className="max-w-[28ch] text-3xl text-primary">{about.organisation.title}</h2>
+          <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {about.organisation.divisions.map((d) => (
+              <div key={d.name} className="rounded-3xl bg-card p-6 shadow-soft">
+                <h3 className="text-lg font-semibold text-primary">{d.name}</h3>
+                <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                  {d.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 text-sm font-medium text-primary">
+            Across all divisions: {about.organisation.across}
+          </p>
+        </section>
+      )}
 
       {/* Leadership — hidden until leadershipVerified */}
       {about.leadershipVerified && (
@@ -76,17 +113,32 @@ function About() {
         </section>
       )}
 
-      {/* Credentials — hidden until credentialsVerified */}
-      {about.credentialsVerified && (
-        <section className="mt-16 border-t pt-10">
-          <div className="flex flex-wrap gap-8 font-semibold text-primary">
-            {about.badges.map((b) => (
-              <span key={b}>{b}</span>
+      {/* Credentials — CAC always visible; COREN and ISO gated by their flags */}
+      <section className="mt-16 border-t pt-10">
+        <div className="flex flex-wrap gap-8 font-semibold text-primary">
+          <span>{about.badges.cac}</span>
+          {about.coren?.verified && <span>{about.badges.coren}</span>}
+          {about.iso9001?.verified && <span>{about.badges.iso9001}</span>}
+        </div>
+        {about.credentialNote && (
+          <p className="mt-4 text-xs text-muted-foreground">{about.credentialNote}</p>
+        )}
+      </section>
+
+      {/* Clients — organisations we have served */}
+      {clientNamesApproved && clients.length > 0 && (
+        <section className="mt-16">
+          <h2 className="max-w-[40ch] text-3xl text-primary">{clientHeading}</h2>
+          <div className="mt-8 grid gap-x-6 gap-y-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {clients.map((c) => (
+              <div key={c.name} className="flex items-center gap-3">
+                {c.logo ? (
+                  <img src={c.logo} alt={c.name} loading="lazy" className="h-8 w-auto" />
+                ) : null}
+                <span className="text-sm font-medium text-foreground">{c.name}</span>
+              </div>
             ))}
           </div>
-          {about.credentialNote && (
-            <p className="mt-4 text-xs text-muted-foreground">{about.credentialNote}</p>
-          )}
         </section>
       )}
 

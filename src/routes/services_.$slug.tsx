@@ -1,13 +1,13 @@
-import { createFileRoute, notFound } from '@tanstack/react-router';
-import { Check } from 'lucide-react';
-import { seo } from '@/components/site/PageShell';
-import { services, serviceProcess } from '@/data/services';
-import { projects, pageCopy } from '@/data/pages';
-import { FaqList } from '@/components/site/FaqList';
-import { EnquiryForm } from '@/components/site/EnquiryForm';
-import { ProjectGallery } from '@/components/site/ProjectGallery';
+import { createFileRoute, notFound, Link } from "@tanstack/react-router";
+import { Check } from "lucide-react";
+import { seo } from "@/components/site/PageShell";
+import { services, serviceProcess } from "@/data/services";
+import { projects, pageCopy } from "@/data/pages";
+import { FaqList } from "@/components/site/FaqList";
+import { EnquiryForm } from "@/components/site/EnquiryForm";
+import { whatsappLink } from "@/data/site";
 
-export const Route = createFileRoute('/services_/$slug')({
+export const Route = createFileRoute("/services_/$slug")({
   loader: ({ params }) => {
     const s = services.find((s) => s.slug === params.slug);
     if (!s) throw notFound();
@@ -15,18 +15,28 @@ export const Route = createFileRoute('/services_/$slug')({
   },
   head: ({ loaderData: s }) =>
     s
-      ? seo(`${s.title} | Jemack Engineering`, s.summary)
-      : { meta: [{ title: 'Service unavailable | Jemack' }, { name: 'robots', content: 'noindex' }] },
+      ? seo(`${s.title} | Jemack Engineering`, s.metaDescription)
+      : {
+          meta: [{ title: "Service unavailable | Jemack" }, { name: "robots", content: "noindex" }],
+        },
   component: ServiceDetail,
 });
 
 function ServiceDetail() {
   const s = Route.useLoaderData();
+  const relatedProject = projects.find((p) => p.services.includes(s.slug));
+
   return (
     <main>
       {/* Hero */}
       <section className="relative flex min-h-[65svh] items-end">
-        <img src={s.image} alt={`Illustrative construction site for ${s.title}`} width={1536} height={1024} className="absolute inset-0 h-full w-full object-cover" />
+        <img
+          src={s.image}
+          alt={`Illustrative construction site for ${s.title}`}
+          width={1536}
+          height={1024}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="site-container relative w-full pb-16 pt-40 text-hero-foreground">
           <p className="eyebrow text-accent">{pageCopy.services.eyebrow}</p>
@@ -39,11 +49,14 @@ function ServiceDetail() {
       <section className="site-container grid gap-10 py-16 md:py-20 xl:py-28 lg:grid-cols-2 xl:gap-14">
         <div>
           <h2 className="max-w-[28ch] text-3xl text-primary">{pageCopy.labels.overview}</h2>
+          {s.tagline && <p className="mt-4 font-display text-lg italic text-accent">{s.tagline}</p>}
           <p className="mt-5 measure text-muted-foreground">{s.overview}</p>
           <h3 className="mt-8 text-xl text-primary">{pageCopy.labels.sectors}</h3>
           <ul className="mt-4 flex flex-wrap gap-3">
             {s.sectors.map((x) => (
-              <li key={x} className="border-b border-accent pb-2 text-sm">{x}</li>
+              <li key={x} className="border-b border-accent pb-2 text-sm">
+                {x}
+              </li>
             ))}
           </ul>
         </div>
@@ -57,6 +70,14 @@ function ServiceDetail() {
               </li>
             ))}
           </ul>
+          {s.objective && (
+            <div className="mt-8 rounded-3xl bg-primary p-6 text-primary-foreground">
+              <p className="text-sm font-semibold uppercase tracking-wide text-accent">
+                {pageCopy.labels.objective}
+              </p>
+              <p className="mt-2 text-lg">{s.objective}</p>
+            </div>
+          )}
         </div>
       </section>
 
@@ -76,16 +97,43 @@ function ServiceDetail() {
         </div>
       </section>
 
-      {/* Related projects */}
-      <section className="site-container py-16 md:py-20 xl:py-28">
-        <h2 className="mb-8 max-w-[28ch] text-3xl text-primary">{pageCopy.labels.related}</h2>
-        <ProjectGallery items={projects.filter((p) => p.services.includes(s.slug))} />
-      </section>
+      {/* Related project — only where one exists */}
+      {relatedProject && (
+        <section className="site-container py-16 md:py-20 xl:py-28">
+          <h2 className="mb-4 max-w-[28ch] text-3xl text-primary">{pageCopy.labels.related}</h2>
+          <Link
+            to="/projects"
+            hash={relatedProject.slug}
+            className="text-lg font-medium text-primary underline-offset-4 hover:underline"
+          >
+            {relatedProject.title}
+          </Link>
+        </section>
+      )}
 
       {/* FAQs */}
       <section className="site-container pb-16 md:pb-20 xl:pb-28">
-        <h2 className="mb-6 max-w-[28ch] text-3xl text-primary">{pageCopy.labels.serviceQuestions}</h2>
+        <h2 className="mb-6 max-w-[28ch] text-3xl text-primary">
+          {pageCopy.labels.serviceQuestions}
+        </h2>
         <FaqList items={s.faqs} />
+      </section>
+
+      {/* CTA — Request a quote on WhatsApp */}
+      <section className="bg-primary py-16 text-primary-foreground md:py-20 xl:py-28">
+        <div className="site-container flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
+          <h2 className="max-w-[28ch] text-3xl font-semibold">Request a quote on WhatsApp</h2>
+          <a
+            href={whatsappLink(
+              `Hello Jemack Properties, I'd like to request a quote for ${s.title}.`,
+            )}
+            target="_blank"
+            rel="noreferrer"
+            className="shrink-0 rounded-full bg-highlight px-8 py-4 font-medium text-highlight-foreground transition hover:brightness-110"
+          >
+            Request a quote on WhatsApp
+          </a>
+        </div>
       </section>
 
       {/* Quote form */}
