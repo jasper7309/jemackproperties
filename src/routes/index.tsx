@@ -83,7 +83,7 @@ const valueIcons: Record<string, typeof Award> = {
 function SectionHead({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
     <div>
-      <p className="eyebrow text-accent-text">{eyebrow}</p>
+      <p className="eyebrow text-muted-foreground">{eyebrow}</p>
       <h2 className="mt-2 max-w-[28ch] text-3xl font-semibold text-primary sm:text-4xl">{title}</h2>
     </div>
   );
@@ -108,7 +108,7 @@ function Index() {
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="site-container relative w-full pt-28 pb-32">
           <div className="max-w-[720px] text-hero-foreground">
-            <p className="eyebrow animate-fade-up text-accent">Pre-launch · Asaba, Delta State</p>
+            <p className="eyebrow animate-fade-up text-hero-foreground">Pre-launch · Asaba, Delta State</p>
             <h1 className="mt-4 animate-fade-up text-4xl font-semibold leading-tight [animation-delay:80ms] sm:text-5xl">
               Own Land in Asaba with C&nbsp;of&nbsp;O
             </h1>
@@ -152,14 +152,14 @@ function Index() {
               <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   {/* Outlined pill eyebrow */}
-                  <span className="inline-flex items-center gap-2 rounded-full border border-accent/70 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/40 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary-foreground">
                     <Gem className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                     Curated Selection
                   </span>
-                  {/* H2 — "Featured" light, "Properties" italic accent */}
+                  {/* H2 — "Featured" light, "Properties" white */}
                   <h2 className="mt-4 max-w-[18ch] font-display text-4xl font-medium leading-tight sm:text-5xl">
                     <span className="text-primary-foreground">Featured </span>
-                    <span className="italic text-accent">Properties</span>
+                    <span className="italic text-primary-foreground">Properties</span>
                   </h2>
                   <p className="mt-3 max-w-[60ch] text-sm text-primary-foreground/70">
                     Hand-picked land and homes from Jemack and our partner developers.
@@ -220,7 +220,7 @@ function Index() {
           </div>
           <div>
             <SectionHead eyebrow="Estate spotlight" title={estate.name} />
-            <p className="mt-4 font-display text-xl italic text-accent">{estate.tagline}</p>
+            <p className="mt-4 font-display text-xl italic text-primary">{estate.tagline}</p>
             <p className="mt-4 measure text-muted-foreground">
               A secure, fully serviced estate in a fast-rising part of Asaba. Buy your plot today,
               then build at your own pace with support from our engineering team.
@@ -236,7 +236,7 @@ function Index() {
                   key={label}
                   className="inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground"
                 >
-                  <Icon className="h-4 w-4 text-accent" />
+                  <Icon className="h-4 w-4 text-primary" />
                   {label}
                 </span>
               ))}
@@ -297,7 +297,7 @@ function Index() {
             },
           ].map(({ icon: Icon, t, d }) => (
             <div key={t} className="rounded-3xl bg-card p-7 shadow-soft">
-              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-accent">
+              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-primary-foreground">
                 <Icon className="h-6 w-6" />
               </span>
               <h3 className="mt-5 text-xl font-semibold text-primary">{t}</h3>
@@ -310,7 +310,7 @@ function Index() {
       {/* ── LOCATION ── */}
       <section className="bg-primary py-16 text-primary-foreground md:py-20 xl:py-28">
         <div className="site-container">
-          <p className="eyebrow text-accent">Location</p>
+          <p className="eyebrow text-primary-foreground">Location</p>
           <h2 className="mt-2 max-w-[28ch] text-3xl font-semibold sm:text-4xl">Nearby landmarks</h2>
           <p className="mt-4 measure text-primary-foreground/75">
             {estate.location}, close to key Asaba landmarks.
@@ -322,7 +322,7 @@ function Index() {
                 className="flex items-center justify-between gap-4 rounded-2xl bg-primary-foreground/5 px-5 py-4"
               >
                 <span className="flex min-w-0 items-center gap-3">
-                  <Landmark className="h-5 w-5 shrink-0 text-accent" />
+                  <Landmark className="h-5 w-5 shrink-0 text-primary-foreground" />
                   <span>{l.name}</span>
                 </span>
                 {l.distance && (

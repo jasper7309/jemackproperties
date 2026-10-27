@@ -38,7 +38,7 @@ export function Footer() {
 
         {/* Quick links */}
         <div>
-          <h3 className="text-lg text-accent">Quick links</h3>
+          <h3 className="text-lg text-primary-foreground">Quick links</h3>
           <ul className="mt-4 space-y-2 text-sm text-primary-foreground/75">
             <li>
               <Link to="/properties">Properties</Link>
@@ -62,7 +62,7 @@ export function Footer() {
               <Link to="/faqs">FAQs</Link>
             </li>
             <li>
-              <a href={bookHref} className="font-medium text-accent">
+              <a href={bookHref} className="font-medium text-primary-foreground">
                 Book an Inspection
               </a>
             </li>
@@ -71,7 +71,7 @@ export function Footer() {
 
         {/* Services */}
         <div>
-          <h3 className="text-lg text-accent">Services</h3>
+          <h3 className="text-lg text-primary-foreground">Services</h3>
           <ul className="mt-4 space-y-2 text-sm text-primary-foreground/75">
             {services.map((s) => (
               <li key={s.slug}>
@@ -85,7 +85,7 @@ export function Footer() {
 
         {/* Offices + contact */}
         <div>
-          <h3 className="text-lg text-accent">Offices</h3>
+          <h3 className="text-lg text-primary-foreground">Offices</h3>
           <ul className="mt-4 space-y-1 text-sm text-primary-foreground/75">
             {site.offices.map((o) => (
               <li key={o.city}>{o.city}</li>
@@ -95,18 +95,18 @@ export function Footer() {
             <li>
               <a
                 href={`tel:${site.phones[0].tel}`}
-                className="flex items-center gap-2 transition hover:text-accent"
+                className="flex items-center gap-2 transition hover:text-primary-foreground/70"
               >
-                <Phone className="h-4 w-4 text-accent" />
+                <Phone className="h-4 w-4 text-primary-foreground" />
                 {site.phones[0].display}
               </a>
             </li>
             <li>
               <a
                 href={`mailto:${site.email}`}
-                className="flex items-center gap-2 transition hover:text-accent"
+                className="flex items-center gap-2 transition hover:text-primary-foreground/70"
               >
-                <Mail className="h-4 w-4 text-accent" />
+                <Mail className="h-4 w-4 text-primary-foreground" />
                 {site.email}
               </a>
             </li>
