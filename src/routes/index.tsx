@@ -31,8 +31,9 @@ import { getFeaturedProperties, publishedProperties } from "@/data/properties";
 import { services, type Service } from "@/data/services";
 import { site } from "@/data/site";
 import { publicPolicy } from "@/data/launch";
-import { about, clients, clientNamesApproved, clientHeading } from "@/data/pages";
+import { about, clientNamesApproved } from "@/data/pages";
 import { FeaturedPropertyCard } from "@/components/property/FeaturedPropertyCard";
+import { ClientLogos } from "@/components/site/ClientLogos";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -456,24 +457,8 @@ function Index() {
         </div>
       </section>
 
-      {/* ── CLIENTS — organisations we have served ── */}
-      {clientNamesApproved && clients.length > 0 && (
-        <section className="site-container pb-16 md:pb-20 xl:pb-28">
-          <h2 className="max-w-[40ch] text-3xl font-semibold text-primary sm:text-4xl">
-            {clientHeading}
-          </h2>
-          <div className="mt-8 grid gap-x-6 gap-y-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {clients.map((c) => (
-              <div key={c.name} className="flex items-center gap-3">
-                {c.logo ? (
-                  <img src={c.logo} alt={c.name} loading="lazy" className="h-8 w-auto" />
-                ) : null}
-                <span className="text-sm font-medium text-foreground">{c.name}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
+      {/* ── CLIENTS ── */}
+      {clientNamesApproved && <ClientLogos />}
 
       {/* ── CTA BAND ── */}
       <section className="site-container pb-16 md:pb-20 xl:pb-28">

@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Award, BadgeCheck, HardHat, HeartHandshake, Users, type LucideIcon } from "lucide-react";
 import { PageShell, seo } from "@/components/site/PageShell";
-import { about, pageCopy, clients, clientNamesApproved, clientHeading } from "@/data/pages";
+import { about, pageCopy, clientNamesApproved } from "@/data/pages";
 import { estates } from "@/data/estates";
+import { ClientLogos } from "@/components/site/ClientLogos";
 
 export const Route = createFileRoute("/about")({
   head: () => seo("About Jemack | Property & Engineering Since 2008", about.metaDescription),
@@ -126,21 +127,7 @@ function About() {
       </section>
 
       {/* Clients — organisations we have served */}
-      {clientNamesApproved && clients.length > 0 && (
-        <section className="mt-16">
-          <h2 className="max-w-[40ch] text-3xl text-primary">{clientHeading}</h2>
-          <div className="mt-8 grid gap-x-6 gap-y-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {clients.map((c) => (
-              <div key={c.name} className="flex items-center gap-3">
-                {c.logo ? (
-                  <img src={c.logo} alt={c.name} loading="lazy" className="h-8 w-auto" />
-                ) : null}
-                <span className="text-sm font-medium text-foreground">{c.name}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
+      {clientNamesApproved && <ClientLogos />}
 
       {/* Closing CTA band — centred text is intentional for CTA bands */}
       <section className="mt-20 overflow-hidden rounded-3xl bg-primary px-10 py-12 text-primary-foreground sm:px-16">

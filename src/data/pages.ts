@@ -239,6 +239,22 @@ export const clients: Client[] = [
   { name: "Leadway Assurance Company Limited" },
 ];
 
+/**
+ * Client logo URLs — shown in the "Our clients" section on Home, About and Projects.
+ * These are the organisations Jemack has worked with. No client-name mapping is required.
+ */
+export const clientLogos: string[] = [
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793107885/319c306a-6b15-4a9f-aa03-655446345d3f_brccmz.png",
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793107871/711808b9-2ad3-4a53-b573-b9cac486f73a_da7dwa.png",
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793107870/36d87ecd-5b18-4e33-8b48-07278bcb5561_k585a3.png",
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793107869/bc115318-0306-4aa2-a9f7-4f8b1c5cf5c7_cqzvn7.png",
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793107868/80d68bab-f72d-48fa-93d7-db8f21ff9e0b_q9his7.png",
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793107864/d4f004bf-02ee-4fe3-bc69-ca8c46d55b70_xsp7gj.png",
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793107864/a79c7090-ec7d-49e3-963c-db97c2cc4df5_uyx3jz.png",
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793107863/6617b017-337a-4a6a-b633-59b48c59ca56_gmuk7x.png",
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793107862/08354789-5239-4a5e-a138-956b30848121_pphevo.png",
+];
+
 export type Faq = { q: string; a: string };
 
 export const faqGroups: { category: string; items: Faq[] }[] = [
