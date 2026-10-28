@@ -97,7 +97,7 @@ function Index() {
     <main>
       {/* ── HERO ── */}
       <section className="relative flex min-h-[88svh] items-center justify-center overflow-hidden">
-        {/* Background image */}
+        {/* Background image — layer 1 */}
         <img
           src={hero}
           alt="Aerial view of a serviced residential estate in Asaba at sunset"
@@ -106,31 +106,45 @@ function Index() {
           fetchPriority="high"
           className="absolute inset-0 h-full w-full object-cover"
         />
-        {/* Gradient overlay — keeps photo readable */}
+
+        {/* Gradient tint — layer 2: keeps photo readable without heavy darkening */}
         <div className="absolute inset-0 bg-hero-overlay" />
 
-        {/* Centred content with a subtle blur panel */}
-        <div className="site-container relative flex w-full items-center justify-center py-40">
-          <div
-            className="mx-auto w-full max-w-[680px] rounded-2xl px-8 py-10 text-center sm:px-12 sm:py-12"
-            style={{
-              background: "rgba(1,22,39,0.55)",
-              backdropFilter: "blur(8px)",
-              WebkitBackdropFilter: "blur(8px)",
-            }}
-          >
+        {/* Full-bleed blur — layer 3: light blur across the whole hero */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backdropFilter: "blur(3px)",
+            WebkitBackdropFilter: "blur(3px)",
+            background: "rgba(1,22,39,0.28)",
+            pointerEvents: "none",
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Text content — layer 4: sits above blur, no card/panel background */}
+        <div className="site-container relative z-10 flex w-full items-center justify-center py-40">
+          <div className="mx-auto w-full max-w-[680px] text-center">
             {/* H1 */}
             <h1
               className="animate-fade-up font-semibold text-white"
-              style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", lineHeight: 1.2 }}
+              style={{
+                fontSize: "clamp(1.75rem, 4vw, 3rem)",
+                lineHeight: 1.2,
+                textShadow: "0 2px 12px rgba(1,22,39,0.7), 0 1px 3px rgba(1,22,39,0.5)",
+              }}
             >
               Welcome to Jemack Properties
             </h1>
 
             {/* Body */}
             <p
-              className="animate-fade-up mt-5 text-white/85 [animation-delay:100ms]"
-              style={{ fontSize: "clamp(0.9375rem, 1.5vw, 1.0625rem)", lineHeight: 1.65 }}
+              className="animate-fade-up mt-5 text-white/90 [animation-delay:100ms]"
+              style={{
+                fontSize: "clamp(0.9375rem, 1.5vw, 1.0625rem)",
+                lineHeight: 1.65,
+                textShadow: "0 1px 6px rgba(1,22,39,0.6)",
+              }}
             >
               Secure land and homes with verified titles, backed by Jemack Facilities &amp; Engineering
               Services. From plot to finished structure, one trusted team handles it all.
