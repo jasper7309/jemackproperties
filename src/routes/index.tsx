@@ -96,7 +96,8 @@ function Index() {
   return (
     <main>
       {/* ── HERO ── */}
-      <section className="relative flex min-h-[88svh] items-center overflow-hidden">
+      <section className="relative flex min-h-[88svh] items-center justify-center overflow-hidden">
+        {/* Background image */}
         <img
           src={hero}
           alt="Aerial view of a serviced residential estate in Asaba at sunset"
@@ -105,36 +106,53 @@ function Index() {
           fetchPriority="high"
           className="absolute inset-0 h-full w-full object-cover"
         />
+        {/* Gradient overlay — keeps photo readable */}
         <div className="absolute inset-0 bg-hero-overlay" />
-        <div className="site-container relative w-full pt-28 pb-32">
-          <div className="max-w-[720px] text-hero-foreground">
-            <p className="eyebrow animate-fade-up text-hero-foreground">Pre-launch · Asaba, Delta State</p>
-            <h1 className="mt-4 animate-fade-up text-4xl font-semibold leading-tight [animation-delay:80ms] sm:text-5xl">
-              Own Land in Asaba with C&nbsp;of&nbsp;O
+
+        {/* Centred content with a subtle blur panel */}
+        <div className="site-container relative flex w-full items-center justify-center py-40">
+          <div
+            className="mx-auto w-full max-w-[680px] rounded-2xl px-8 py-10 text-center sm:px-12 sm:py-12"
+            style={{
+              background: "rgba(1,22,39,0.55)",
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
+            }}
+          >
+            {/* H1 */}
+            <h1
+              className="animate-fade-up font-semibold text-white"
+              style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", lineHeight: 1.2 }}
+            >
+              Welcome to Jemack Properties
             </h1>
-            <p className="mt-6 animate-fade-up measure text-base text-hero-foreground/85 [animation-delay:180ms] sm:text-lg">
-              Oliveness Garden Estate: 464m² plots with paved roads, drainage, street lights and
-              24/7 security. Backed by Jemack's engineering team, so you can buy and build with one
-              company.
+
+            {/* Body */}
+            <p
+              className="animate-fade-up mt-5 text-white/85 [animation-delay:100ms]"
+              style={{ fontSize: "clamp(0.9375rem, 1.5vw, 1.0625rem)", lineHeight: 1.65 }}
+            >
+              Secure land and homes with verified titles, backed by Jemack Facilities &amp; Engineering
+              Services. From plot to finished structure, one trusted team handles it all.
             </p>
-            <div className="mt-8 flex animate-fade-up flex-wrap gap-3 [animation-delay:260ms]">
-              <a
-                href={bookHref}
-                className="rounded-full bg-highlight px-7 py-3.5 font-medium text-highlight-foreground transition hover:brightness-110"
-              >
-                Book an Inspection
-              </a>
+
+            {/* CTA buttons */}
+            <div className="animate-fade-up mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center [animation-delay:200ms]">
+              {/* Primary */}
               <Link
-                to="/properties/$slug"
-                params={{ slug: estate.slug }}
-                className="rounded-full border border-hero-foreground/70 px-7 py-3.5 font-medium text-hero-foreground transition hover:bg-hero-foreground hover:text-primary"
+                to="/properties"
+                className="w-full rounded-full bg-highlight px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:w-auto"
               >
-                View the Estate
+                View Our Estates
+              </Link>
+              {/* Secondary */}
+              <Link
+                to="/services"
+                className="w-full rounded-full border-2 border-white/70 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:w-auto"
+              >
+                See Our Services
               </Link>
             </div>
-            <p className="mt-8 animate-fade-up inline-block rounded-full border border-hero-foreground/30 px-5 py-2.5 text-sm text-hero-foreground/80 [animation-delay:340ms]">
-              464m² plots · Certificate of Occupancy
-            </p>
           </div>
         </div>
       </section>
