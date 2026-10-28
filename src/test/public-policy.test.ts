@@ -26,11 +26,11 @@ describe('No placeholder text in public data', () => {
     expect(cities).not.toContain('Port Harcourt');
   });
 
-  it('site socials only contains youtube, no placeholder facebook/instagram/x', () => {
+  it('site socials only contains youtube, facebook and instagram — no placeholder x/twitter', () => {
     const socials = site.socials as Record<string, string>;
     expect(socials.youtube).toContain('youtube.com');
-    expect(socials.facebook).toBeUndefined();
-    expect(socials.instagram).toBeUndefined();
+    expect(socials.facebook).toContain('facebook.com');
+    expect(socials.instagram).toContain('instagram.com');
     expect(socials.x).toBeUndefined();
   });
 

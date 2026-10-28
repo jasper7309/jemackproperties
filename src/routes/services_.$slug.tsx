@@ -2,7 +2,7 @@ import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 import { seo } from "@/components/site/PageShell";
 import { services, serviceProcess } from "@/data/services";
-import { projects, pageCopy } from "@/data/pages";
+import { projects, pageCopy, clientNamesApproved } from "@/data/pages";
 import { FaqList } from "@/components/site/FaqList";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { whatsappLink } from "@/data/site";
@@ -24,15 +24,15 @@ export const Route = createFileRoute("/services_/$slug")({
 
 function ServiceDetail() {
   const s = Route.useLoaderData();
-  const relatedProject = projects.find((p) => p.services.includes(s.slug));
+  const relatedProjects = projects.filter((p) => p.services.includes(s.slug));
 
   return (
     <main>
       {/* Hero */}
       <section className="relative flex min-h-[65svh] items-end">
         <img
-          src={s.image}
-          alt={`Illustrative construction site for ${s.title}`}
+          src={s.heroImage ?? s.image}
+          alt={`${s.title} site`}
           width={1536}
           height={1024}
           className="absolute inset-0 h-full w-full object-cover"
@@ -97,17 +97,50 @@ function ServiceDetail() {
         </div>
       </section>
 
-      {/* Related project — only where one exists */}
-      {relatedProject && (
+      {/* Related projects — preview grid with images */}
+      {relatedProjects.length > 0 && (
         <section className="site-container py-16 md:py-20 xl:py-28">
-          <h2 className="mb-4 max-w-[28ch] text-3xl text-primary">{pageCopy.labels.related}</h2>
-          <Link
-            to="/projects"
-            hash={relatedProject.slug}
-            className="text-lg font-medium text-primary underline-offset-4 hover:underline"
-          >
-            {relatedProject.title}
-          </Link>
+          <h2 className="mb-8 max-w-[28ch] text-3xl text-primary">{pageCopy.labels.related}</h2>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedProjects.map((p) => {
+              const thumb = p.images?.[0];
+              return (
+                <Link
+                  key={p.slug}
+                  to="/projects"
+                  hash={p.slug}
+                  className="group overflow-hidden rounded-3xl bg-card shadow-soft transition hover:-translate-y-1"
+                >
+                  {thumb ? (
+                    <img
+                      src={thumb}
+                      alt={p.title}
+                      loading="lazy"
+                      width={800}
+                      height={600}
+                      className="aspect-[4/3] w-full object-cover"
+                    />
+                  ) : (
+                    <div className="grid aspect-[4/3] place-items-center bg-secondary">
+                      <span className="text-xs text-muted-foreground">Photos on request</span>
+                    </div>
+                  )}
+                  <div className="p-5">
+                    <p className="text-xs font-medium text-highlight">{p.type}</p>
+                    <h3 className="mt-1 text-base font-semibold leading-snug text-primary">
+                      {p.title}
+                    </h3>
+                    {p.location && (
+                      <p className="mt-1 text-xs text-muted-foreground">{p.location}</p>
+                    )}
+                    {clientNamesApproved && p.client && (
+                      <p className="mt-1 text-xs text-muted-foreground">Client: {p.client}</p>
+                    )}
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         </section>
       )}
 

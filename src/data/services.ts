@@ -1,6 +1,6 @@
 import engineering from "@/assets/engineering.jpg";
 
-// Real project photos pulled from the Projects page — one per service where available.
+// Images used on the services listing cards (project photos).
 const buildingImg =
   "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793106599/c9798d91-82e0-4b6c-80ac-7c35d83ac3f0_g6algm.png";
 const highwayImg =
@@ -9,6 +9,16 @@ const oilGasImg =
   "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793105305/328780e3-e3ac-4d25-a9ff-6068463869a8_wearon.png";
 const facilitiesImg =
   "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793103346/a7e08b49-e82b-45fe-8b6e-7255c2b78c21_xb4shp.png";
+
+// Wide hero images for each service detail page.
+const buildingHero =
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793178786/5aaf9716-7de1-4036-b91e-759d22d6311a_e1jez0.png";
+const highwayHero =
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793178785/21ce6c66-cd6e-4fcd-ac48-446cefb062cc_ylns7n.png";
+const oilGasHero =
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793178783/d258bba1-9fdf-495e-990c-215df5bd4734_ywekyj.png";
+const facilitiesHero =
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793178782/e788f67e-ebf2-46d7-9944-b7719587d41d_zvlaka.png";
 
 export type Service = {
   slug: string;
@@ -24,7 +34,10 @@ export type Service = {
   /** Optional objective line */
   objective?: string;
   sectors: string[];
+  /** Image used on the services listing card */
   image: string;
+  /** Optional wide hero image for the service detail page. Falls back to image. */
+  heroImage?: string;
   metaDescription: string;
   faqs: { q: string; a: string }[];
 };
@@ -62,6 +75,7 @@ export const services: Service[] = [
     ],
     sectors: ["Residential", "Commercial", "Industrial", "Recreation"],
     image: buildingImg,
+    heroImage: buildingHero,
     metaDescription:
       "Jemack designs, constructs and maintains residential, commercial, industrial and recreational buildings, from permits and estimates to supervision and handover",
     faqs: sharedFaqs,
@@ -91,6 +105,7 @@ export const services: Service[] = [
     ],
     sectors: ["Transport", "Public infrastructure", "Estate development"],
     image: highwayImg,
+    heroImage: highwayHero,
     metaDescription:
       "Jemack plans, designs and builds highways, bridges, culverts, drainage, earthworks, asphalt and soil stabilisation for trunk A, B and C roads across Nigeria",
     faqs: sharedFaqs,
@@ -141,6 +156,7 @@ export const services: Service[] = [
     objective: "Safe project delivery. Zero tolerance to quality issues.",
     sectors: ["Energy", "Industrial", "Logistics"],
     image: oilGasImg,
+    heroImage: oilGasHero,
     metaDescription:
       "Jemack provides planning, design and construction support for oil and gas terminals, tank farms, foundations, civil works and shoreline protection in Nigeria",
     faqs: sharedFaqs,
@@ -172,6 +188,7 @@ export const services: Service[] = [
       "Whatever your needs are, we provide professional support. Zero tolerance to quality issues.",
     sectors: ["Residential", "Commercial", "Institutional"],
     image: facilitiesImg,
+    heroImage: facilitiesHero,
     metaDescription:
       "Jemack provides facilities management, renovation, repairs, cleaning, interiors, air-conditioning and power support for offices, branches and homes in Nigeria",
     faqs: sharedFaqs,
