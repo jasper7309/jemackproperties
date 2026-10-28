@@ -88,7 +88,7 @@ function Faqs() {
         <div className="overflow-hidden rounded-3xl bg-primary px-10 py-12 text-primary-foreground sm:px-16">
           <p className="eyebrow text-accent">Ready to see the land?</p>
           <h2 className="mt-3 max-w-[28ch] text-3xl font-semibold sm:text-4xl">
-            Book a free inspection of Oliveness Garden Estate.
+            Book a free inspection of Oliveness Garden Estate Asaba.
           </h2>
           <a
             href={bookHref}

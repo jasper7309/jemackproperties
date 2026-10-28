@@ -43,13 +43,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Oliveness Garden Estate, Asaba: 464m² plots with C of O, paved roads, drainage, street lights and security. Book a free inspection.",
+          "Oliveness Garden Estate Asaba, Asaba: 464m² plots with C of O, paved roads, drainage, street lights and security. Book a free inspection.",
       },
       { property: "og:title", content: "Jemack Properties | Own Land in Asaba with C of O" },
       {
         property: "og:description",
         content:
-          "464m² plots with C of O at Oliveness Garden Estate, Asaba. Book a free inspection today.",
+          "464m² plots with C of O at Oliveness Garden Estate Asaba. Book a free inspection today.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -238,7 +238,7 @@ function Index() {
           <div className="relative overflow-hidden rounded-3xl bg-secondary shadow-lift">
             <img
               src={estateImg}
-              alt="Illustrative home at Oliveness Garden Estate"
+              alt="Illustrative home at Oliveness Garden Estate Asaba"
               loading="lazy"
               width={1280}
               height={960}

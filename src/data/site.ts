@@ -16,9 +16,9 @@ export const site = {
   ],
   whatsapp: "2348022224248",
   /** All emails: [0] = primary */
-  emails: ["services@jemackfacilities.com.ng", "jemackfacilities@yahoo.com"],
+  emails: ["Info@jemackproperties.ng", "services@jemackfacilities.com.ng"],
   /** Primary display email */
-  email: "services@jemackfacilities.com.ng",
+  email: "Info@jemackproperties.ng",
   offices: [
     { city: "Lagos", address: "House 20 Greenlight Estate, Alatushe, Ibeju-Lekki, Lagos, Nigeria" },
     {

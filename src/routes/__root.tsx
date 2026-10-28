@@ -15,6 +15,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
+import { SocialBar } from "@/components/site/SocialBar";
 import { WhatsAppIcon } from "@/components/site/WhatsAppIcon";
 import { whatsappLink } from "@/data/site";
 import { organizationSchema } from "@/data/launch";
@@ -138,6 +139,7 @@ function RootComponent() {
       <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-primary focus:px-6 focus:py-3 focus:text-primary-foreground">Skip to content</a>
       <Navbar />
       <div id="main-content" tabIndex={-1}><Outlet /></div>
+      <SocialBar />
       <Footer />
       <a href={whatsappLink()} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" className="fixed bottom-5 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-whatsapp text-white shadow-lift transition hover:scale-105">
         <WhatsAppIcon className="h-7 w-7" />

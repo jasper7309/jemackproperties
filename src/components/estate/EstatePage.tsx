@@ -131,7 +131,7 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
             <div className="overflow-hidden rounded-3xl">
               <OptionalEmbed
                 src="https://www.youtube-nocookie.com/embed/PcUFar8W2Cg"
-                title="Oliveness Garden Estate walkthrough"
+                title="Oliveness Garden Estate Asaba walkthrough"
               />
             </div>
           </div>
@@ -153,7 +153,7 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
             />
           </div>
           <p className="mt-3 text-xs text-muted-foreground">
-            Official survey layout — Oliveness Garden Estate, Ubulu-Okiti, Asaba. Total area: 28,666.701 sq metres.
+            Official survey layout — Oliveness Garden Estate Asaba, Ubulu-Okiti, Asaba. Total area: 28,666.701 sq metres.
           </p>
           <a
             href={whatsappLink(`Hello Jemack Properties, I'd like to enquire about an available plot at ${e.name}.`)}

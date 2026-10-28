@@ -44,7 +44,7 @@ const plots: Plot[] = Array.from({ length: 49 }, (_, i) => {
 export const estates: Estate[] = [
   {
     slug: "oliveness-garden-estate",
-    name: "Oliveness Garden Estate",
+    name: "Oliveness Garden Estate Asaba",
     tagline: "Where Nature Meets Elegance",
     location: "Ubulu-Okiti, Asaba",
     fullAddress: "Along Iselle–Mkpitime Road, Ubulu-Okiti, Aniocha South LGA, Asaba, Delta State",
@@ -84,7 +84,7 @@ export const estates: Estate[] = [
       { title: "Allocation", text: "Your plot is physically allocated to you on site." },
     ],
     faqs: [
-      { q: "What title does the estate have?", a: "Oliveness Garden Estate has a Certificate of Occupancy (C of O)." },
+      { q: "What title does the estate have?", a: "Oliveness Garden Estate Asaba has a Certificate of Occupancy (C of O)." },
       { q: "How big is each plot?", a: "Each plot is 464m²." },
       { q: "Can I pay in instalments?", a: "Yes. After an initial deposit you can spread payment over 6 or 12 months." },
       { q: "Can Jemack build my house for me?", a: "Yes. With Buy & Build, our in-house construction team can design and build your home on your plot." },
@@ -93,8 +93,8 @@ export const estates: Estate[] = [
     plots,
     plotStatusVerified: false,
     images: [
-      { src: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793045123/photo_2026-10-26_21-04-15_x5ltzy.jpg", alt: "Oliveness Garden Estate site", caption: "On-site photo" },
-      { src: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793045123/photo_2026-10-26_21-04-01_oqimoe.jpg", alt: "Oliveness Garden Estate site view", caption: "On-site photo" },
+      { src: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793045123/photo_2026-10-26_21-04-15_x5ltzy.jpg", alt: "Oliveness Garden Estate Asaba site", caption: "On-site photo" },
+      { src: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793045123/photo_2026-10-26_21-04-01_oqimoe.jpg", alt: "Oliveness Garden Estate Asaba site view", caption: "On-site photo" },
     ],
   },
 ];

@@ -7,7 +7,7 @@ import { WhatsAppIcon } from './WhatsAppIcon';
 import { whatsappLink, site } from '@/data/site';
 import { contactTopics, pageCopy } from '@/data/pages';
 
-const cityOptions = ['Lagos', 'Asaba', 'Umuahia', 'Oliveness Garden Estate', 'Other'] as const;
+const cityOptions = ['Lagos', 'Asaba', 'Umuahia', 'Oliveness Garden Estate Asaba', 'Other'] as const;
 
 const schema = z.object({
   name: z.string().trim().min(2, 'Please enter your name').max(100),

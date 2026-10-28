@@ -81,7 +81,7 @@ export const properties: Property[] = [
   // ── Jemack's own estate ────────────────────────────────────────────────────
   {
     slug: "oliveness-garden-estate",
-    title: "Oliveness Garden Estate",
+    title: "Oliveness Garden Estate Asaba",
     description:
       "464m² plots with C of O in Ubulu-Okiti, Asaba. Buy and build in a serene, fully serviced estate.",
     image: estateAsset,
