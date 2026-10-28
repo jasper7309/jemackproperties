@@ -14,11 +14,12 @@ export function ClientLogos() {
       <h2 className="max-w-[40ch] text-3xl font-semibold text-primary sm:text-4xl">
         {clientHeading}
       </h2>
-      <div className="mt-10 flex flex-wrap items-center justify-start gap-6 sm:gap-8">
+      {/* 2 cols on mobile, 3 on sm, 4 on lg, 5 on xl */}
+      <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-6 lg:grid-cols-4 xl:grid-cols-5">
         {clientLogos.map((src, i) => (
           <div
             key={src}
-            className="flex h-28 w-56 items-center justify-center rounded-xl bg-secondary p-4 sm:h-32 sm:w-64"
+            className="flex h-28 w-full items-center justify-center rounded-xl bg-secondary p-4 sm:h-32"
           >
             <img
               src={src}

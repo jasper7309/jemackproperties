@@ -84,87 +84,91 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <header
-      className={[
-        "fixed inset-x-0 top-0 z-50 transition-transform duration-300",
-        // slide off-screen when hidden
-        visible ? "translate-y-0" : "-translate-y-full",
-        // background: always solid
-        "bg-surface shadow-soft",
-      ].join(" ")}
-    >
-      <nav className="site-container flex items-center justify-between gap-4 py-4">
-        <Link to="/" aria-label={site.name} className="shrink-0">
-          <Logo />
-        </Link>
+    <>
+      <header
+        className={[
+          "fixed inset-x-0 top-0 z-50 transition-transform duration-300",
+          visible ? "translate-y-0" : "-translate-y-full",
+          "bg-surface shadow-soft",
+        ].join(" ")}
+      >
+        <nav className="site-container flex items-center justify-between gap-4 py-4">
+          <Link to="/" aria-label={site.name} className="shrink-0">
+            <Logo />
+          </Link>
 
-        {/* Desktop nav links */}
-        <ul className="hidden items-center gap-6 lg:flex">
-          {links.map((l) => (
-            <li key={l.to}>
-              <Link
-                to={l.to}
-                activeOptions={{ exact: l.to === "/" }}
-                className="text-sm font-bold text-foreground underline-offset-4 transition-colors hover:text-accent-text"
-                activeProps={{ className: "text-sm font-bold text-accent-text underline" }}
-                aria-current={pathname === l.to ? "page" : undefined}
-              >
-                {l.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+          {/* Desktop nav links */}
+          <ul className="hidden items-center gap-6 lg:flex">
+            {links.map((l) => (
+              <li key={l.to}>
+                <Link
+                  to={l.to}
+                  activeOptions={{ exact: l.to === "/" }}
+                  className="text-sm font-bold text-foreground underline-offset-4 transition-colors hover:text-accent-text"
+                  activeProps={{ className: "text-sm font-bold text-accent-text underline" }}
+                  aria-current={pathname === l.to ? "page" : undefined}
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
 
-        {/* Right actions — Book CTA + hamburger only, no WhatsApp icon */}
-        <div className="flex items-center gap-2">
-          <a
-            href={bookHref}
-            className="hidden rounded-full bg-highlight px-5 py-2.5 text-sm font-medium text-highlight-foreground transition hover:brightness-110 sm:inline-flex"
-          >
-            Book an Inspection
-          </a>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setOpen(true)}
-            aria-label="Open menu"
-            aria-expanded={open}
-            aria-controls="mobile-menu"
-            className="grid h-11 w-11 place-items-center rounded-full bg-muted text-primary lg:hidden"
-          >
-            <Menu className="h-5 w-5" />
-          </Button>
-        </div>
-      </nav>
+          {/* Right actions */}
+          <div className="flex items-center gap-2">
+            <a
+              href={bookHref}
+              className="hidden rounded-full bg-highlight px-5 py-2.5 text-sm font-medium text-highlight-foreground transition hover:brightness-110 sm:inline-flex"
+            >
+              Book an Inspection
+            </a>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setOpen(true)}
+              aria-label="Open menu"
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              className="grid h-11 w-11 place-items-center rounded-full bg-muted text-primary lg:hidden"
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
+          </div>
+        </nav>
+      </header>
 
-      {/* Mobile menu */}
+      {/* Mobile menu — rendered outside <header> so it isn't clipped by the header's transform */}
       {open && (
         <div
           id="mobile-menu"
           role="dialog"
           aria-modal="true"
           aria-label="Navigation"
-          className="fixed inset-0 z-50 flex flex-col bg-primary p-6 text-primary-foreground animate-in fade-in lg:hidden"
+          className="fixed inset-0 z-[60] flex flex-col overflow-y-auto p-6 lg:hidden"
+          style={{ background: "#011627" }}
         >
+          {/* Top row: logo + close */}
           <div className="flex items-center justify-between">
             <Logo inverted />
-            <Button
+            <button
               onClick={() => setOpen(false)}
               aria-label="Close menu"
-              className="grid h-11 w-11 place-items-center rounded-full bg-primary-foreground/10"
+              className="grid h-11 w-11 place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
             >
-              <X />
-            </Button>
+              <X className="h-5 w-5" />
+            </button>
           </div>
-          <ul className="mt-8 flex flex-col gap-5">
+
+          {/* Nav links */}
+          <ul className="mt-8 flex flex-col" role="list">
             {links.map((l) => (
               <li key={l.to}>
                 <Link
                   to={l.to}
-                  className="font-display text-3xl"
+                  className="flex min-h-[52px] items-center border-b border-white/10 text-2xl font-semibold text-white transition hover:text-white/70"
                   activeProps={{
                     className:
-                      "font-display text-3xl underline decoration-accent underline-offset-4",
+                      "flex min-h-[52px] items-center border-b border-white/10 text-2xl font-semibold text-white underline decoration-highlight underline-offset-4",
                   }}
                   aria-current={pathname === l.to ? "page" : undefined}
                 >
@@ -173,14 +177,16 @@ export function Navbar() {
               </li>
             ))}
           </ul>
+
+          {/* Book an Inspection CTA */}
           <a
             href={bookHref}
-            className="mt-auto rounded-full bg-highlight px-6 py-4 text-center font-medium text-highlight-foreground"
+            className="mt-8 rounded-full bg-highlight px-6 py-4 text-center text-sm font-bold uppercase tracking-wide text-white transition hover:brightness-110"
           >
             Book an Inspection
           </a>
         </div>
       )}
-    </header>
+    </>
   );
 }
