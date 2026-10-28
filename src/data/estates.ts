@@ -84,11 +84,70 @@ export const estates: Estate[] = [
       { title: "Allocation", text: "Your plot is physically allocated to you on site." },
     ],
     faqs: [
-      { q: "What title does the estate have?", a: "Oliveness Garden Estate Asaba has a Certificate of Occupancy (C of O)." },
-      { q: "How big is each plot?", a: "Each plot is 464m²." },
-      { q: "Can I pay in instalments?", a: "Yes. After an initial deposit you can spread payment over 6 or 12 months." },
-      { q: "Can Jemack build my house for me?", a: "Yes. With Buy & Build, our in-house construction team can design and build your home on your plot." },
-      { q: "When can I start building?", a: "You can start building once your plot is fully paid for and allocated." },
+      {
+        q: "Where is Oliveness Garden Estate Asaba located?",
+        a: "Along Iselle-Mkpitime Road, Ubulu-Okiti, Asaba, Delta State, Nigeria.",
+      },
+      {
+        q: "Who are the owners/developers of the estate?",
+        a: "Jemack Facilities & Engineering Services Limited is a notable real estate company based in Lagos State. They are developers of Oliveness Estates in Nigeria and developed Oliveness Gardens Abaren, Ogun State, and GreenHills Estate Apushi, Ubakala, Umuahia, Abia State (Lifestyle & Living). They are also a leading construction and facilities management company, with a passion for providing quality and verifiable real estate portfolios.",
+      },
+      {
+        q: "What type of title does the land have?",
+        a: "Deed of Assignment, Registered Survey and Government Approved Certificate of Occupancy. File No: LUC 3523 Delta State Government.",
+      },
+      {
+        q: "What plot sizes are available?",
+        a: "Residential plots: 464 sqm. Commercial plots: available on request.",
+      },
+      {
+        q: "How much is a plot selling for at Oliveness Garden Estate Asaba?",
+        a: "Promo price: NGN 8.5 million (464 sqm). Actual price: NGN 10.5 million (464 sqm). Note: All surveys must be done by the company surveyor to avoid complications. Unauthorised surveys are invalid and not permitted.",
+      },
+      {
+        q: "Can I pay in instalments?",
+        a: "Yes, but instalment payment attracts extra charges as interest for your payment convenience. Outright payment (0–3 months): NGN 8.5 million (464 sqm, promo). 6 months payment: NGN 9.5 million (464 sqm). 12 months payment: NGN 10.5 million (464 sqm). Initial deposit: NGN 2 million (464 sqm).",
+      },
+      {
+        q: "What do I get after payment?",
+        a: "A. Payment receipt. B. Contract/Agreement of Sale. C. Offer/Welcome letter. Upon complete payment for your land and documentation, the company will prepare the Survey Plan and Deed of Assignment.",
+      },
+      {
+        q: "What other fees do I have to pay besides the cost of land?",
+        a: "The estate fee is inclusive of the Deed of Assignment and Survey Plan. Developmental fee: The estate development fee for drainage and fencing only is included in the cost. Costs for estate internal roads, electricity, water and street lights will be determined much later and shared among all subscribers.",
+      },
+      {
+        q: "When do I get physical allocation for my land?",
+        a: "After complete payment for your land and payment of the development fee, the company will process your statutory documentation. A mail will then be sent inviting you for physical allocation, or this happens when a substantial number of clients have paid up.",
+      },
+      {
+        q: "What if I cannot continue payment for my plot(s)? Will I get a refund?",
+        a: "Yes, you can ask for a refund if you are unable to continue payment. After formal notification, the company needs 90 days to process it. The refund is paid less 30% as admin charges/costs.",
+      },
+      {
+        q: "Can I sell/resell my plot(s) at Oliveness Garden Estate Asaba?",
+        a: "Yes. You must notify the company formally so it can prepare the necessary change of ownership documents and ease the transition.",
+      },
+      {
+        q: "Are there building restrictions or an expected type of buildings?",
+        a: "The estate is developed for mixed use (residential and commercial). There are no general building restrictions, but buildings above 2 floors, chalets and tenement (\"face me I face you\") buildings are prohibited. Because of the estate's plan and theme, every plot is expected to have a tree in front, to promote an eco-friendly, natural, serene and healthy environment.",
+      },
+      {
+        q: "What are the proposed amenities/facilities?",
+        a: "Well-paved road, drainage system, electricity, street lights, 24-hour security/controlled access, potable water, green park, kids' playground, estate-themed garden and green landscaping.",
+      },
+      {
+        q: "Are there any encumbrances on the estate land?",
+        a: "No. The land is free from any adverse claim and from government acquisition, and has a Government Approved Certificate of Occupancy.",
+      },
+      {
+        q: "Can I pay cash to your agents?",
+        a: "The company strongly advises against cash or any form of payment to an individual. All payments should be made to the Jemack Facilities & Engineering Services Ltd account with Stanbic IBTC Bank. Otherwise, cheques or bank drafts should be issued in favour of Jemack Facilities & Engineering Services Ltd. The company accepts no liability arising from deviation from this instruction.",
+      },
+      {
+        q: "Is Jemack Facilities & Engineering Services Ltd AML/CFT compliant?",
+        a: "Yes, it is registered with the Special Control Unit against Money Laundering (SCUML).",
+      },
     ],
     plots,
     plotStatusVerified: false,
