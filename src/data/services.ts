@@ -1,5 +1,15 @@
 import engineering from "@/assets/engineering.jpg";
 
+// Real project photos pulled from the Projects page — one per service where available.
+const buildingImg =
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793106599/c9798d91-82e0-4b6c-80ac-7c35d83ac3f0_g6algm.png";
+const highwayImg =
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793106091/ed7f0bbf-55fc-4b85-a90a-65648384516a_vqyjji.png";
+const oilGasImg =
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793105305/328780e3-e3ac-4d25-a9ff-6068463869a8_wearon.png";
+const facilitiesImg =
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793103346/a7e08b49-e82b-45fe-8b6e-7255c2b78c21_xb4shp.png";
+
 export type Service = {
   slug: string;
   title: string;
@@ -51,7 +61,7 @@ export const services: Service[] = [
       "Handover and project close-out",
     ],
     sectors: ["Residential", "Commercial", "Industrial", "Recreation"],
-    image: engineering,
+    image: buildingImg,
     metaDescription:
       "Jemack designs, constructs and maintains residential, commercial, industrial and recreational buildings, from permits and estimates to supervision and handover",
     faqs: sharedFaqs,
@@ -80,7 +90,7 @@ export const services: Service[] = [
       "Soil stabilisation for highways",
     ],
     sectors: ["Transport", "Public infrastructure", "Estate development"],
-    image: engineering,
+    image: highwayImg,
     metaDescription:
       "Jemack plans, designs and builds highways, bridges, culverts, drainage, earthworks, asphalt and soil stabilisation for trunk A, B and C roads across Nigeria",
     faqs: sharedFaqs,
@@ -130,7 +140,7 @@ export const services: Service[] = [
     ],
     objective: "Safe project delivery. Zero tolerance to quality issues.",
     sectors: ["Energy", "Industrial", "Logistics"],
-    image: engineering,
+    image: oilGasImg,
     metaDescription:
       "Jemack provides planning, design and construction support for oil and gas terminals, tank farms, foundations, civil works and shoreline protection in Nigeria",
     faqs: sharedFaqs,
@@ -161,7 +171,7 @@ export const services: Service[] = [
     objective:
       "Whatever your needs are, we provide professional support. Zero tolerance to quality issues.",
     sectors: ["Residential", "Commercial", "Institutional"],
-    image: engineering,
+    image: facilitiesImg,
     metaDescription:
       "Jemack provides facilities management, renovation, repairs, cleaning, interiors, air-conditioning and power support for offices, branches and homes in Nigeria",
     faqs: sharedFaqs,
