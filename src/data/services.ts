@@ -18,7 +18,7 @@ const highwayHero =
 const oilGasHero =
   "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793178783/d258bba1-9fdf-495e-990c-215df5bd4734_ywekyj.png";
 const facilitiesHero =
-  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793178782/e788f67e-ebf2-46d7-9944-b7719587d41d_zvlaka.png";
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793180324/d1566229-e61a-4c9f-b168-a8bf820f2ef8_wujugp.png";
 
 export type Service = {
   slug: string;
