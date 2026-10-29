@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useRef, useEffect } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -89,6 +90,122 @@ function SectionHead({ eyebrow, title }: { eyebrow: string; title: string }) {
   );
 }
 
+const HERO_VIDEO = "https://res.cloudinary.com/dgxsyq2tf/video/upload/v1793298955/VID-20261029-WA0010_gjoxk1.mp4";
+const SKIP_TO = 30; // seconds — skip the opening 30 s
+
+/**
+ * Hero section with video background.
+ * - Starts at 30 s (skipping the opening segment)
+ * - Autoplays muted and loops
+ * - Falls back to the static hero image if the video can't load
+ */
+function HeroSection() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Once enough metadata is loaded, seek past the first 30 seconds
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const seek = () => {
+      if (video.duration && video.currentTime < SKIP_TO) {
+        video.currentTime = SKIP_TO;
+      }
+    };
+
+    // If metadata already loaded (e.g. cached), seek immediately
+    if (video.readyState >= 1) {
+      seek();
+    } else {
+      video.addEventListener("loadedmetadata", seek, { once: true });
+    }
+
+    return () => video.removeEventListener("loadedmetadata", seek);
+  }, []);
+
+  return (
+    <section className="relative flex min-h-[88svh] items-center justify-center overflow-hidden">
+      {/* Background video — layer 1 */}
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover"
+      >
+        <source src={HERO_VIDEO} type="video/mp4" />
+        {/* Fallback: static image shown by browsers that block/can't play the video */}
+        <img
+          src={hero}
+          alt="Aerial view of a serviced residential estate in Asaba at sunset"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      </video>
+
+      {/* Gradient tint — layer 2 */}
+      <div className="absolute inset-0 bg-hero-overlay" />
+
+      {/* Full-bleed blur — layer 3 */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backdropFilter: "blur(3px)",
+          WebkitBackdropFilter: "blur(3px)",
+          background: "rgba(1,22,39,0.28)",
+          pointerEvents: "none",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Text content — layer 4 */}
+      <div className="site-container relative z-10 flex w-full items-center justify-center py-40">
+        <div className="mx-auto w-full max-w-[680px] text-center">
+          <h1
+            className="animate-fade-up font-semibold text-white"
+            style={{
+              fontSize: "clamp(1.75rem, 4vw, 3rem)",
+              lineHeight: 1.2,
+              textShadow: "0 2px 12px rgba(1,22,39,0.7), 0 1px 3px rgba(1,22,39,0.5)",
+            }}
+          >
+            Welcome to Jemack Properties
+          </h1>
+
+          <p
+            className="animate-fade-up mt-5 text-white/90 [animation-delay:100ms]"
+            style={{
+              fontSize: "clamp(0.9375rem, 1.5vw, 1.0625rem)",
+              lineHeight: 1.65,
+              textShadow: "0 1px 6px rgba(1,22,39,0.6)",
+            }}
+          >
+            Secure land and homes with verified titles, backed by Jemack Facilities &amp; Engineering
+            Services. From plot to finished structure, one trusted team handles it all.
+          </p>
+
+          <div className="animate-fade-up mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center [animation-delay:200ms]">
+            <Link
+              to="/properties"
+              className="w-full rounded-full bg-highlight px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:w-auto"
+            >
+              View Our Estates
+            </Link>
+            <Link
+              to="/services"
+              className="w-full rounded-full border-2 border-white/70 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:w-auto"
+            >
+              See Our Services
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Index() {
   if (!estate) return null;
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(estate.fullAddress)}`;
@@ -96,80 +213,7 @@ function Index() {
   return (
     <main>
       {/* ── HERO ── */}
-      <section className="relative flex min-h-[88svh] items-center justify-center overflow-hidden">
-        {/* Background image — layer 1 */}
-        <img
-          src={hero}
-          alt="Aerial view of a serviced residential estate in Asaba at sunset"
-          width={1920}
-          height={1088}
-          fetchPriority="high"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-
-        {/* Gradient tint — layer 2: keeps photo readable without heavy darkening */}
-        <div className="absolute inset-0 bg-hero-overlay" />
-
-        {/* Full-bleed blur — layer 3: light blur across the whole hero */}
-        <div
-          className="absolute inset-0"
-          style={{
-            backdropFilter: "blur(3px)",
-            WebkitBackdropFilter: "blur(3px)",
-            background: "rgba(1,22,39,0.28)",
-            pointerEvents: "none",
-          }}
-          aria-hidden="true"
-        />
-
-        {/* Text content — layer 4: sits above blur, no card/panel background */}
-        <div className="site-container relative z-10 flex w-full items-center justify-center py-40">
-          <div className="mx-auto w-full max-w-[680px] text-center">
-            {/* H1 */}
-            <h1
-              className="animate-fade-up font-semibold text-white"
-              style={{
-                fontSize: "clamp(1.75rem, 4vw, 3rem)",
-                lineHeight: 1.2,
-                textShadow: "0 2px 12px rgba(1,22,39,0.7), 0 1px 3px rgba(1,22,39,0.5)",
-              }}
-            >
-              Welcome to Jemack Properties
-            </h1>
-
-            {/* Body */}
-            <p
-              className="animate-fade-up mt-5 text-white/90 [animation-delay:100ms]"
-              style={{
-                fontSize: "clamp(0.9375rem, 1.5vw, 1.0625rem)",
-                lineHeight: 1.65,
-                textShadow: "0 1px 6px rgba(1,22,39,0.6)",
-              }}
-            >
-              Secure land and homes with verified titles, backed by Jemack Facilities &amp; Engineering
-              Services. From plot to finished structure, one trusted team handles it all.
-            </p>
-
-            {/* CTA buttons */}
-            <div className="animate-fade-up mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center [animation-delay:200ms]">
-              {/* Primary */}
-              <Link
-                to="/properties"
-                className="w-full rounded-full bg-highlight px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:w-auto"
-              >
-                View Our Estates
-              </Link>
-              {/* Secondary */}
-              <Link
-                to="/services"
-                className="w-full rounded-full border-2 border-white/70 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:w-auto"
-              >
-                See Our Services
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroSection />
 
       {/* ── HERO → FEATURED PROPERTIES gradient bridge ── */}
       <div className="h-48 w-full" style={{ background: "linear-gradient(to bottom, transparent 0%, #ffffff 60%, #011627 100%)" }} />
