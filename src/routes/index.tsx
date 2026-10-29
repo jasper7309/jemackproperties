@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useRef, useEffect } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -90,54 +89,30 @@ function SectionHead({ eyebrow, title }: { eyebrow: string; title: string }) {
   );
 }
 
-const HERO_VIDEO = "https://res.cloudinary.com/dgxsyq2tf/video/upload/v1793298955/VID-20261029-WA0010_gjoxk1.mp4";
-const SKIP_TO = 30; // seconds — skip the opening 30 s
+const HERO_VIDEO = "https://res.cloudinary.com/dgxsyq2tf/video/upload/v1793302405/Untitled_design_hqysjz.mp4";
 
 /**
  * Hero section with video background.
- * - Starts at 30 s (skipping the opening segment)
- * - Autoplays muted and loops
- * - Falls back to the static hero image if the video can't load
+ * Autoplays muted and loops on all devices including iOS Safari.
+ * Falls back to the static hero image if the video cannot load.
  */
 function HeroSection() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Once enough metadata is loaded, seek past the first 30 seconds
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const seek = () => {
-      if (video.duration && video.currentTime < SKIP_TO) {
-        video.currentTime = SKIP_TO;
-      }
-    };
-
-    // If metadata already loaded (e.g. cached), seek immediately
-    if (video.readyState >= 1) {
-      seek();
-    } else {
-      video.addEventListener("loadedmetadata", seek, { once: true });
-    }
-
-    return () => video.removeEventListener("loadedmetadata", seek);
-  }, []);
-
   return (
     <section className="relative flex min-h-[88svh] items-center justify-center overflow-hidden">
-      {/* Background video — layer 1 */}
+      {/* Background video — layer 1
+          iOS Safari requires: autoPlay muted playsInline (no preload="auto")
+          aria-hidden keeps screen readers from announcing the decorative video */}
       <video
-        ref={videoRef}
         autoPlay
         muted
         loop
         playsInline
-        preload="auto"
         aria-hidden="true"
         className="absolute inset-0 h-full w-full object-cover"
+        style={{ objectFit: "cover" }}
       >
         <source src={HERO_VIDEO} type="video/mp4" />
-        {/* Fallback: static image shown by browsers that block/can't play the video */}
+        {/* Fallback image for browsers that cannot play the video */}
         <img
           src={hero}
           alt="Aerial view of a serviced residential estate in Asaba at sunset"
