@@ -29,9 +29,9 @@ export const site = {
     { city: "Umuahia", address: "No. 85 Cameroon Street, Umuahia, Abia State, Nigeria" },
   ] satisfies Office[],
   socials: {
-    youtube: "https://www.youtube.com/@jemackproperties2",
-    facebook: "https://www.facebook.com/profile.php?id=100063633145599",
-    instagram: "https://www.instagram.com/jemackfacilities",
+    youtube: "https://youtube.com/@jemackproperties?si=rkMXSnzUWFxNU8C4",
+    facebook: "https://www.facebook.com/share/g/1CQgDWgnZy/",
+    instagram: "https://www.instagram.com/jemackproperties?obrf=M2d5NGZleTI4ZHQy",
   },
   /** Optional: reply-time promise shown in form footnotes. Leave blank to hide. */
   responseTime: "",

@@ -11,7 +11,7 @@ const bookHref = `/properties/${estates[0]?.slug ?? "oliveness-garden-estate"}#b
 const links = [
   { to: "/", label: "Home" },
   { to: "/properties", label: "Properties" },
-  { to: "/our-agents", label: "Our Agents" },
+  { to: "/our-agents", label: "Our Realtors" },
   { to: "/services", label: "Services" },
   { to: "/projects", label: "Projects" },
   { to: "/about", label: "About" },

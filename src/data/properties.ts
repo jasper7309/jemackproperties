@@ -85,7 +85,7 @@ export const properties: Property[] = [
     description:
       "464m² plots with C of O in Ubulu-Okiti, Asaba. Buy and build in a serene, fully serviced estate.",
     image: estateAsset,
-    location: "Asaba",
+    location: "Along Iselle-Mkpitime Road, Ubulu-Okiti, Aniocha South LGA, Asaba, Delta State",
     state: "Delta",
     type: "land",
     size: "464m²",

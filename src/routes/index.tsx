@@ -158,7 +158,7 @@ function HeroSection() {
             }}
           >
             Secure land and homes with verified titles, backed by Jemack Facilities &amp; Engineering
-            Services. From plot to finished structure, one trusted team handles it all.
+            Services. from purchased lands to finished structure one trusted team handles it all.
           </p>
 
           <div className="animate-fade-up mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center [animation-delay:200ms]">
