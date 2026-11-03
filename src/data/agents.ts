@@ -11,7 +11,7 @@ export const agents: Agent[] = [
 ];
 
 export const agentsIntro = {
-  title: "Our Registered Agents",
+  title: "Our Registered Partners",
   text: "Every Jemack Properties agent is registered with us and trained on our estates, titles and payment plans, so you get accurate, honest guidance wherever you meet them.",
 };
 
