@@ -20,5 +20,5 @@ export const becomeAgentSteps = [
   { title: "Apply", text: "Fill in the short application form below." },
   { title: "Get screened", text: "Our team reviews your details and contacts you." },
   { title: "Get trained", text: "Attend an orientation on our estates and sales process." },
-  { title: "Start earning", text: "Receive your agent ID and earn commission on every sale." },
+  { title: "Start earning", text: "Receive your commission within 48 hours after sale is confirmed." },
 ];

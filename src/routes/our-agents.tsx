@@ -67,7 +67,7 @@ function Agents() {
       <section className="site-container mt-16 md:mt-20 xl:mt-24">
         <div className="rounded-3xl bg-primary p-8 text-primary-foreground sm:p-12">
           <p className="eyebrow text-accent">Join us</p>
-          <h2 className="mt-2 max-w-[28ch] text-3xl font-semibold sm:text-4xl">Become a Jemack Properties Agent</h2>
+          <h2 className="mt-2 max-w-[28ch] text-3xl font-semibold sm:text-4xl">Become a Jemack Properties Realtor</h2>
           <ol className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {becomeAgentSteps.map((s, i) => (
               <li key={s.title} className="rounded-3xl bg-primary-foreground/5 p-6">

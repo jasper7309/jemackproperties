@@ -63,7 +63,7 @@ export const services: Service[] = [
       "Timely delivery of building projects with seasoned professionals to customer satisfaction.",
     icon: "building",
     overview:
-      "Timely delivery of building projects with seasoned professionals to customer satisfaction. We design, construct and maintain all types of buildings and structures — recreational, industrial and residential — from permits and estimates through to site supervision and handover.",
+      "We design, construct and maintain all types of buildings and structures — recreational, industrial and residential — from permits and estimates through to site supervision and handover.",
     capabilities: [
       "Design, construction and maintenance of all types of buildings and structures: recreational (stadiums, large halls, auditoriums), industrial (factories, commercial offices), residential (private homes, multi-storey flats)",
       "Building permits",
