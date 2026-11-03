@@ -89,7 +89,7 @@ function SectionHead({ eyebrow, title }: { eyebrow: string; title: string }) {
   );
 }
 
-const HERO_VIDEO = "https://res.cloudinary.com/dgxsyq2tf/video/upload/v1793302405/Untitled_design_hqysjz.mp4";
+const HERO_VIDEO = "https://res.cloudinary.com/dgxsyq2tf/video/upload/v1793711568/VID-20261020-WA0017_grwknw.mp4";
 
 /**
  * Hero section with video background.

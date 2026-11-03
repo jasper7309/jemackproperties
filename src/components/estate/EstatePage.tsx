@@ -40,7 +40,17 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
     <main>
       {/* ── HERO ── */}
       <section className="relative flex min-h-[80svh] items-end overflow-hidden">
-        <img src={hero} alt={e.name} width={1920} height={1088} fetchPriority="high" className="absolute inset-0 h-full w-full object-cover" />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+          className="absolute inset-0 h-full w-full object-cover"
+        >
+          <source src="https://res.cloudinary.com/dgxsyq2tf/video/upload/v1793302405/Untitled_design_hqysjz.mp4" type="video/mp4" />
+          <img src={hero} alt={e.name} className="absolute inset-0 h-full w-full object-cover" />
+        </video>
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="site-container relative w-full pb-16 pt-40 text-hero-foreground">
           <div className="max-w-[720px]">
