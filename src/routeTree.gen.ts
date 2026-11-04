@@ -18,6 +18,7 @@ import { Route as OurAgentsRouteImport } from './routes/our-agents'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as PropertiesRouteImport } from './routes/properties'
+import { Route as RealtorRegisterRouteImport } from './routes/realtor-register'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as BlogSlugRouteImport } from './routes/blog_.$slug'
@@ -69,6 +70,11 @@ const PropertiesRoute = PropertiesRouteImport.update({
   path: '/properties',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RealtorRegisterRoute = RealtorRegisterRouteImport.update({
+  id: '/realtor-register',
+  path: '/realtor-register',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
@@ -105,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRoute
   '/properties': typeof PropertiesRoute
+  '/realtor-register': typeof RealtorRegisterRoute
   '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -121,6 +128,7 @@ export interface FileRoutesByTo {
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRoute
   '/properties': typeof PropertiesRoute
+  '/realtor-register': typeof RealtorRegisterRoute
   '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -138,6 +146,7 @@ export interface FileRoutesById {
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRoute
   '/properties': typeof PropertiesRoute
+  '/realtor-register': typeof RealtorRegisterRoute
   '/services': typeof ServicesRoute
   '/terms': typeof TermsRoute
   '/blog_/$slug': typeof BlogSlugRoute
@@ -156,6 +165,7 @@ export interface FileRouteTypes {
     | '/privacy-policy'
     | '/projects'
     | '/properties'
+    | '/realtor-register'
     | '/services'
     | '/terms'
     | '/blog/$slug'
@@ -172,6 +182,7 @@ export interface FileRouteTypes {
     | '/privacy-policy'
     | '/projects'
     | '/properties'
+    | '/realtor-register'
     | '/services'
     | '/terms'
     | '/blog/$slug'
@@ -188,6 +199,7 @@ export interface FileRouteTypes {
     | '/privacy-policy'
     | '/projects'
     | '/properties'
+    | '/realtor-register'
     | '/services'
     | '/terms'
     | '/blog_/$slug'
@@ -205,6 +217,7 @@ export interface RootRouteChildren {
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ProjectsRoute: typeof ProjectsRoute
   PropertiesRoute: typeof PropertiesRoute
+  RealtorRegisterRoute: typeof RealtorRegisterRoute
   ServicesRoute: typeof ServicesRoute
   TermsRoute: typeof TermsRoute
   BlogSlugRoute: typeof BlogSlugRoute
@@ -277,6 +290,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PropertiesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/realtor-register': {
+      id: '/realtor-register'
+      path: '/realtor-register'
+      fullPath: '/realtor-register'
+      preLoaderRoute: typeof RealtorRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services': {
       id: '/services'
       path: '/services'
@@ -325,6 +345,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   ProjectsRoute: ProjectsRoute,
   PropertiesRoute: PropertiesRoute,
+  RealtorRegisterRoute: RealtorRegisterRoute,
   ServicesRoute: ServicesRoute,
   TermsRoute: TermsRoute,
   BlogSlugRoute: BlogSlugRoute,
