@@ -157,3 +157,6 @@ export const estates: Estate[] = [
     ],
   },
 ];
+
+/** Convenience re-export so tests can import it directly. */
+export const plotStatusVerified = estates[0]?.plotStatusVerified ?? false;

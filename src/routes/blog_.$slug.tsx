@@ -3,7 +3,6 @@ import { seo } from '@/components/site/PageShell';
 import { OptionalEmbed } from '@/components/site/Consent';
 import { posts } from '@/data/posts';
 import { pageCopy } from '@/data/pages';
-
 export const Route = createFileRoute('/blog_/$slug')({
   loader: ({ params }) => {
     const p = posts.find((p) => p.slug === params.slug);
@@ -31,7 +30,6 @@ export const Route = createFileRoute('/blog_/$slug')({
       : { meta: [{ title: 'Article unavailable | Jemack' }, { name: 'robots', content: 'noindex' }] },
   component: PostDetail,
 });
-
 function PostDetail() {
   const p = Route.useLoaderData();
   return (
@@ -40,7 +38,6 @@ function PostDetail() {
         <Link to="/blog" className="text-sm text-highlight">
           ← {pageCopy.blog.title}
         </Link>
-
         {/* Two-column on lg: article left, aside right */}
         <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_280px] xl:gap-14">
           <article>
@@ -70,7 +67,6 @@ function PostDetail() {
               </div>
             )}
           </article>
-
           {/* Aside — sticky on desktop */}
           <aside className="lg:sticky lg:top-28 lg:self-start">
             <div className="rounded-3xl bg-card p-6 shadow-soft">

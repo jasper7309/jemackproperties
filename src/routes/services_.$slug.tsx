@@ -6,7 +6,6 @@ import { projects, pageCopy, clientNamesApproved } from "@/data/pages";
 import { FaqList } from "@/components/site/FaqList";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { whatsappLink } from "@/data/site";
-
 export const Route = createFileRoute("/services_/$slug")({
   loader: ({ params }) => {
     const s = services.find((s) => s.slug === params.slug);
@@ -21,11 +20,9 @@ export const Route = createFileRoute("/services_/$slug")({
         },
   component: ServiceDetail,
 });
-
 function ServiceDetail() {
   const s = Route.useLoaderData();
   const relatedProjects = projects.filter((p) => p.services.includes(s.slug));
-
   return (
     <main>
       {/* Hero */}
@@ -44,7 +41,6 @@ function ServiceDetail() {
           <p className="mt-5 measure">{s.summary}</p>
         </div>
       </section>
-
       {/* Overview + capabilities */}
       <section className="site-container grid gap-10 py-16 md:py-20 xl:py-28 lg:grid-cols-2 xl:gap-14">
         <div>
@@ -80,7 +76,6 @@ function ServiceDetail() {
           )}
         </div>
       </section>
-
       {/* Process */}
       <section className="bg-primary py-16 text-primary-foreground md:py-20 xl:py-28">
         <div className="site-container">
@@ -96,7 +91,6 @@ function ServiceDetail() {
           </ol>
         </div>
       </section>
-
       {/* Related projects — preview grid with images */}
       {relatedProjects.length > 0 && (
         <section className="site-container py-16 md:py-20 xl:py-28">
@@ -143,7 +137,6 @@ function ServiceDetail() {
           </div>
         </section>
       )}
-
       {/* FAQs */}
       <section className="site-container pb-16 md:pb-20 xl:pb-28">
         <h2 className="mb-6 max-w-[28ch] text-3xl text-primary">
@@ -151,7 +144,6 @@ function ServiceDetail() {
         </h2>
         <FaqList items={s.faqs} />
       </section>
-
       {/* CTA — Request a quote on WhatsApp */}
       <section className="bg-primary py-16 text-primary-foreground md:py-20 xl:py-28">
         <div className="site-container flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
@@ -168,7 +160,6 @@ function ServiceDetail() {
           </a>
         </div>
       </section>
-
       {/* Quote form */}
       <section className="bg-secondary py-16 md:py-20 xl:py-28">
         <div className="site-container grid gap-10 lg:grid-cols-[2fr_3fr] xl:gap-14">

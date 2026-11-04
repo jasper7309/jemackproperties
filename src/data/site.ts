@@ -39,3 +39,6 @@ export const site = {
 
 export const whatsappLink = (msg = "Hello Jemack Properties, I'd like to book an inspection.") =>
   `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(msg)}`;
+
+export const directionsLink = (address: string) =>
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;

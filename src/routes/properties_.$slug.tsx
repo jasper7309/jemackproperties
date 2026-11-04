@@ -22,7 +22,6 @@ import { seo } from "@/components/site/PageShell";
 import { EstatePage } from "@/components/estate/EstatePage";
 import { site, whatsappLink } from "@/data/site";
 import { WhatsAppIcon } from "@/components/site/WhatsAppIcon";
-
 export const Route = createFileRoute("/properties_/$slug")({
   loader: ({ params }) => {
     const property = properties.find((p) => p.slug === params.slug);
@@ -56,19 +55,14 @@ export const Route = createFileRoute("/properties_/$slug")({
   },
   component: PropertyDetail,
 });
-
 function PropertyDetail() {
   const { slug } = Route.useLoaderData();
-  // Oliveness uses the full EstatePage
   const estate = estates.find((e) => e.slug === slug);
   if (estate) return <EstatePage estate={estate} />;
-
   const p = properties.find((x) => x.slug === slug);
   if (!p) throw notFound();
   return <AdvertisedPropertyPage property={p} />;
 }
-
-// ── Highlight icon map ────────────────────────────────────────────────────────
 const highlightIcons = {
   leaf:   Leaf,
   shield: ShieldCheck,
@@ -77,8 +71,6 @@ const highlightIcons = {
   home:   Home,
   key:    Key,
 };
-
-// ── Badge colour by status ────────────────────────────────────────────────────
 function StatusBadge({ status, label }: { status: Property["status"]; label: string }) {
   const cls: Record<Property["status"], string> = {
     "pre-launch": "bg-highlight text-highlight-foreground",
@@ -93,18 +85,14 @@ function StatusBadge({ status, label }: { status: Property["status"]; label: str
     </span>
   );
 }
-
-// ── The full advertised property detail page ──────────────────────────────────
 function AdvertisedPropertyPage({ property: p }: { property: Property }) {
   const developerLabel = `Developer: ${p.developer}`;
   const titleDisplay = p.titleStatus ?? "Title: confirm with our team";
-
   const inspectMsg = `Hello Jemack Properties, I'd like to inspect ${p.title} by ${p.developer} in ${p.location}.`;
   const priceMsg = `Hello Jemack Properties, please send me the current price and payment plan for ${p.title} by ${p.developer} in ${p.location}.`;
   const inspectUrl = whatsappLink(inspectMsg);
   const priceUrl = whatsappLink(priceMsg);
   const primaryPhone = site.phones[0];
-
   const facts = [
     { label: "Type", value: p.type ? `${p.type.charAt(0).toUpperCase()}${p.type.slice(1)}` : undefined },
     { label: "Sizes", value: p.sizes?.join(", ") || p.size },
@@ -112,20 +100,13 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
     { label: "Payment", value: p.paymentSummary },
     { label: "Developer", value: p.developer },
   ].filter((f): f is { label: string; value: string } => Boolean(f.value));
-
   const heroParagraph = p.heroParagraph ?? p.description;
-
   return (
     <main data-prop-page="" className="pb-16 md:pb-20 xl:pb-28">
-
-      {/* ── Two-column layout: left = text + details, right = image + CTAs ── */}
       <section className="site-container pt-32">
         <div className="grid items-start gap-10 lg:grid-cols-[45fr_55fr] xl:gap-14">
-
-          {/* ── LEFT COLUMN — hero text, key details, features, nearby ── */}
+          {/* LEFT COLUMN */}
           <div className="space-y-8">
-
-            {/* Badges */}
             <div>
               <div className="flex flex-wrap items-center gap-3">
                 <StatusBadge status={p.status} label={statusLabels[p.status]} />
@@ -133,20 +114,14 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
                   {p.type}
                 </span>
               </div>
-
-              {/* Title */}
               <h1 className="mt-4 text-3xl font-semibold leading-tight text-primary sm:text-4xl lg:text-5xl">
                 {p.title}
               </h1>
-
-              {/* Developer + location */}
               <p className="mt-2 text-sm font-medium text-muted-foreground">{developerLabel}</p>
               <p className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 shrink-0 text-primary" />
                 {p.location}
               </p>
-
-              {/* Optional headline */}
               {(p.heroHeadline || p.heroHeadlineAccent) && (
                 <h2 className="mt-6 text-2xl font-bold leading-tight text-primary sm:text-3xl">
                   {p.heroHeadline && <span>{p.heroHeadline} </span>}
@@ -155,11 +130,7 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
                   )}
                 </h2>
               )}
-
-              {/* Paragraph */}
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{heroParagraph}</p>
-
-              {/* Highlights */}
               {p.highlights && p.highlights.length > 0 && (
                 <ul className="mt-6 space-y-4">
                   {p.highlights.map((h) => {
@@ -178,8 +149,6 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
                   })}
                 </ul>
               )}
-
-              {/* CTA buttons */}
               <div className="mt-8 flex flex-wrap gap-3">
                 <a
                   href={priceUrl}
@@ -203,8 +172,6 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
                 )}
               </div>
             </div>
-
-            {/* Key details */}
             <section>
               <h2 className="text-xl font-semibold text-primary">Key details</h2>
               <dl className="mt-4 grid gap-3 grid-cols-1 sm:grid-cols-2">
@@ -216,8 +183,6 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
                 ))}
               </dl>
             </section>
-
-            {/* Estate features */}
             {p.features && p.features.length > 0 && (
               <section>
                 <h2 className="text-xl font-semibold text-primary">
@@ -234,8 +199,6 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
                 </ul>
               </section>
             )}
-
-            {/* Nearby */}
             {p.landmarks && p.landmarks.length > 0 && (
               <section>
                 <h2 className="text-xl font-semibold text-primary">
@@ -253,10 +216,8 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
               </section>
             )}
           </div>
-
-          {/* ── RIGHT COLUMN — image, then CTA cards below ── */}
+          {/* RIGHT COLUMN */}
           <div className="space-y-6">
-            {/* Image */}
             {p.image ? (
               <img
                 src={p.image}
@@ -277,8 +238,6 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
                 <span className="text-sm font-medium text-primary/40">Photos on request</span>
               </div>
             )}
-
-            {/* CTA card */}
             <div className="rounded-3xl bg-primary p-6 text-primary-foreground shadow-lift">
               <p className="text-sm text-primary-foreground/70">Interested in this property?</p>
               <p className="mt-1 font-display text-xl font-semibold">{p.title}</p>
@@ -308,8 +267,6 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
                 {primaryPhone.display}
               </a>
             </div>
-
-            {/* Have a specific question */}
             <div className="rounded-3xl bg-card p-5 shadow-soft text-sm text-muted-foreground">
               <p className="flex items-center gap-2 font-medium text-primary">
                 <MessageCircle className="h-4 w-4" />
@@ -326,8 +283,6 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
           </div>
         </div>
       </section>
-
-      {/* ── Full-width: Before you pay + disclaimer ── */}
       <div className="site-container mt-12 space-y-6">
         <section className="rounded-3xl border border-border bg-secondary p-6">
           <h2 className="flex items-center gap-2 text-lg font-semibold text-primary">
