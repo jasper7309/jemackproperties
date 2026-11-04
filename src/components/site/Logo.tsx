@@ -1,11 +1,20 @@
-export function Logo({ inverted = false }: { inverted?: boolean }) {
+const LOGO_URL =
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793818942/jemack_properties_logo_transparent_mh7ikf.png";
+
+/**
+ * Company logo — uses the uploaded transparent PNG.
+ * The `inverted` prop is kept for API compatibility but has no effect
+ * since the image already works on both light and dark backgrounds.
+ */
+export function Logo({ inverted: _inverted = false }: { inverted?: boolean }) {
   return (
-    <span className="flex items-center gap-2">
-      <span className="grid h-9 w-9 place-items-center rounded-2xl bg-primary font-display text-lg font-bold text-primary-foreground">J</span>
-      <span className="leading-none">
-        <span className="block text-[10px] font-semibold uppercase tracking-[0.2em] text-highlight">Jemack</span>
-        <span className={`block font-display text-lg font-semibold ${inverted ? "text-primary-foreground" : "text-primary"}`}>Properties</span>
-      </span>
-    </span>
+    <img
+      src={LOGO_URL}
+      alt="Jemack Properties"
+      width={160}
+      height={48}
+      className="h-10 w-auto object-contain"
+      loading="eager"
+    />
   );
 }
