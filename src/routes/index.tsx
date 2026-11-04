@@ -191,7 +191,7 @@ function Index() {
       <HeroSection />
 
       {/* ── White gap between hero and featured properties ── */}
-      <div className="h-12 w-full bg-white" />
+      <div className="h-36 w-full bg-white" />
 
       {/* ── FEATURED PROPERTIES — dark navy band ── */}
       {(() => {
