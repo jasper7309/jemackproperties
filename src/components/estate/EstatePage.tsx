@@ -124,27 +124,12 @@ export function EstatePage({ estate: e }: { estate: Estate }) {
       {/* ── GALLERY — wider mosaic ── */}
       <section className="site-container pb-16 md:pb-20 xl:pb-28">
         <Head eyebrow="Gallery" title="See the estate" />
-        {/* Images + video in one 3-column row at 80% width */}
-        <div className="w-4/5">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {gallery.map((img, i) => (
-              <div key={i} className="overflow-hidden rounded-3xl bg-secondary">
-                <img
-                  src={img.src}
-                  alt={img.alt}
-                  loading={i === 0 ? "eager" : "lazy"}
-                  className="aspect-[4/3] w-full object-contain"
-                />
-              </div>
-            ))}
-            {/* YouTube video — same size as each image tile */}
-            <div className="overflow-hidden rounded-3xl">
-              <OptionalEmbed
-                src="https://www.youtube-nocookie.com/embed/PcUFar8W2Cg"
-                title="Oliveness Garden Estate Asaba walkthrough"
-              />
-            </div>
-          </div>
+        {/* YouTube video only */}
+        <div className="mt-8 w-full max-w-3xl overflow-hidden rounded-3xl">
+          <OptionalEmbed
+            src="https://www.youtube-nocookie.com/embed/PcUFar8W2Cg"
+            title="Oliveness Garden Estate Asaba walkthrough"
+          />
         </div>
       </section>
 
