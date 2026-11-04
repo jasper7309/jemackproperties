@@ -23,8 +23,8 @@ const statusBadgeCls: Record<Property["status"], string> = {
   "pre-launch":    "bg-highlight text-highlight-foreground",
   available:       "bg-status-available text-white",
   "sold-out":      "bg-status-sold text-white",
-  "coming-soon":   "bg-primary/60 text-primary-foreground",
-  enquire:         "bg-primary/60 text-primary-foreground",
+  "coming-soon":   "bg-primary text-primary-foreground",
+  enquire:         "bg-primary text-primary-foreground",
 };
 
 // ── Type display icon ────────────────────────────────────────────────────────
@@ -92,7 +92,7 @@ export function FeaturedPropertyCard({ property: p }: { property: Property }) {
               Jemack estate
             </span>
           ) : (
-            <span className="inline-flex items-center rounded-full bg-primary-foreground/15 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-primary-foreground/90">
+            <span className="inline-flex items-center rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
               Partner listing
             </span>
           )}
