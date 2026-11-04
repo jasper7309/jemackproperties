@@ -127,8 +127,8 @@ function HeroSection() {
       <div
         className="absolute inset-0"
         style={{
-          backdropFilter: "blur(1.8px)",
-          WebkitBackdropFilter: "blur(1.8px)",
+          backdropFilter: "blur(0.9px)",
+          WebkitBackdropFilter: "blur(0.9px)",
           background: "rgba(1,22,39,0.28)",
           pointerEvents: "none",
         }}
