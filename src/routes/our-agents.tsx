@@ -31,6 +31,7 @@ function Agents() {
                   alt={a.name}
                   loading="lazy"
                   className="aspect-square w-full rounded-3xl object-cover shadow-soft"
+                  style={a.objectPosition ? { objectPosition: a.objectPosition } : undefined}
                 />
               ) : (
                 <div className="grid aspect-square w-full place-items-center rounded-3xl bg-secondary shadow-soft">

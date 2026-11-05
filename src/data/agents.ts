@@ -1,4 +1,4 @@
-export type Agent = { name: string; title?: string; photo?: string };
+export type Agent = { name: string; title?: string; photo?: string; objectPosition?: string };
 
 // PLACEHOLDER agents: add a `photo` URL/import to show a real photo.
 export const agents: Agent[] = [
@@ -16,6 +16,7 @@ export const agents: Agent[] = [
     name: "Mr. Charles Amagbaobi",
     title: "MD/CEO, Nestova Global Limited",
     photo: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793907483/Screenshot_20261105_203130_Gallery_idkdqs.jpg",
+    objectPosition: "top",
   },
   {
     name: "Ihechinyere Ruth Emmanuel",
