@@ -37,8 +37,9 @@ function Agents() {
                   <UserRound className="h-1/2 w-1/2 text-primary/30" />
                 </div>
               )}
-              <figcaption className="mt-3 font-display text-lg font-semibold text-primary">
-                {a.name}
+              <figcaption className="mt-3">
+                <p className="font-display text-base font-semibold text-primary">{a.name}</p>
+                {a.title && <p className="mt-0.5 text-xs text-muted-foreground">{a.title}</p>}
               </figcaption>
             </figure>
           ))}
