@@ -22,16 +22,19 @@ export const agents: Agent[] = [
     name: "Ihechinyere Ruth Emmanuel",
     title: "Queen Properties",
     photo: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793907448/IMG-20261105-WA0022_u7dpge.jpg",
+    objectPosition: "top",
   },
   {
     name: "Mrs Irene Ugbechie",
     title: "Realtor, Jemack Properties",
     photo: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793907446/IMG-20261105-WA0023_elorgc.jpg",
+    objectPosition: "top",
   },
   {
     name: "Theresa Okochi",
     title: "Realtor, Jemack Properties",
     photo: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793907448/IMG-20261105-WA0024_bnvug9.jpg",
+    objectPosition: "top",
   },
 ];
 
