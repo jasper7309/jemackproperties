@@ -10,7 +10,9 @@ const oilGasImg =
 const facilitiesImg =
   "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793103346/a7e08b49-e82b-45fe-8b6e-7255c2b78c21_xb4shp.png";
 
-// Wide hero images for each service detail page.
+// Telecoms card image — pulled from the Tower Erection project
+const telecomsImg =
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793707170/71731eb8-532a-433f-bf7a-e3ade6f535d2_amwc85.png";
 const buildingHero =
   "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793178786/5aaf9716-7de1-4036-b91e-759d22d6311a_e1jez0.png";
 const highwayHero =
@@ -215,7 +217,7 @@ export const services: Service[] = [
     objective:
       "The highest level of quality expertise and professionalism at every stage of the project.",
     sectors: ["Telecommunications", "Network operators", "Infrastructure providers"],
-    image: engineering,
+    image: telecomsImg,
     metaDescription:
       "Jemack delivers telecoms engineering from tower civil works and shelter installation to power solutions, microwave links and BTS radio commissioning in Nigeria",
     faqs: sharedFaqs,
