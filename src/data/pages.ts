@@ -304,6 +304,7 @@ export const clientLogos: string[] = [
   "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793107864/a79c7090-ec7d-49e3-963c-db97c2cc4df5_uyx3jz.png",
   "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793107863/6617b017-337a-4a6a-b633-59b48c59ca56_gmuk7x.png",
   "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793107862/08354789-5239-4a5e-a138-956b30848121_pphevo.png",
+  "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793983605/9e5dd677-69a4-406f-ace7-c3a90cbe879b_x2yrtd.png",
 ];
 
 export type Faq = { q: string; a: string };
