@@ -88,6 +88,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "google-site-verification", content: "9kVALShv4nOzLy9BmYlXWAV4Zzf2B74kQd8SIsP9jbA" },
       { title: "Jemack Properties" },
       { name: "description", content: "Land and homes with secure titles from Jemack Properties." },
       { property: "og:type", content: "website" },
