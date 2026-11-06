@@ -1,4 +1,3 @@
-import estateAsset from "@/assets/estate.jpg";
 
 export const propertyTypes = ["land", "house", "duplex", "bungalow", "flat"] as const;
 export type PropertyType = (typeof propertyTypes)[number];
@@ -84,7 +83,7 @@ export const properties: Property[] = [
     title: "Oliveness Garden Estate Asaba",
     description:
       "464m² plots with C of O in Ubulu-Okiti, Asaba. Buy and build in a serene, fully serviced estate.",
-    image: estateAsset,
+    image: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793957395/IMG-20261106-WA0001_q5w1uu.jpg",
     location: "Along Iselle-Mkpitime Road, Ubulu-Okiti, Aniocha South LGA, Asaba, Delta State",
     state: "Delta",
     type: "land",
@@ -152,6 +151,7 @@ export const properties: Property[] = [
     title: "Amen Gardens",
     description:
       "Sand-filled residential and commercial plots on Eleko Beach Road, off the Lagos–Calabar Coastal Road.",
+    image: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793957398/IMG-20261106-WA0000_imrjp1.jpg",
     location: "Eleko Beach Road, off the Lagos–Calabar Coastal Road",
     state: "Lagos",
     type: "land",
@@ -339,9 +339,10 @@ export const properties: Property[] = [
   },
   {
     slug: "landview-garden-aba",
-    title: "Landview Garden, Aba",
+    title: "Landview City Aba",
     description:
       "Plots with C of O in view at Asa Town, Aba, Abia State. 12-month interest-free payment.",
+    image: "https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793957395/IMG-20261106-WA0002_epj6o2.jpg",
     location: "Asa Town, Aba, Abia State",
     state: "Abia",
     type: "land",

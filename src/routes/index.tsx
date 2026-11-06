@@ -25,7 +25,6 @@ import {
   BadgeCheck,
 } from "lucide-react";
 import hero from "@/assets/hero.jpg";
-import estateImg from "@/assets/estate.jpg";
 import { estates } from "@/data/estates";
 import { getFeaturedProperties, publishedProperties } from "@/data/properties";
 import { services, type Service } from "@/data/services";
@@ -256,8 +255,8 @@ function Index() {
         <div className="site-container grid items-center gap-10 lg:grid-cols-[7fr_5fr] xl:gap-14">
           <div className="relative overflow-hidden rounded-3xl bg-secondary shadow-lift">
             <img
-              src={estateImg}
-              alt="Illustrative home at Oliveness Garden Estate Asaba"
+              src="https://res.cloudinary.com/dgxsyq2tf/image/upload/v1793957395/IMG-20261106-WA0001_q5w1uu.jpg"
+              alt="Oliveness Garden Estate Asaba"
               loading="lazy"
               width={1280}
               height={960}
