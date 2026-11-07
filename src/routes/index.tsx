@@ -577,7 +577,7 @@ function Index() {
           </Link>
         </div>
 
-        {/* Featured project — first item, 16:9, full width */}
+        {/* Featured project — first item, 16:9, full width (mobile/tablet only) */}
         {projects[0] && (() => {
           const fp = projects[0];
           const FpIcon = serviceIcons[fp.icon] ?? Building2;
@@ -586,7 +586,7 @@ function Index() {
             <Link
               to="/projects"
               hash={fp.slug}
-              className="group mt-8 block overflow-hidden rounded-xl border border-[#EAEAEA] bg-white transition hover:border-[#011627]"
+              className="group mt-8 block overflow-hidden rounded-xl border border-[#EAEAEA] bg-white transition hover:border-[#011627] lg:hidden"
             >
               {/* 16:9 image */}
               <div className="relative w-full overflow-hidden" style={{ paddingBottom: "56.25%" }}>
@@ -631,8 +631,8 @@ function Index() {
           );
         })()}
 
-        {/* Remaining 6 projects — 2-col mobile, 3-col lg */}
-        <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+        {/* Remaining 6 projects — 2-col mobile, 3-col sm/md (mobile/tablet only) */}
+        <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4 lg:hidden">
           {projects.slice(1).map((p) => {
             const thumb = p.images?.[0];
             const Icon = serviceIcons[p.icon] ?? Building2;
@@ -690,11 +690,78 @@ function Index() {
           })}
         </div>
 
-        {/* View all — mobile */}
-        <div className="mt-6 sm:hidden">
+        {/* ── DESKTOP ONLY: uniform 4-col grid, first 4 projects ── */}
+        <div className="mt-8 hidden grid-cols-4 gap-5 lg:grid">
+          {projects.slice(0, 4).map((p) => {
+            const thumb = p.images?.[0];
+            const Icon = serviceIcons[p.icon] ?? Building2;
+            return (
+              <Link
+                key={p.slug}
+                to="/projects"
+                hash={p.slug}
+                className="group flex flex-col overflow-hidden rounded-xl border border-[#EAEAEA] bg-white transition hover:border-[#011627]"
+              >
+                {/* 4:3 image — same ratio on all 4 cards */}
+                <div className="relative w-full overflow-hidden" style={{ paddingBottom: "75%" }}>
+                  {thumb ? (
+                    <img
+                      src={thumb}
+                      alt={p.title}
+                      loading="lazy"
+                      width={600}
+                      height={450}
+                      className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center bg-[#F9F8F8]">
+                      <Icon className="h-8 w-8 text-[#ccc]" />
+                    </div>
+                  )}
+                  <span className="absolute left-2.5 top-2.5 rounded-full bg-[#011627]/75 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white backdrop-blur-sm">
+                    {p.type}
+                  </span>
+                </div>
+                {/* Card body */}
+                <div className="flex flex-1 flex-col justify-between p-4">
+                  <div>
+                    <h3 className="text-sm font-bold leading-snug text-[#011627]">
+                      {p.title}
+                    </h3>
+                    {p.location && (
+                      <p className="mt-1 flex items-center gap-1 text-xs text-[#888]">
+                        <MapPin className="h-3 w-3 shrink-0 text-accent-text" />
+                        <span className="line-clamp-1">{p.location}</span>
+                      </p>
+                    )}
+                  </div>
+                  <div className="mt-3 flex items-center justify-end">
+                    <span className="grid h-7 w-7 place-items-center rounded-full border border-[#EAEAEA] text-[#011627] transition group-hover:border-[#011627] group-hover:bg-[#011627] group-hover:text-white">
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* View all — mobile/tablet */}
+        <div className="mt-6 lg:hidden">
           <Link
             to="/projects"
             className="flex w-full items-center justify-center gap-2 rounded-full border border-primary px-6 py-3.5 text-sm font-semibold text-primary transition hover:bg-primary hover:text-primary-foreground"
+          >
+            View all projects
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+
+        {/* View all — desktop (below the 4-col grid) */}
+        <div className="mt-6 hidden justify-center lg:flex">
+          <Link
+            to="/projects"
+            className="inline-flex items-center gap-2 rounded-full border border-primary px-8 py-3 text-sm font-semibold text-primary transition hover:bg-primary hover:text-primary-foreground"
           >
             View all projects
             <ArrowRight className="h-4 w-4" />
