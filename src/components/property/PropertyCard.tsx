@@ -49,13 +49,13 @@ function GridCard({ p }: { p: Property }) {
         )}
         {/* Status badge */}
         <span
-          className={`absolute left-2.5 top-2.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide ${badgeCls[p.status]}`}
+          className={`absolute left-2.5 top-2.5 inline-flex items-center rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide sm:px-2.5 sm:text-[10px] ${badgeCls[p.status]}`}
         >
           {statusLabels[p.status]}
         </span>
         {/* Partner chip */}
         {!isOwn && (
-          <span className="absolute right-2.5 top-2.5 rounded-full bg-white/90 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-[#011627]">
+          <span className="absolute right-2.5 top-2.5 rounded-full bg-white/90 px-1.5 py-0.5 text-[8px] font-semibold uppercase tracking-wide text-[#011627] sm:px-2 sm:text-[9px]">
             Partner
           </span>
         )}
