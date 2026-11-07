@@ -7,7 +7,6 @@ import {
   ExternalLink,
   Fence,
   Fuel,
-  Gem,
   Hammer,
   HardHat,
   HeartHandshake,
@@ -32,7 +31,7 @@ import { site } from "@/data/site";
 import { publicPolicy } from "@/data/launch";
 import { about, clientNamesApproved } from "@/data/pages";
 import { projects } from "@/data/pages";
-import { FeaturedPropertyCard } from "@/components/property/FeaturedPropertyCard";
+import { FeaturedPropertiesSection } from "@/components/property/FeaturedPropertiesSection";
 import { ClientLogos } from "@/components/site/ClientLogos";
 
 export const Route = createFileRoute("/")({
@@ -192,62 +191,12 @@ function Index() {
       {/* ── White gap between hero and featured properties ── */}
       <div className="h-36 w-full bg-white" />
 
-      {/* ── FEATURED PROPERTIES — dark navy band ── */}
+      {/* ── FEATURED PROPERTIES ── */}
       {(() => {
         const featured = getFeaturedProperties(4);
         if (featured.length === 0) return null;
         const total = publishedProperties.filter((p) => p.featured !== false).length;
-        const viewLabel = total > 4 ? `View all ${total} properties` : "View all properties";
-        return (
-          <section className="bg-primary py-16 text-primary-foreground md:py-20 xl:py-28">
-            <div className="site-container">
-              {/* Header row */}
-              <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-                <div>
-                  {/* Outlined pill eyebrow */}
-                  <span className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/40 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary-foreground">
-                    <Gem className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                    Curated Selection
-                  </span>
-                  {/* H2 — "Featured" light, "Properties" white */}
-                  <h2 className="mt-4 max-w-[18ch] font-display text-4xl font-medium leading-tight sm:text-5xl">
-                    <span className="text-primary-foreground">Featured </span>
-                    <span className="italic text-primary-foreground">Properties</span>
-                  </h2>
-                  <p className="mt-3 max-w-[60ch] text-sm text-primary-foreground/70">
-                    Hand-picked land and homes from Jemack and our partner developers.
-                  </p>
-                </div>
-                {/* "View all" button — desktop only here; mobile below grid */}
-                <Link
-                  to="/properties"
-                  className="hidden shrink-0 items-center gap-2 rounded-full border border-primary-foreground/30 px-6 py-3 text-sm font-medium text-primary-foreground transition hover:bg-primary-foreground/10 sm:inline-flex"
-                >
-                  {viewLabel}
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-
-              {/* Cards grid: 1 → 2 → 3 → 4 cols */}
-              <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {featured.map((p) => (
-                  <FeaturedPropertyCard key={p.slug} property={p} />
-                ))}
-              </div>
-
-              {/* "View all" button — mobile, full width */}
-              <div className="mt-8 sm:hidden">
-                <Link
-                  to="/properties"
-                  className="flex w-full items-center justify-center gap-2 rounded-full border border-primary-foreground/30 px-6 py-3.5 text-sm font-medium text-primary-foreground transition hover:bg-primary-foreground/10"
-                >
-                  {viewLabel}
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </div>
-          </section>
-        );
+        return <FeaturedPropertiesSection properties={featured} total={total} />;
       })()}
 
       {/* ── SPOTLIGHT — image bleeds on xl, text beside it ── */}
