@@ -263,9 +263,9 @@ function Index() {
       </section>
 
       {/* ── FEATURES — 3 cols lg, 4 cols 2xl ── */}
-      <section className="site-container py-16 md:py-20 xl:py-28">
+      <section className="site-container py-10 md:py-16 xl:py-20">
         <SectionHead eyebrow="Estate features" title="Everything ready for you to build" />
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-10 2xl:grid-cols-4">
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5 lg:grid-cols-6 lg:gap-4 xl:gap-6">
           {[
             {
               icon: Fence,
@@ -298,12 +298,22 @@ function Index() {
               d: "Open green spaces and a playground for families to enjoy.",
             },
           ].map(({ icon: Icon, t, d }) => (
-            <div key={t} className="rounded-3xl bg-card p-7 shadow-soft">
-              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-primary-foreground">
-                <Icon className="h-6 w-6" />
+            <div
+              key={t}
+              className="flex flex-col rounded-2xl bg-card p-4 shadow-soft sm:rounded-3xl sm:p-5"
+            >
+              {/* Icon badge — 40px mobile, 44px sm+ */}
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground sm:h-11 sm:w-11 sm:rounded-2xl">
+                <Icon className="h-5 w-5 sm:h-5 sm:w-5" />
               </span>
-              <h3 className="mt-5 text-xl font-semibold text-primary">{t}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{d}</p>
+              {/* Heading */}
+              <h3 className="mt-3 text-[13px] font-bold leading-snug text-primary sm:text-sm lg:text-base">
+                {t}
+              </h3>
+              {/* Description */}
+              <p className="mt-1.5 text-[12px] leading-relaxed text-muted-foreground sm:text-sm">
+                {d}
+              </p>
             </div>
           ))}
         </div>
