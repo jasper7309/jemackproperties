@@ -469,41 +469,84 @@ function Index() {
         </div>
       </section>
 
-      {/* ── WHY JEMACK — 5 pillars across ── */}
-      <section className="site-container py-16 md:py-20 xl:py-28">
-        <SectionHead eyebrow="Why Jemack" title="Trusted delivery since 2008" />
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5 xl:gap-8">
+      {/* ── WHY JEMACK ── */}
+      <section className="site-container py-10 md:py-16 xl:py-20">
+
+        {/* Header */}
+        <div className="mb-6">
+          <p className="eyebrow text-accent-text">Why Jemack</p>
+          <h2 className="mt-2 text-3xl font-semibold text-primary sm:text-4xl">
+            Trusted delivery since 2008
+          </h2>
+          <p className="mt-3 max-w-[55ch] text-sm text-muted-foreground">
+            A registered engineering and construction firm with a track record of safe, on-time and
+            quality delivery across Nigeria.
+          </p>
+        </div>
+
+        {/* Quality cards — 2-col mobile, 4-col lg */}
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {about.values.map((v) => {
             const Icon = valueIcons[v.icon] ?? BadgeCheck;
             return (
-              <div key={v.title} className="rounded-3xl bg-card p-6 shadow-soft">
-                <Icon className="h-6 w-6 text-accent" />
-                <h3 className="mt-4 text-lg font-semibold text-primary">{v.shortTitle}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{v.text}</p>
+              <div
+                key={v.title}
+                className="flex flex-col rounded-xl border border-[#EAEAEA] bg-white p-4 sm:rounded-2xl sm:p-5"
+              >
+                {/* Icon */}
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-accent/15">
+                  <Icon className="h-5 w-5 text-accent-text" />
+                </span>
+                {/* Heading */}
+                <h3 className="mt-3 text-[14px] font-bold leading-snug text-primary sm:text-[15px] lg:text-base">
+                  {v.shortTitle}
+                </h3>
+                {/* Description */}
+                <p className="mt-1.5 text-[12px] leading-relaxed text-muted-foreground sm:text-[13px]">
+                  {v.text}
+                </p>
               </div>
             );
           })}
         </div>
 
-        {/* Stats row */}
-        <div className="mt-10 grid gap-6 rounded-3xl bg-primary p-8 text-primary-foreground sm:grid-cols-3 lg:grid-cols-6 xl:p-10">
-          <div>
-            <p className="font-display text-4xl font-semibold text-accent">2008</p>
-            <p className="text-sm text-primary-foreground/70">Serving since</p>
-          </div>
-          {site.offices.map((o) => (
-            <div key={o.city}>
-              <p className="font-display text-2xl font-semibold">{o.city}</p>
-              <p className="text-sm text-primary-foreground/70">Office</p>
+        {/* Stats strip — 2×2 mobile, 4-col desktop */}
+        <div className="mt-6 overflow-hidden rounded-2xl bg-primary">
+          <div className="grid grid-cols-2 divide-x divide-white/10 sm:grid-cols-4">
+            {/* Stat 1 — Established */}
+            <div className="flex flex-col items-center justify-center px-4 py-6 text-center sm:px-6 lg:px-8">
+              <p className="text-3xl font-bold text-accent sm:text-4xl">2008</p>
+              <p className="mt-1 text-[11px] font-medium uppercase tracking-wide text-primary-foreground/60 sm:text-xs">
+                Established
+              </p>
             </div>
-          ))}
-          <div>
-            <p className="font-display text-4xl font-semibold text-accent">20+</p>
-            <p className="text-sm text-primary-foreground/70">Team members</p>
-          </div>
-          <div>
-            <p className="font-display text-4xl font-semibold text-accent">6</p>
-            <p className="text-sm text-primary-foreground/70">Service lines</p>
+
+            {/* Stat 2 — Offices */}
+            <div className="flex flex-col items-center justify-center px-4 py-6 text-center sm:px-6 lg:px-8">
+              <p className="text-3xl font-bold text-accent sm:text-4xl">3</p>
+              <p className="mt-1 text-[11px] font-medium uppercase tracking-wide text-primary-foreground/60 sm:text-xs">
+                Office locations
+              </p>
+              <p className="mt-1.5 text-[10px] text-primary-foreground/40 sm:text-[11px]">
+                {site.offices.map((o) => o.city).join(" · ")}
+              </p>
+            </div>
+
+            {/* Stat 3 — Team */}
+            <div className="flex flex-col items-center justify-center border-t border-white/10 px-4 py-6 text-center sm:border-t-0 sm:px-6 lg:px-8">
+              <p className="text-3xl font-bold text-accent sm:text-4xl">20+</p>
+              <p className="mt-1 text-[11px] font-medium uppercase tracking-wide text-primary-foreground/60 sm:text-xs">
+                Team members
+              </p>
+            </div>
+
+            {/* Stat 4 — Services */}
+            <div className="flex flex-col items-center justify-center border-t border-white/10 px-4 py-6 text-center sm:border-t-0 sm:px-6 lg:px-8">
+              <p className="text-3xl font-bold text-accent sm:text-4xl">6</p>
+              <p className="mt-1 text-[11px] font-medium uppercase tracking-wide text-primary-foreground/60 sm:text-xs">
+                Service lines
+              </p>
+            </div>
           </div>
         </div>
       </section>
