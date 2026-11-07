@@ -141,20 +141,31 @@ function SpecTile({
   icon: Icon,
   label,
   value,
+  spanFull = false,
 }: {
   icon: React.ElementType;
   label: string;
   value: string;
+  spanFull?: boolean;
 }) {
   return (
-    <div className="flex items-start gap-3 rounded-2xl border border-[#EAEAEA] bg-white p-4">
-      <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-[#F9F8F8]">
-        <Icon className="h-4 w-4 text-[#011627]" strokeWidth={1.75} />
-      </span>
-      <div className="min-w-0">
-        <p className="text-[11px] font-semibold uppercase tracking-wider text-[#999]">{label}</p>
-        <p className="mt-0.5 text-sm font-medium text-[#011627] leading-snug">{value}</p>
+    <div
+      className={`flex flex-col gap-1.5 rounded-2xl border border-[#EAEAEA] bg-white p-3.5${spanFull ? " col-span-2 sm:col-span-1" : ""}`}
+    >
+      {/* Icon + label on the same row */}
+      <div className="flex items-center gap-2">
+        <span className="grid h-6 w-6 shrink-0 place-items-center rounded-lg bg-[#F9F8F8]">
+          <Icon className="h-3.5 w-3.5 text-[#011627]" strokeWidth={1.75} />
+        </span>
+        <p
+          className="text-[11px] font-semibold uppercase text-[#999] leading-tight"
+          style={{ letterSpacing: "0.04em", overflowWrap: "normal", hyphens: "none", wordBreak: "keep-all" }}
+        >
+          {label}
+        </p>
       </div>
+      {/* Value below */}
+      <p className="text-sm font-semibold text-[#011627] leading-snug pl-0.5">{value}</p>
     </div>
   );
 }
@@ -219,11 +230,13 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
   const specs: { icon: React.ElementType; label: string; value: string }[] = [];
   if (p.type) specs.push({ icon: Home, label: "Type", value: p.type.charAt(0).toUpperCase() + p.type.slice(1) });
   if (p.sizes?.length) {
-    specs.push({ icon: Ruler, label: p.sizes.length > 1 ? "Available sizes" : "Size", value: p.sizes.join(" · ") });
+    // Use "Plot sizes" for land, "Sizes" for other types
+    const sizeLabel = p.type === "land" ? "Plot sizes" : "Sizes";
+    specs.push({ icon: Ruler, label: sizeLabel, value: p.sizes.join(" · ") });
   } else if (p.size) {
     specs.push({ icon: Ruler, label: "Size", value: p.size });
   }
-  if (p.titleStatus) specs.push({ icon: FileCheck2, label: "Title / Documentation", value: p.titleStatus });
+  if (p.titleStatus) specs.push({ icon: FileCheck2, label: "Title", value: p.titleStatus });
   if (p.developer) specs.push({ icon: User, label: "Developer", value: p.developer });
   if (p.state) specs.push({ icon: MapPin, label: "State", value: p.state });
 
@@ -232,8 +245,84 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
   return (
     <main data-prop-page="" className="bg-white">
       {/* ── 1. HERO ── */}
-      <section className="relative min-h-[55svh] w-full overflow-hidden bg-[#011627] pt-20">
-        {/* Background image */}
+
+      {/* MOBILE (< sm): image on top, text block below — no overlay */}
+      <div className="sm:hidden">
+        {/* Image — clean, no overlay, no text */}
+        <div className="relative w-full" style={{ paddingTop: "75%" /* 4:3 */ }}>
+          {p.image ? (
+            <img
+              src={p.image}
+              alt={p.title}
+              width={800}
+              height={600}
+              className="absolute inset-0 h-full w-full object-cover object-center"
+              style={{ borderRadius: "0 0 14px 14px" }}
+            />
+          ) : (
+            <div
+              className="absolute inset-0 flex items-center justify-center bg-[#F9F8F8]"
+              style={{ borderRadius: "0 0 14px 14px" }}
+            >
+              {p.type === "flat" ? (
+                <Building2 className="h-16 w-16 text-[#ccc]" />
+              ) : p.type === "land" ? (
+                <Landmark className="h-16 w-16 text-[#ccc]" />
+              ) : (
+                <Home className="h-16 w-16 text-[#ccc]" />
+              )}
+            </div>
+          )}
+          {/* Badges float over image top-left — keep visible */}
+          <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
+            <span
+              className={`inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${statusBadgeCls[p.status]}`}
+            >
+              {statusLabels[p.status]}
+            </span>
+          </div>
+        </div>
+
+        {/* Text block — solid white, no overlay */}
+        <div className="px-4 pb-2 pt-5" style={{ background: "#fff" }}>
+          {/* Type chip */}
+          <span className="inline-flex items-center rounded-full border border-[#EAEAEA] px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-[#666] capitalize">
+            {p.type}
+          </span>
+
+          {/* Title */}
+          <h1
+            className="mt-2 font-bold text-[#011627] leading-snug"
+            style={{ fontSize: "clamp(1.25rem, 5vw, 1.5rem)", lineHeight: 1.25 }}
+          >
+            {p.title}
+          </h1>
+
+          {/* Developer */}
+          <p className="mt-2 text-sm text-[#888]">{p.developer}</p>
+
+          {/* Location */}
+          <a
+            href={mapsUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-2 flex items-start justify-between gap-2 rounded-xl bg-[#F9F8F8] px-3 py-2.5"
+            style={{ minHeight: 44 }}
+          >
+            <span className="flex min-w-0 items-start gap-1.5">
+              <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-highlight" />
+              <span className="text-[13px] text-[#333] leading-snug line-clamp-2">{p.location}</span>
+            </span>
+            <ExternalLink className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#999]" />
+          </a>
+
+          {/* Description */}
+          <p className="mt-3 text-[15px] leading-relaxed text-[#444]">{heroParagraph}</p>
+        </div>
+      </div>
+
+      {/* DESKTOP (≥ sm): keep original overlay hero */}
+      <section className="relative hidden min-h-[55svh] w-full overflow-hidden bg-[#011627] pt-20 sm:block">
         {p.image && (
           <>
             <img
@@ -243,79 +332,39 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
               height={900}
               className="absolute inset-0 h-full w-full object-cover opacity-50"
             />
-            {/* Gradient scrim — heavier at bottom so text is always readable */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#011627] via-[#011627]/60 to-[#011627]/20" />
           </>
         )}
-
-        {/* Hero content */}
         <div className="site-container relative z-10 flex flex-col justify-end pb-10 pt-16 text-white sm:pt-20">
-          {/* Badges */}
           <div className="flex flex-wrap gap-2">
-            <span
-              className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide ${statusBadgeCls[p.status]}`}
-            >
+            <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide ${statusBadgeCls[p.status]}`}>
               {statusLabels[p.status]}
             </span>
             <span className="inline-flex items-center rounded-full border border-white/30 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/80 capitalize">
               {p.type}
             </span>
           </div>
-
-          {/* Title */}
           <h1 className="mt-4 max-w-[20ch] text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
             {p.title}
           </h1>
-
-          {/* Developer */}
-          <p className="mt-2 text-sm font-medium text-white/70">
-            {p.developer}
-          </p>
-
-          {/* Location with map link */}
-          <a
-            href={mapsUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-1.5 inline-flex w-fit items-center gap-1.5 text-sm text-white/80 transition hover:text-white"
-          >
+          <p className="mt-2 text-sm font-medium text-white/70">{p.developer}</p>
+          <a href={mapsUrl} target="_blank" rel="noreferrer" className="mt-1.5 inline-flex w-fit items-center gap-1.5 text-sm text-white/80 transition hover:text-white">
             <MapPin className="h-3.5 w-3.5 shrink-0 text-[#61CE70]" />
             {p.location}
             <ExternalLink className="h-3 w-3 opacity-60" />
           </a>
-
-          {/* Description */}
-          <p className="mt-4 max-w-[60ch] text-sm leading-relaxed text-white/75">
-            {heroParagraph}
-          </p>
-
-          {/* Desktop CTA row */}
-          <div className="mt-6 hidden sm:flex sm:flex-wrap sm:gap-3">
-            <a
-              href={inspectUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-highlight px-6 py-3 text-sm font-semibold text-white transition hover:brightness-110"
-            >
+          <p className="mt-4 max-w-[60ch] text-sm leading-relaxed text-white/75">{heroParagraph}</p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a href={inspectUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-highlight px-6 py-3 text-sm font-semibold text-white transition hover:brightness-110">
               <CalendarCheck className="h-4 w-4 shrink-0" />
               Book a Free Inspection
             </a>
-            <a
-              href={priceUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-whatsapp px-6 py-3 text-sm font-semibold text-white transition hover:brightness-110"
-            >
+            <a href={priceUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-whatsapp px-6 py-3 text-sm font-semibold text-white transition hover:brightness-110">
               <WhatsAppIcon className="h-4 w-4 shrink-0" />
               Get Price &amp; Payment Plan
             </a>
             {p.brochureUrl && (
-              <a
-                href={p.brochureUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex min-h-[48px] items-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-              >
+              <a href={p.brochureUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-[48px] items-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
                 <Download className="h-4 w-4 shrink-0" />
                 Download Brochure
               </a>
@@ -352,7 +401,7 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
       )}
 
       {/* ── MAIN BODY ── */}
-      <div className="site-container py-10 lg:py-14">
+      <div className="site-container py-6 sm:py-10 lg:py-14">
         <div className="grid gap-10 lg:grid-cols-[1fr_340px] xl:gap-14">
 
           {/* ── LEFT: all property detail sections ── */}
@@ -363,8 +412,14 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
               <section>
                 <h2 className="text-xl font-bold text-[#011627]">Property Specifications</h2>
                 <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                  {specs.map((s) => (
-                    <SpecTile key={s.label} icon={s.icon} label={s.label} value={s.value} />
+                  {specs.map((s, i) => (
+                    <SpecTile
+                      key={s.label}
+                      icon={s.icon}
+                      label={s.label}
+                      value={s.value}
+                      spanFull={specs.length % 2 !== 0 && i === specs.length - 1}
+                    />
                   ))}
                 </div>
               </section>
@@ -579,21 +634,43 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
 
       {/* ── 8. MOBILE FIXED BOTTOM BAR ── */}
       <div
-        className="fixed bottom-0 inset-x-0 z-30 border-t border-[#EAEAEA] bg-white/95 px-4 py-3 backdrop-blur-sm lg:hidden"
+        className="fixed inset-x-0 z-30 border-t border-[#EAEAEA] bg-white/95 px-4 backdrop-blur-sm lg:hidden"
+        style={{
+          bottom: 0,
+          paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom, 0px))",
+          paddingTop: "0.75rem",
+        }}
         role="region"
         aria-label="Enquiry actions"
       >
-        <EnquiryCTAs
-          inspectUrl={inspectUrl}
-          priceUrl={priceUrl}
-          phone={primaryPhone}
-          compact
-        />
-        {/* Extra bottom padding so content isn't hidden behind the bar */}
+        <div className="flex gap-3">
+          <a
+            href={inspectUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="flex min-h-[48px] flex-1 items-center justify-center gap-1.5 rounded-full bg-highlight px-3 text-xs font-bold uppercase tracking-wide text-white transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2"
+          >
+            <CalendarCheck className="h-4 w-4 shrink-0" />
+            Book Inspection
+          </a>
+          <a
+            href={priceUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="flex min-h-[48px] flex-1 items-center justify-center gap-1.5 rounded-full bg-whatsapp px-3 text-xs font-bold uppercase tracking-wide text-white transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-whatsapp focus-visible:ring-offset-2"
+          >
+            <WhatsAppIcon className="h-4 w-4 shrink-0" />
+            Get Price
+          </a>
+        </div>
       </div>
 
-      {/* Spacer so page content isn't hidden behind the mobile bar */}
-      <div className="h-20 lg:hidden" aria-hidden="true" />
+      {/* Spacer: sticky bar (~64px) + safe area + 24px buffer */}
+      <div
+        className="lg:hidden"
+        style={{ height: "calc(88px + env(safe-area-inset-bottom, 0px))" }}
+        aria-hidden="true"
+      />
     </main>
   );
 }

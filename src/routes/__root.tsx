@@ -142,7 +142,7 @@ function RootComponent() {
       <div id="main-content" tabIndex={-1}><Outlet /></div>
       <SocialBar />
       <Footer />
-      <a href={whatsappLink()} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" className="fixed bottom-5 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-whatsapp text-white shadow-lift transition hover:scale-105">
+      <a href={whatsappLink()} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp" className="whatsapp-fab fixed bottom-5 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-whatsapp text-white shadow-lift transition hover:scale-105">
         <WhatsAppIcon className="h-7 w-7" />
       </a>
       </ConsentProvider>

@@ -286,3 +286,14 @@
   [data-prop-page] h1 { font-size: 1.75rem; }  /* 28px */
   [data-prop-page] h2 { font-size: 1.5rem;  }  /* 24px */
 }
+
+/* ─────────────────────────────────────────────────────────────
+   PROPERTY DETAIL PAGE — lift floating WhatsApp button above
+   the fixed sticky bottom bar so it never overlaps CTAs.
+   Only applies on small screens (<1024px / lg breakpoint).
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+  body:has([data-prop-page]) .whatsapp-fab {
+    bottom: calc(80px + env(safe-area-inset-bottom, 0px) + 12px);
+  }
+}
