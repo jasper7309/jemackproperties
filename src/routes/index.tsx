@@ -659,8 +659,7 @@ function Index() {
                       <Icon className="h-8 w-8 text-[#ccc]" />
                     </div>
                   )}
-                  {/* Category badge */}
-                  <span className="absolute left-2.5 top-2.5 rounded-full bg-[#011627]/75 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white backdrop-blur-sm">
+                  <span className="absolute left-2.5 top-2.5 rounded-full bg-[#011627]/75 px-1.5 py-0.5 text-[8px] font-semibold uppercase tracking-wide text-white backdrop-blur-sm sm:px-2 sm:text-[10px]">
                     {p.type}
                   </span>
                 </div>
