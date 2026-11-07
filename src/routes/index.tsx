@@ -475,10 +475,12 @@ function Index() {
 
       {/* ── OUR PROJECTS ── */}
       <section className="site-container pb-16 md:pb-20 xl:pb-28">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+
+        {/* Section header */}
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="eyebrow text-accent-text">Selected work</p>
-            <h2 className="mt-2 max-w-[28ch] text-3xl font-semibold text-primary sm:text-4xl">
+            <h2 className="mt-2 text-3xl font-semibold text-primary sm:text-4xl">
               Our projects
             </h2>
             <p className="mt-3 max-w-[55ch] text-sm text-muted-foreground">
@@ -487,15 +489,70 @@ function Index() {
           </div>
           <Link
             to="/projects"
-            className="hidden shrink-0 items-center gap-2 rounded-full border border-primary px-6 py-3 text-sm font-medium text-primary transition hover:bg-primary hover:text-primary-foreground sm:inline-flex"
+            className="hidden shrink-0 items-center gap-1.5 text-sm font-semibold text-accent-text underline-offset-4 hover:underline sm:inline-flex"
           >
             View all projects
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {projects.map((p) => {
+        {/* Featured project — first item, 16:9, full width */}
+        {projects[0] && (() => {
+          const fp = projects[0];
+          const FpIcon = serviceIcons[fp.icon] ?? Building2;
+          const fpThumb = fp.images?.[0];
+          return (
+            <Link
+              to="/projects"
+              hash={fp.slug}
+              className="group mt-8 block overflow-hidden rounded-xl border border-[#EAEAEA] bg-white transition hover:border-[#011627]"
+            >
+              {/* 16:9 image */}
+              <div className="relative w-full overflow-hidden" style={{ paddingBottom: "56.25%" }}>
+                {fpThumb ? (
+                  <img
+                    src={fpThumb}
+                    alt={fp.title}
+                    loading="eager"
+                    width={1200}
+                    height={675}
+                    className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center bg-[#F9F8F8]">
+                    <FpIcon className="h-12 w-12 text-[#ccc]" />
+                  </div>
+                )}
+                {/* Category label over image */}
+                <span className="absolute left-4 top-4 rounded-full bg-[#011627]/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white backdrop-blur-sm">
+                  {fp.type}
+                </span>
+              </div>
+
+              {/* Info row */}
+              <div className="flex items-center justify-between gap-4 px-5 py-4">
+                <div className="min-w-0">
+                  <h3 className="truncate text-base font-bold text-[#011627] sm:text-lg">
+                    {fp.title}
+                  </h3>
+                  {fp.location && (
+                    <p className="mt-0.5 flex items-center gap-1 text-sm text-[#666]">
+                      <MapPin className="h-3.5 w-3.5 shrink-0 text-accent-text" />
+                      {fp.location}
+                    </p>
+                  )}
+                </div>
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#EAEAEA] text-[#011627] transition group-hover:border-[#011627] group-hover:bg-[#011627] group-hover:text-white">
+                  <ArrowRight className="h-4 w-4" />
+                </span>
+              </div>
+            </Link>
+          );
+        })()}
+
+        {/* Remaining 6 projects — 2-col mobile, 3-col lg */}
+        <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+          {projects.slice(1).map((p) => {
             const thumb = p.images?.[0];
             const Icon = serviceIcons[p.icon] ?? Building2;
             return (
@@ -503,40 +560,60 @@ function Index() {
                 key={p.slug}
                 to="/projects"
                 hash={p.slug}
-                className="group overflow-hidden rounded-3xl bg-card shadow-soft transition hover:-translate-y-1"
+                className="group flex flex-col overflow-hidden rounded-xl border border-[#EAEAEA] bg-white transition hover:border-[#011627]"
               >
-                {thumb ? (
-                  <img
-                    src={thumb}
-                    alt={p.title}
-                    loading="lazy"
-                    width={800}
-                    height={600}
-                    className="aspect-[4/3] w-full object-cover"
-                  />
-                ) : (
-                  <div className="grid aspect-[4/3] place-items-center bg-secondary">
-                    <Icon className="h-8 w-8 text-accent" />
-                  </div>
-                )}
-                <div className="p-5">
-                  <p className="text-xs font-medium text-highlight">{p.type}</p>
-                  <h3 className="mt-1 text-base font-semibold leading-snug text-primary">
-                    {p.title}
-                  </h3>
-                  {p.location && (
-                    <p className="mt-1 text-xs text-muted-foreground">{p.location}</p>
+                {/* 4:3 image */}
+                <div className="relative w-full overflow-hidden" style={{ paddingBottom: "75%" }}>
+                  {thumb ? (
+                    <img
+                      src={thumb}
+                      alt={p.title}
+                      loading="lazy"
+                      width={600}
+                      height={450}
+                      className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center bg-[#F9F8F8]">
+                      <Icon className="h-8 w-8 text-[#ccc]" />
+                    </div>
                   )}
+                  {/* Category badge */}
+                  <span className="absolute left-2.5 top-2.5 rounded-full bg-[#011627]/75 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white backdrop-blur-sm">
+                    {p.type}
+                  </span>
+                </div>
+
+                {/* Card body */}
+                <div className="flex flex-1 flex-col justify-between p-3 sm:p-4">
+                  <div>
+                    <h3 className="text-[13px] font-bold leading-snug text-[#011627] sm:text-sm">
+                      {p.title}
+                    </h3>
+                    {p.location && (
+                      <p className="mt-1 flex items-center gap-1 text-[11px] text-[#888] sm:text-xs">
+                        <MapPin className="h-3 w-3 shrink-0 text-accent-text" />
+                        <span className="line-clamp-1">{p.location}</span>
+                      </p>
+                    )}
+                  </div>
+                  {/* Arrow */}
+                  <div className="mt-3 flex items-center justify-end">
+                    <span className="grid h-7 w-7 place-items-center rounded-full border border-[#EAEAEA] text-[#011627] transition group-hover:border-[#011627] group-hover:bg-[#011627] group-hover:text-white">
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </span>
+                  </div>
                 </div>
               </Link>
             );
           })}
         </div>
 
-        <div className="mt-8 sm:hidden">
+        {/* View all — mobile */}
+        <div className="mt-6 sm:hidden">
           <Link
             to="/projects"
-            className="flex w-full items-center justify-center gap-2 rounded-full border border-primary px-6 py-3.5 text-sm font-medium text-primary transition hover:bg-primary hover:text-primary-foreground"
+            className="flex w-full items-center justify-center gap-2 rounded-full border border-primary px-6 py-3.5 text-sm font-semibold text-primary transition hover:bg-primary hover:text-primary-foreground"
           >
             View all projects
             <ArrowRight className="h-4 w-4" />
