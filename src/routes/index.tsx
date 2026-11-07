@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
-  ArrowUpRight,
   Building2,
   Droplets,
   ExternalLink,
@@ -397,14 +396,32 @@ function Index() {
         </section>
       )}
 
-      {/* ── SERVICES — 3 cols lg, 4 cols 2xl ── */}
-      <section className="bg-surface py-16 md:py-20 xl:py-28">
+      {/* ── SERVICES — 2-col mobile, 3-col lg ── */}
+      <section className="bg-surface py-10 md:py-16 xl:py-20">
         <div className="site-container">
-          <SectionHead
-            eyebrow="Engineering & facilities"
-            title="Backed by a full engineering company"
-          />
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-10 2xl:grid-cols-4">
+          {/* Header */}
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="eyebrow text-accent-text">Engineering &amp; facilities</p>
+              <h2 className="mt-2 text-3xl font-semibold text-primary sm:text-4xl">
+                Backed by a full engineering company
+              </h2>
+              <p className="mt-3 max-w-[55ch] text-sm text-muted-foreground">
+                Six specialist divisions covering construction, infrastructure, telecoms, oil and gas,
+                water supply and facilities management — all under one roof.
+              </p>
+            </div>
+            <Link
+              to="/services"
+              className="hidden shrink-0 items-center gap-1.5 text-sm font-semibold text-accent-text underline-offset-4 hover:underline sm:inline-flex"
+            >
+              All services
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+
+          {/* Grid */}
+          <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
             {services.map((s) => {
               const Icon = serviceIcons[s.icon];
               return (
@@ -412,21 +429,42 @@ function Index() {
                   key={s.slug}
                   to="/services/$slug"
                   params={{ slug: s.slug }}
-                  className="group flex gap-4 rounded-3xl border bg-background p-6 transition hover:border-accent hover:shadow-soft"
+                  className="group flex flex-col rounded-xl border border-[#EAEAEA] bg-white p-4 transition hover:border-[#011627] sm:rounded-2xl sm:p-5"
                 >
-                  <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-accent/20 text-primary">
-                    <Icon className="h-6 w-6" />
+                  {/* Icon badge */}
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-accent/15 sm:h-11 sm:w-11">
+                    <Icon className="h-5 w-5 text-primary" />
                   </span>
-                  <div className="min-w-0">
-                    <h3 className="flex items-center gap-2 text-lg font-semibold text-primary">
-                      {s.title}
-                      <ArrowUpRight className="h-4 w-4 opacity-0 transition group-hover:opacity-100" />
-                    </h3>
-                    <p className="mt-1 text-sm text-muted-foreground">{s.summary}</p>
+
+                  {/* Title */}
+                  <h3 className="mt-3 text-[14px] font-bold leading-snug text-primary sm:text-[15px] lg:text-base">
+                    {s.title}
+                  </h3>
+
+                  {/* Summary — max 3 lines */}
+                  <p className="mt-1.5 line-clamp-3 flex-1 text-[12px] leading-relaxed text-muted-foreground sm:text-[13px]">
+                    {s.summary}
+                  </p>
+
+                  {/* Explore link */}
+                  <div className="mt-3 flex items-center gap-1 text-[11px] font-semibold text-accent-text sm:text-xs">
+                    Explore
+                    <ArrowRight className="h-3 w-3 transition group-hover:translate-x-0.5" />
                   </div>
                 </Link>
               );
             })}
+          </div>
+
+          {/* Mobile view all */}
+          <div className="mt-5 sm:hidden">
+            <Link
+              to="/services"
+              className="flex w-full items-center justify-center gap-2 rounded-full border border-primary px-6 py-3.5 text-sm font-semibold text-primary transition hover:bg-primary hover:text-primary-foreground"
+            >
+              View all services
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </section>
