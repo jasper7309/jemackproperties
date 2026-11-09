@@ -109,15 +109,17 @@ export function Footer() {
             ))}
           </ul>
           <ul className="mt-5 space-y-2 text-sm">
-            <li>
-              <a
-                href={`tel:${site.phones[0].tel}`}
-                className="flex items-center gap-2 transition hover:text-primary-foreground/70"
-              >
-                <Phone className="h-4 w-4 text-primary-foreground" />
-                {site.phones[0].display}
-              </a>
-            </li>
+            {site.phones.map((p) => (
+              <li key={p.tel}>
+                <a
+                  href={`tel:${p.tel}`}
+                  className="flex items-center gap-2 transition hover:text-primary-foreground/70"
+                >
+                  <Phone className="h-4 w-4 text-primary-foreground" />
+                  {p.display}
+                </a>
+              </li>
+            ))}
             <li>
               <a
                 href={`mailto:${site.email}`}
