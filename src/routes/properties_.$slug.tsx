@@ -305,7 +305,7 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
 
             {/* H1 — most prominent element */}
             <h1
-              className="mt-3 font-bold text-white"
+              className="hero-title mt-3 font-bold text-white"
               style={{
                 fontSize: "clamp(2rem, 6vw, 3.75rem)",
                 lineHeight: 1.1,

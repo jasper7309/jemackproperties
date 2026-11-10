@@ -240,6 +240,11 @@
   color: #102332;            /* dark navy */
 }
 
+/* Hero H1 must stay white — it sits on the dark image overlay */
+[data-prop-page] h1.hero-title {
+  color: #ffffff;
+}
+
 /* H1 — property title */
 [data-prop-page] h1 {
   font-size: 2.625rem;       /* 42px */
