@@ -244,131 +244,152 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
 
   return (
     <main data-prop-page="" className="bg-white">
-      {/* ── 1. HERO ── */}
+      {/* ── 1. HERO — unified across all breakpoints ── */}
+      <section
+        className="relative w-full overflow-hidden"
+        style={{
+          minHeight: "clamp(420px, 65svh, 640px)",
+          background: "#021224",
+        }}
+      >
+        {/* Background image */}
+        {p.image && (
+          <img
+            src={p.image}
+            alt=""
+            aria-hidden="true"
+            fetchPriority="high"
+            loading="eager"
+            width={1400}
+            height={900}
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ objectPosition: "center center" }}
+          />
+        )}
 
-      {/* MOBILE (< sm): image on top, text block below — no overlay */}
-      <div className="sm:hidden">
-        {/* Image — clean, no overlay, no text */}
-        <div className="relative w-full" style={{ paddingTop: "75%" /* 4:3 */ }}>
-          {p.image ? (
-            <img
-              src={p.image}
-              alt={p.title}
-              width={800}
-              height={600}
-              className="absolute inset-0 h-full w-full object-cover object-center"
-              style={{ borderRadius: "0 0 14px 14px" }}
-            />
-          ) : (
-            <div
-              className="absolute inset-0 flex items-center justify-center bg-[#F9F8F8]"
-              style={{ borderRadius: "0 0 14px 14px" }}
+        {/* Left-to-right gradient + bottom fade */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to right, rgba(2,18,36,0.88) 0%, rgba(2,18,36,0.70) 40%, rgba(2,18,36,0.28) 100%), linear-gradient(to top, rgba(2,18,36,0.70) 0%, transparent 35%)",
+          }}
+        />
+
+        {/* Content */}
+        <div className="site-container relative z-10 flex h-full flex-col justify-end px-4 pb-10 pt-32 sm:px-6 sm:pb-14 sm:pt-36 lg:pb-16 lg:pt-40">
+          <div className="max-w-[640px]">
+
+            {/* Breadcrumb */}
+            <nav aria-label="Breadcrumb" className="mb-4 hidden sm:flex items-center gap-1.5 text-[11px] text-white/50">
+              <span>Home</span>
+              <span>/</span>
+              <span>Properties</span>
+              <span>/</span>
+              <span className="text-white/80">{p.title}</span>
+            </nav>
+
+            {/* Badges */}
+            <div className="flex flex-wrap gap-2">
+              {p.status !== "enquire" && (
+                <span
+                  className={`inline-flex items-center rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide ${statusBadgeCls[p.status]}`}
+                >
+                  {statusLabels[p.status]}
+                </span>
+              )}
+              <span className="inline-flex items-center rounded-full border border-white/40 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white/80 capitalize">
+                {p.type}
+              </span>
+            </div>
+
+            {/* H1 — most prominent element */}
+            <h1
+              className="mt-3 font-bold text-white"
+              style={{
+                fontSize: "clamp(2rem, 6vw, 3.75rem)",
+                lineHeight: 1.1,
+                textShadow: "0 2px 20px rgba(2,18,36,0.6), 0 1px 4px rgba(2,18,36,0.4)",
+              }}
             >
-              {p.type === "flat" ? (
-                <Building2 className="h-16 w-16 text-[#ccc]" />
-              ) : p.type === "land" ? (
-                <Landmark className="h-16 w-16 text-[#ccc]" />
-              ) : (
-                <Home className="h-16 w-16 text-[#ccc]" />
+              {p.title}
+            </h1>
+
+            {/* Developer */}
+            <p className="mt-2 text-sm font-medium text-white/65">
+              by {p.developer}
+            </p>
+
+            {/* Location */}
+            <a
+              href={mapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-2 inline-flex w-fit max-w-full items-start gap-1.5 text-[13px] text-white/75 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-transparent"
+              aria-label={`View ${p.location} on Google Maps`}
+            >
+              <MapPin className="mt-px h-3.5 w-3.5 shrink-0 text-[#61CE70]" aria-hidden />
+              <span className="line-clamp-2 leading-snug">{p.location}</span>
+              <ExternalLink className="mt-px h-3 w-3 shrink-0 opacity-50" aria-hidden />
+            </a>
+
+            {/* Description */}
+            <p className="mt-3 text-[14px] leading-relaxed text-white/70 sm:text-sm" style={{ maxWidth: "56ch" }}>
+              {heroParagraph}
+            </p>
+
+            {/* Quick-facts chips — from property data */}
+            {((p.sizes && p.sizes.length > 0) || p.paymentSummary) && (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {p.sizes?.map((s) => (
+                  <span
+                    key={s}
+                    className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold text-white/85 backdrop-blur-sm"
+                  >
+                    {s}
+                  </span>
+                ))}
+                {p.paymentSummary && (
+                  <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold text-white/85 backdrop-blur-sm">
+                    {p.paymentSummary}
+                  </span>
+                )}
+              </div>
+            )}
+
+            {/* CTAs — stack full-width on mobile, row on sm+ */}
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <a
+                href={inspectUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-highlight px-6 py-3 text-sm font-bold text-white transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:w-auto"
+              >
+                <CalendarCheck className="h-4 w-4 shrink-0" aria-hidden />
+                Book a Free Inspection
+              </a>
+              <a
+                href={priceUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full bg-whatsapp px-6 py-3 text-sm font-bold text-white transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:w-auto"
+              >
+                <WhatsAppIcon className="h-4 w-4 shrink-0" aria-hidden />
+                Get Price &amp; Payment Plan
+              </a>
+              {p.brochureUrl && (
+                <a
+                  href={p.brochureUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:w-auto"
+                >
+                  <Download className="h-4 w-4 shrink-0" aria-hidden />
+                  Download Brochure
+                </a>
               )}
             </div>
-          )}
-          {/* Badges float over image top-left — keep visible */}
-          <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
-            <span
-              className={`inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${statusBadgeCls[p.status]}`}
-            >
-              {statusLabels[p.status]}
-            </span>
-          </div>
-        </div>
 
-        {/* Text block — solid white, no overlay */}
-        <div className="px-4 pb-2 pt-5" style={{ background: "#fff" }}>
-          {/* Type chip */}
-          <span className="inline-flex items-center rounded-full border border-[#EAEAEA] px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-[#666] capitalize">
-            {p.type}
-          </span>
-
-          {/* Title */}
-          <h1
-            className="mt-2 font-bold text-[#011627] leading-snug"
-            style={{ fontSize: "clamp(1.25rem, 5vw, 1.5rem)", lineHeight: 1.25 }}
-          >
-            {p.title}
-          </h1>
-
-          {/* Developer */}
-          <p className="mt-2 text-sm text-[#888]">{p.developer}</p>
-
-          {/* Location */}
-          <a
-            href={mapsUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-2 flex items-start justify-between gap-2 rounded-xl bg-[#F9F8F8] px-3 py-2.5"
-            style={{ minHeight: 44 }}
-          >
-            <span className="flex min-w-0 items-start gap-1.5">
-              <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-highlight" />
-              <span className="text-[13px] text-[#333] leading-snug line-clamp-2">{p.location}</span>
-            </span>
-            <ExternalLink className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#999]" />
-          </a>
-
-          {/* Description */}
-          <p className="mt-3 text-[15px] leading-relaxed text-[#444]">{heroParagraph}</p>
-        </div>
-      </div>
-
-      {/* DESKTOP (≥ sm): keep original overlay hero */}
-      <section className="relative hidden min-h-[55svh] w-full overflow-hidden bg-[#011627] pt-20 sm:block">
-        {p.image && (
-          <>
-            <img
-              src={p.image}
-              alt={p.title}
-              width={1400}
-              height={900}
-              className="absolute inset-0 h-full w-full object-cover opacity-50"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#011627] via-[#011627]/60 to-[#011627]/20" />
-          </>
-        )}
-        <div className="site-container relative z-10 flex flex-col justify-end pb-10 pt-16 text-white sm:pt-20">
-          <div className="flex flex-wrap gap-2">
-            <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide ${statusBadgeCls[p.status]}`}>
-              {statusLabels[p.status]}
-            </span>
-            <span className="inline-flex items-center rounded-full border border-white/30 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/80 capitalize">
-              {p.type}
-            </span>
-          </div>
-          <h1 className="mt-4 max-w-[20ch] text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl">
-            {p.title}
-          </h1>
-          <p className="mt-2 text-sm font-medium text-white/70">{p.developer}</p>
-          <a href={mapsUrl} target="_blank" rel="noreferrer" className="mt-1.5 inline-flex w-fit items-center gap-1.5 text-sm text-white/80 transition hover:text-white">
-            <MapPin className="h-3.5 w-3.5 shrink-0 text-[#61CE70]" />
-            {p.location}
-            <ExternalLink className="h-3 w-3 opacity-60" />
-          </a>
-          <p className="mt-4 max-w-[60ch] text-sm leading-relaxed text-white/75">{heroParagraph}</p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <a href={inspectUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-highlight px-6 py-3 text-sm font-semibold text-white transition hover:brightness-110">
-              <CalendarCheck className="h-4 w-4 shrink-0" />
-              Book a Free Inspection
-            </a>
-            <a href={priceUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-whatsapp px-6 py-3 text-sm font-semibold text-white transition hover:brightness-110">
-              <WhatsAppIcon className="h-4 w-4 shrink-0" />
-              Get Price &amp; Payment Plan
-            </a>
-            {p.brochureUrl && (
-              <a href={p.brochureUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-[48px] items-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
-                <Download className="h-4 w-4 shrink-0" />
-                Download Brochure
-              </a>
-            )}
           </div>
         </div>
       </section>
@@ -401,8 +422,7 @@ function AdvertisedPropertyPage({ property: p }: { property: Property }) {
       )}
 
       {/* ── MAIN BODY ── */}
-      <div className="site-container py-6 sm:py-10 lg:py-14">
-        <div className="grid gap-10 lg:grid-cols-[1fr_340px] xl:gap-14">
+      <div className="site-container py-6 sm:py-10 lg:py-14">        <div className="grid gap-10 lg:grid-cols-[1fr_340px] xl:gap-14">
 
           {/* ── LEFT: all property detail sections ── */}
           <div className="space-y-12">
